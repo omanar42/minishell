@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omanar <omanar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/13 04:51:31 by omanar            #+#    #+#             */
-/*   Updated: 2022/06/14 16:07:30 by omanar           ###   ########.fr       */
+/*   Created: 2021/11/18 22:16:43 by omanar            #+#    #+#             */
+/*   Updated: 2022/06/14 16:02:11 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include <libft.h>
 
-# include <stdio.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include <sys/errno.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-# include "../libs/libft/includes/libft.h"
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+{
+	t_list	*head;
+	t_list	*new;
 
-#endif
+	head = 0;
+	while (lst)
+	{
+		new = ft_lstnew(f(lst->content));
+		if (!new)
+		{
+			ft_lstclear(&head, del);
+			return (NULL);
+		}
+		ft_lstadd_back(&head, new);
+		lst = lst->next;
+	}
+	return (head);
+}

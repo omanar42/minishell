@@ -11,18 +11,18 @@
 # *********************************************** #
 
 NAME	=	minishell
-CC		=	gcc
+CC		=	gcc -Wall -Wextra -Werror -Iincludes
 RM		=	rm -f
-LIBFT	=	libft/libft.a
+LIBFT	=	libs/libft/libft.a
 SRCS	=	srcs/minishell.c $(LIBFT)
 OBJS	=	$(SRCS:.c=.o)
 
 define HEADER_M
-        _       _     _          _ _ 
-  /\/\ (_)_ __ (_)___| |__   ___| | |
- /    \| | '_ \| / __| '_ \ / _ \ | |
-/ /\/\ \ | | | | \__ \ | | |  __/ | |
-\/    \/_|_| |_|_|___/_| |_|\___|_|_|
+    __  ___ ____ _   __ ____   _____  __  __ ______ __     __ 
+   /  |/  //  _// | / //  _/  / ___/ / / / // ____// /    / / 
+  / /|_/ / / / /  |/ / / /    \__ \ / /_/ // __/  / /    / /  
+ / /  / /_/ / / /|  /_/ /    ___/ // __  // /___ / /___ / /___
+/_/  /_//___//_/ |_//___/   /____//_/ /_//_____//_____//_____/
 endef
 export HEADER_M
 
@@ -32,24 +32,24 @@ header_m:
 	@echo "\033[0;32m$$HEADER_M\033[0m\n"
 
 %.o: %.c
-	@ $(CC) -Wall -Wextra -Werror -c $< -o $@
+	@ $(CC) -c $< -o $@
 
 $(LIBFT):
 	@echo "\033[0;36m</ Compiling libft >\033[0m"
-	@make -C libft
+	@make -C libs/libft
 
 $(NAME): $(OBJS) $(LIBFT)
 	@echo "\033[0;36m</ Compiling Minishell >\033[0m"
-	@$(CC) $(OBJS) -o $(NAME)
+	@$(CC) -lreadline $(OBJS) -o $(NAME)
 	@echo "\033[1;32mMinishell has been compiled!\033[0m\n"
 
 clean:
 	@$(RM) $(OBJS)
-	@make clean -C libft
+	@make clean -C libs/libft
 
 fclean: clean
 	@$(RM) $(NAME)
-	@make fclean -C libft
+	@make fclean -C libs/libft
 	@echo "\n\033[0;31m</ EVERYTHING HAS BEEN DELETED! >\033[0m\n"
 
 re: fclean all

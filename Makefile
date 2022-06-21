@@ -11,7 +11,7 @@
 # *********************************************** #
 
 NAME	=	minishell
-CC		=	gcc -Wall -Wextra -Werror -Iincludes
+CC		=	gcc -Wall -Wextra -Werror -Iincludes -Ilibs/libft/includes
 RM		=	rm -f
 LIBFT	=	libs/libft/libft.a
 SRCS	=	srcs/minishell.c $(LIBFT)
@@ -40,7 +40,7 @@ $(LIBFT):
 
 $(NAME): $(OBJS) $(LIBFT)
 	@echo "\033[0;36m</ Compiling Minishell >\033[0m"
-	@$(CC) -lreadline $(OBJS) -o $(NAME)
+	@$(CC) -lreadline -L/Users/omanar/.brew/opt/readline/lib -I/Users/omanar/.brew/opt/readline/include $(OBJS) -o $(NAME)
 	@echo "\033[1;32mMinishell has been compiled!\033[0m\n"
 
 clean:

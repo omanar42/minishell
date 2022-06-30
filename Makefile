@@ -11,11 +11,11 @@
 # *********************************************** #
 
 NAME	=	minishell
-CC		=	gcc -Wall -Wextra -Werror -Iincludes -Ilibs/libft/includes
 RM		=	rm -f
+CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes #-g -fsanitize=address
+RLFLG	=	-lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
 LIBFT	=	libs/libft/libft.a
-SRCS	=	srcs/minishell.c $(LIBFT)
-OBJS	=	$(SRCS:.c=.o)
+SRCS	=	srcs/minishell.c srcs/lexer.c srcs/token.c $(LIBFT)
 
 define HEADER_M
     __  ___ ____ _   __ ____   _____  __  __ ______ __     __ 
@@ -31,20 +31,16 @@ all: header_m $(NAME)
 header_m:
 	@echo "\033[0;32m$$HEADER_M\033[0m\n"
 
-%.o: %.c
-	@ $(CC) -c $< -o $@
-
 $(LIBFT):
 	@echo "\033[0;36m</ Compiling libft >\033[0m"
 	@make -C libs/libft
 
-$(NAME): $(OBJS) $(LIBFT)
+$(NAME): $(SRCS) $(LIBFT)
 	@echo "\033[0;36m</ Compiling Minishell >\033[0m"
-	@$(CC) -lreadline -L/Users/omanar/.brew/opt/readline/lib -I/Users/omanar/.brew/opt/readline/include $(OBJS) -o $(NAME)
+	@$(CC) $(RLFLG) $(SRCS) -o $(NAME)
 	@echo "\033[1;32mMinishell has been compiled!\033[0m\n"
 
 clean:
-	@$(RM) $(OBJS)
 	@make clean -C libs/libft
 
 fclean: clean
@@ -54,4 +50,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re header_m

@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:34:41 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/03 21:16:48 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/03 22:42:58 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,6 @@ void	data_init(char *line)
 	}
 }
 
-void	ft_free(t_token *token)
-{
-	free(token->value);
-	free(token);
-}
-
 void	parsing(char *line, char **env)
 {
 	t_token	*token;
@@ -74,10 +68,10 @@ void	parsing(char *line, char **env)
 	while (token->e_type != TOKEN_EOF)
 	{
 		printf("TOK(%s) (%d)\n", token->value, token->e_type);
-		ft_free(token);
+		free_token(token);
 		token = lexer_next_token(lexer);
 	}
-	ft_free(token);
+	free_token(token);
 	free(lexer);
 }
 
@@ -95,6 +89,7 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		add_history(line);
 		parsing(line, env);
+		free(g_data.cmd);
 		free(line);
 	}
 	return (0);

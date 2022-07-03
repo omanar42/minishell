@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:35 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/03 21:00:36 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/03 22:38:44 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,6 @@ void	lexer_advance(t_lexer *lexer)
 	}
 }
 
-char	lexer_peek(t_lexer *lexer)
-{
-	if (lexer->i < lexer->size)
-		return (lexer->line[lexer->i + 1]);
-	return ('\0');
-}
-
 void	lexer_skip_whitespace(t_lexer *lexer)
 {
 	while (lexer->c == ' ' || lexer->c == '\t'
@@ -49,30 +42,9 @@ void	lexer_skip_whitespace(t_lexer *lexer)
 		lexer_advance(lexer);
 }
 
-t_token	*lexer_parse(t_lexer *lexer, int type, int s)
+char	lexer_peek(t_lexer *lexer)
 {
-	char	*value;
-	t_token	*token;
-	int		i;
-
-	i = 0;
-	lexer_skip_whitespace(lexer);
-	value = malloc(sizeof(char) * get_word_size(&lexer->line[lexer->i]) + 1);
-	if (!value)
-		return (NULL);
-	while (is_charachter(lexer->c, lexer_peek(lexer)))
-	{
-		if (lexer->c == ' ' && s == 1)
-		{
-			lexer_skip_whitespace(lexer);
-			break ;
-		}
-		value[i] = lexer->c;
-		lexer_advance(lexer);
-		i++;
-	}
-	value[i] = '\0';
-	token = init_token(value, type);
-	free(value);
-	return (token);
+	if (lexer->i < lexer->size)
+		return (lexer->line[lexer->i + 1]);
+	return ('\0');
 }

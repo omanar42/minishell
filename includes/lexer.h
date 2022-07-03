@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 05:51:30 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/03 21:04:44 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/03 22:41:07 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,18 @@ typedef struct s_lexer
 	char	*line;
 }	t_lexer;
 
-t_token	*init_token(char *value, int type);
 t_lexer	*lexer_init(char *line);
-t_token	*lexer_next_token(t_lexer *lexer);
-void	lexer_skip_whitespace(t_lexer *lexer);
 void	lexer_advance(t_lexer *lexer);
+void	lexer_skip_whitespace(t_lexer *lexer);
 char	lexer_peek(t_lexer *lexer);
-t_token	*lexer_parse(t_lexer *lexer, int type, int s);
-int		get_word_size(char *str);
+t_token	*init_token(char *value, int type);
+t_token	*lexer_next_token(t_lexer *lexer);
+t_token	*next_token(t_lexer *lexer);
+t_token	*token_parse(t_lexer *lexer, int type);
+t_token	*quotes_parse(t_lexer *lexer, int type, char q);
+void	free_token(t_token *token);
+void	quote_inside(t_lexer *lexer, int *i);
+int		is_quote(char c, char q);
 int		is_charachter(char c, char cc);
-t_token	*handle_quotes(t_lexer *lexer, int type, char q);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 05:51:30 by omanar            #+#    #+#             */
-/*   Updated: 2022/06/30 07:54:39 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/03 21:04:44 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,6 @@ typedef struct s_lexer
 	char	*line;
 }	t_lexer;
 
-typedef struct s_cmd
-{
-	char	*path;
-	char	**args;
-	char	*input;
-	char	*output;
-}	t_cmd;
-
 t_token	*init_token(char *value, int type);
 t_lexer	*lexer_init(char *line);
 t_token	*lexer_next_token(t_lexer *lexer);
@@ -54,5 +46,6 @@ char	lexer_peek(t_lexer *lexer);
 t_token	*lexer_parse(t_lexer *lexer, int type, int s);
 int		get_word_size(char *str);
 int		is_charachter(char c, char cc);
+t_token	*handle_quotes(t_lexer *lexer, int type, char q);
 
 #endif

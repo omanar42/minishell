@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 07:41:12 by omanar            #+#    #+#             */
-/*   Updated: 2022/06/30 07:55:41 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/03 20:01:14 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,15 @@
 
 int	is_charachter(char c, char cc)
 {
-	if (c == '\0' || c == '|' || c == '<'
+	if (c == '\0' || c == '|' || c == '<' || c == ' '
 		|| c == '>' || (c == '&' && cc == '&'))
+		return (0);
+	return (1);
+}
+
+int	is_char(char c, char q)
+{
+	if (c == '\0' || c == q)
 		return (0);
 	return (1);
 }
@@ -37,55 +44,33 @@ t_token	*init_token(char *value, int type)
 	token = (t_token *)malloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
-	token->value = value;
+	if (!value)
+		token->value = NULL;
+	else
+		token->value = ft_strdup(value);
 	token->e_type = type;
 	return (token);
 }
 
-t_token	*lexer_next_token(t_lexer *lexer)
+t_token	*handle_quotes(t_lexer *lexer, int type, char q)
 {
-	lexer_skip_whitespace(lexer);
-	if (lexer->c == '\0')
-		return (init_token(0, TOKEN_EOF));
-	if (lexer->c == '&' && lexer_peek(lexer) == '&')
+	int		i;
+	int		start;
+	char	*value;
+
+	i = 1;
+	start = lexer->i;
+	lexer_advance(lexer);
+	while (is_char(lexer->c, q))
 	{
 		lexer_advance(lexer);
-		lexer_advance(lexer);
-		return (init_token("&&", TOKEN_AND_IF));
+		i++;
 	}
-	if (lexer->c == '|')
+	while (is_charachter(lexer->c, lexer_peek(lexer)))
 	{
-		if (lexer_peek(lexer) == '|')
-		{
-			lexer_advance(lexer);
-			lexer_advance(lexer);
-			return (init_token("||", TOKEN_OR_IF));
-		}
 		lexer_advance(lexer);
-		return (init_token("|", TOKEN_PIPE));
+		i++;
 	}
-	if (lexer->c == '<')
-	{
-		if (lexer_peek(lexer) == '<')
-		{
-			lexer_advance(lexer);
-			lexer_advance(lexer);
-			return (lexer_parse(lexer, TOKEN_HEREDOC, 1));
-		}
-		lexer_advance(lexer);
-		return (lexer_parse(lexer, TOKEN_INFILE, 1));
-	}
-	if (lexer->c == '>')
-	{
-		if (lexer_peek(lexer) == '>')
-		{
-			lexer_advance(lexer);
-			lexer_advance(lexer);
-			return (lexer_parse(lexer, TOKEN_AOUT, 1));
-		}
-		lexer_advance(lexer);
-		return (lexer_parse(lexer, TOKEN_OUTFILE, 1));
-	}
-	else
-		return (lexer_parse(lexer, TOKEN_WORD, 0));
+	value = ft_substr(lexer->line, start, i);
+	return (init_token(value, type));
 }

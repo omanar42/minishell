@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:35 by omanar            #+#    #+#             */
-/*   Updated: 2022/06/30 08:49:13 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/03 21:00:36 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	lexer_skip_whitespace(t_lexer *lexer)
 t_token	*lexer_parse(t_lexer *lexer, int type, int s)
 {
 	char	*value;
+	t_token	*token;
 	int		i;
 
 	i = 0;
@@ -71,5 +72,7 @@ t_token	*lexer_parse(t_lexer *lexer, int type, int s)
 		i++;
 	}
 	value[i] = '\0';
-	return (init_token(value, type));
+	token = init_token(value, type);
+	free(value);
+	return (token);
 }

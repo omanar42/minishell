@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/06/30 07:52:05 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/03 21:16:39 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,20 @@
 # define GRN "\033[0;32m"
 # define CYN "\033[0;36m"
 
+typedef struct s_cmd
+{
+	char	*cmd;
+	char	*path;
+	char	**args;
+	char	*input;
+	char	*output;
+	int		appand;
+	int		heredoc;
+	int		end[2];
+	int		status;
+	pid_t	pid;
+}	t_cmd;
+
 typedef struct s_data {
 	char	**env;
 	int		nb_cmd;
@@ -40,6 +54,10 @@ typedef struct s_data {
 	t_list	*limiters;
 }	t_data;
 
+t_data	g_data;
+
 void	parsing(char *line, char **env);
+void	data_init(char *line);
+int		get_cmds(char *line);
 
 #endif

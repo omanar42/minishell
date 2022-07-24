@@ -12,10 +12,10 @@
 
 NAME	=	minishell
 RM		=	rm -f
-CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes #-g -fsanitize=address
+CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes -g -fsanitize=address
 RLFLG	=	-lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
 LIBFT	=	libs/libft/libft.a
-SRCS	=	srcs/minishell.c srcs/lexer/lexer.c srcs/lexer/tokens.c srcs/lexer/utils.c $(LIBFT)
+SRCS	=	srcs/minishell.c srcs/printer.c srcs/lexer/lexer.c srcs/lexer/tokens.c srcs/lexer/utils.c $(LIBFT)
 
 define HEADER_M
     __  ___ ____ _   __ ____   _____  __  __ ______ __     __ 

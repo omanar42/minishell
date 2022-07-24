@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:34:41 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/23 18:37:08 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/24 15:45:29 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ void	init_cmd(t_lexer *lexer, t_token *token)
 	if (token->e_type == TOKEN_WORD)
 		hundle_word(lexer, token);
 	g_data.cmd->cmd = g_data.cmd->args[0];
+	ft_lstadd_back(&g_data.cmds, ft_lstnew((void *)g_data.cmd));
 }
 
 void	parser(t_lexer *lexer)
@@ -183,13 +184,6 @@ void	parser(t_lexer *lexer)
 		free_token(token);
 		token = lexer_next_token(lexer);
 	}
-	// printf("cmd = %s\n", g_data.cmd->cmd);
-	// int i = -1;
-	// while (g_data.cmd->args[++i])
-	// 	printf("arg[%d] = %s\n", i, g_data.cmd->args[i]);
-	// g_data.cmds->content = (void *) cmd;
-	// if (token->e_type == TOKEN_WORD)
-	// 	hundle_word(lexer, token);
 	free_token(token);
 }
 
@@ -218,9 +212,9 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		add_history(line);
 		parsing(line, env);
+		printer();
 		free_cmd();
 		free(line);
-		system("leaks -q minishell");
 	}
 	return (0);
 }

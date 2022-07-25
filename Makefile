@@ -12,7 +12,7 @@
 
 NAME	=	minishell
 RM		=	rm -f
-CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes -g -fsanitize=address
+CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes #-g -fsanitize=address
 RLFLG	=	-lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
 LIBFT	=	libs/libft/libft.a
 SRCS	=	srcs/minishell.c srcs/printer.c srcs/lexer/lexer.c srcs/lexer/tokens.c srcs/lexer/utils.c $(LIBFT)
@@ -37,7 +37,7 @@ $(LIBFT):
 
 $(NAME): $(SRCS) $(LIBFT)
 	@echo "\033[0;36m</ Compiling Minishell >\033[0m"
-	@$(CC) $(RLFLG) $(SRCS) -o $(NAME)
+	@$(CC) -g $(RLFLG) $(SRCS) -o $(NAME)
 	@echo "\033[1;32mMinishell has been compiled!\033[0m\n"
 
 clean:

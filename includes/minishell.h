@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/24 19:17:15 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/25 15:57:37 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,7 @@ void	parsing(char *line, char **env);
 void	data_init(char *line);
 int		get_cmds(char *line);
 void	printer(void);
+void	ft_free(char **args);
+void	free_cmd(void *cmd);
 
 #endif

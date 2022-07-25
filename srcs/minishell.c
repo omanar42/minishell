@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:34:41 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/24 15:45:29 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/25 16:14:11 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,43 +47,36 @@ void	ft_free(char **args)
 	free(args);
 }
 
-void	free_cmd(void)
+void	free_cmd(void *cmd)
 {
-	int	i;
+	free(((t_cmd *)cmd)->cmd);
+	free(((t_cmd *)cmd)->path);
+	free(((t_cmd *)cmd)->input);
+	free(((t_cmd *)cmd)->output);
+	ft_free(((t_cmd *)cmd)->args);
+	free((t_cmd *)cmd);
+}
 
-	i = 0;
-	while (i < g_data.nb_cmd)
-	{
-		free(g_data.cmd[i].path);
-		ft_free(g_data.cmd[i].args);
-		free(g_data.cmd[i].input);
-		free(g_data.cmd[i].output);
-		i++;
-	}
-	free(g_data.cmd);
+void	cmd_init(void)
+{
+	g_data.cmd = (t_cmd *)malloc(sizeof(t_cmd));
+	g_data.cmd->cmd = NULL;
+	g_data.cmd->path = NULL;
+	g_data.cmd->args = (char **)malloc(sizeof(char *));
+	g_data.cmd->args[0] = NULL;
+	g_data.cmd->input = NULL;
+	g_data.cmd->output = NULL;
+	g_data.cmd->appand = 0;
+	g_data.cmd->heredoc = 0;
+	g_data.cmd->status = 0;
 }
 
 void	data_init(char *line)
 {
-	int	i;
-
-	i = 0;
 	g_data.nb_cmd = get_cmds(line);
-	g_data.cmd = (t_cmd *)malloc(sizeof(t_cmd) * g_data.nb_cmd);
 	g_data.index = 0;
-	while (i < g_data.nb_cmd)
-	{
-		g_data.cmd[i].cmd = NULL;
-		g_data.cmd[i].path = NULL;
-		g_data.cmd[i].args = (char **)malloc(sizeof(char *));
-		g_data.cmd[i].args[0] = NULL;
-		g_data.cmd[i].input = NULL;
-		g_data.cmd[i].output = NULL;
-		g_data.cmd[i].appand = 0;
-		g_data.cmd[i].heredoc = 0;
-		g_data.cmd[i].status = 0;
-		i++;
-	}
+	cmd_init();
+	
 }
 
 void	dollar_parsing(t_lexer *lexer, t_token *token)
@@ -156,21 +149,19 @@ char	**advanced_add(char **strs, char *arg)
 	return (args);
 }
 
-void	hundle_word(t_lexer *lexer, t_token *token)
+void	hundle_word(t_token *token)
 {
-	(void)lexer;
 	// if (ft_strchr(token->value, '"'))
 	// 	quotes_parsing(lexer, token);
 	// else
-		g_data.cmd->args = advanced_add(g_data.cmd->args, token->value);
+	g_data.cmd->args = advanced_add(g_data.cmd->args, token->value);
 }
 
-void	init_cmd(t_lexer *lexer, t_token *token)
+void	hundle_pipe(void)
 {
-	if (token->e_type == TOKEN_WORD)
-		hundle_word(lexer, token);
-	g_data.cmd->cmd = g_data.cmd->args[0];
+	g_data.cmd->cmd = ft_strdup(g_data.cmd->args[0]);
 	ft_lstadd_back(&g_data.cmds, ft_lstnew((void *)g_data.cmd));
+	cmd_init();
 }
 
 void	parser(t_lexer *lexer)
@@ -180,10 +171,15 @@ void	parser(t_lexer *lexer)
 	token = lexer_next_token(lexer);
 	while (token->e_type != TOKEN_EOF)
 	{
-		init_cmd(lexer, token);
+		if (token->e_type == TOKEN_WORD)
+			hundle_word(token);
+		if (token->e_type == TOKEN_PIPE)
+			hundle_pipe();
 		free_token(token);
 		token = lexer_next_token(lexer);
 	}
+	g_data.cmd->cmd = ft_strdup(g_data.cmd->args[0]);
+	ft_lstadd_back(&(g_data.cmds), ft_lstnew((void *)g_data.cmd));
 	free_token(token);
 }
 
@@ -196,6 +192,15 @@ void	parsing(char *line, char **env)
 	lexer = lexer_init(line);
 	parser(lexer);
 	free(lexer);
+}
+
+void	clean()
+{
+	while (g_data.cmds)
+	{
+		ft_lstdelone(g_data.cmds, &free_cmd);
+		g_data.cmds = g_data.cmds->next;
+	}
 }
 
 int	main(int ac, char **av, char **env)
@@ -212,8 +217,9 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		add_history(line);
 		parsing(line, env);
+		// system("leaks -q minishell");
 		printer();
-		free_cmd();
+		// clean();
 		free(line);
 	}
 	return (0);

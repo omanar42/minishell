@@ -1,35 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   cleaner.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/13 17:34:41 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/26 15:28:50 by omanar           ###   ########.fr       */
+/*   Created: 2022/07/26 14:42:13 by omanar            #+#    #+#             */
+/*   Updated: 2022/07/26 14:54:57 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	main(int ac, char **av, char **env)
+void	free_loop(char **args)
 {
-	char	*line;
+	int	i;
 
-	(void)av;
-	if (ac != 1)
-		return (0);
-	while (42)
+	i = 0;
+	while (args[i])
 	{
-		line = readline(GRN "➜ " CYN " minishell$ " RST);
-		if (!line)
-			continue ;
-		add_history(line);
-		parsing(line, env);
-		// system("leaks -q minishell");
-		printer();
-		// clean();
-		free(line);
+		free(args[i]);
+		i++;
 	}
-	return (0);
+	free(args);
+}
+
+void	free_cmd(void *cmd)
+{
+	free(((t_cmd *)cmd)->cmd);
+	free(((t_cmd *)cmd)->path);
+	free(((t_cmd *)cmd)->input);
+	free(((t_cmd *)cmd)->output);
+	free_loop(((t_cmd *)cmd)->args);
+	free((t_cmd *)cmd);
+}
+
+void	clean(void)
+{
+	while (g_data.cmds)
+	{
+		ft_lstdelone(g_data.cmds, &free_cmd);
+		g_data.cmds = g_data.cmds->next;
+	}
 }

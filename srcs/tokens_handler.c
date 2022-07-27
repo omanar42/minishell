@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:58:20 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/26 15:10:58 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/27 23:28:35 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,49 @@ void	hundle_pipe(void)
 	cmd_init();
 }
 
+int	hundle_infile(t_token *token)
+{
+	g_data.cmd->input = open(token->value, O_RDONLY);
+	if (g_data.cmd->input == -1)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		perror(token->value);
+		g_data.cmd->exit_status = errno;
+		g_data.cmd->error = 1;
+	}
+	return (g_data.cmd->input);
+}
+
+int	hundle_outfile(t_token *token)
+{
+	g_data.cmd->output = open(token->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (g_data.cmd->output == -1)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		perror(token->value);
+		g_data.cmd->exit_status = errno;
+		g_data.cmd->error = 1;
+	}
+	return (g_data.cmd->output);
+}
+
+int	hundle_appoutfile(t_token *token)
+{
+	g_data.cmd->output = open(token->value,
+			O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (g_data.cmd->output == -1)
+	{
+		perror(token->value);
+		g_data.cmd->exit_status = errno;
+		g_data.cmd->error = 1;
+	}
+	return (g_data.cmd->output);
+}
+
+// void	handle_heredoc(t_token *token)
+// {
+// }
+
 void	tokens_handler(t_lexer *lexer)
 {
 	t_token	*token;
@@ -36,8 +79,58 @@ void	tokens_handler(t_lexer *lexer)
 	{
 		if (token->e_type == TOKEN_WORD)
 			hundle_word(token);
-		if (token->e_type == TOKEN_PIPE)
+		else if (token->e_type == TOKEN_PIPE)
 			hundle_pipe();
+		else if (token->e_type == TOKEN_INFILE)
+		{
+			free_token(token);
+			token = lexer_next_token(lexer);
+			if (hundle_infile(token) == -1)
+			{
+				while (token->e_type != TOKEN_PIPE
+					&& token->e_type != TOKEN_EOF)
+				{
+					free_token(token);
+					token = lexer_next_token(lexer);
+				}
+				if (token->e_type == TOKEN_PIPE)
+					hundle_pipe();
+			}
+		}
+		else if (token->e_type == TOKEN_OUTFILE)
+		{
+			free_token(token);
+			token = lexer_next_token(lexer);
+			if (hundle_outfile(token) == -1)
+			{
+				while (token->e_type != TOKEN_PIPE
+					&& token->e_type != TOKEN_EOF)
+				{
+					free_token(token);
+					token = lexer_next_token(lexer);
+				}
+				if (token->e_type == TOKEN_PIPE)
+					hundle_pipe();
+			}
+		}
+		else if (token->e_type == TOKEN_APPOUT)
+		{
+			free_token(token);
+			token = lexer_next_token(lexer);
+			if (hundle_appoutfile(token) == -1)
+			{
+				while (token->e_type != TOKEN_PIPE
+					&& token->e_type != TOKEN_EOF)
+				{
+					free_token(token);
+					token = lexer_next_token(lexer);
+				}
+				if (token->e_type == TOKEN_PIPE)
+					hundle_pipe();
+			}
+		}
+		// else if (token->e_type == TOKEN_HEREDOC)
+		// 	handle_heredoc(token);
 		free_token(token);
 		token = lexer_next_token(lexer);
 	}

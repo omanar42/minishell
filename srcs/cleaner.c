@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:42:13 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/26 14:54:57 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/26 15:51:24 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	free_cmd(void *cmd)
 {
 	free(((t_cmd *)cmd)->cmd);
 	free(((t_cmd *)cmd)->path);
-	free(((t_cmd *)cmd)->input);
-	free(((t_cmd *)cmd)->output);
+	// free(((t_cmd *)cmd)->input);
+	// free(((t_cmd *)cmd)->output);
 	free_loop(((t_cmd *)cmd)->args);
 	free((t_cmd *)cmd);
 }

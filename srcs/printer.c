@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 15:01:23 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/26 15:25:29 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/26 22:21:42 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ void	printer(void)
 		while (((t_cmd *)(g_data.cmds->content))->args[++j])
 			printf("==========>   Arg[%d] = %s   <==========\n",
 				j, ((t_cmd *)(g_data.cmds->content))->args[j]);
+		printf("==========>   INPUT = %d   <==========\n",
+			((t_cmd *)(g_data.cmds->content))->input);
+		printf("==========>   OUTPUT = %d   <==========\n",
+			((t_cmd *)(g_data.cmds->content))->output);
 		printf("\n------------------------------------------\n\n\n");
 		// system("leaks -q minishell");
 		ft_lstdelone(g_data.cmds, &free_cmd);

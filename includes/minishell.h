@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/26 15:09:25 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/26 22:25:01 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,17 @@
 
 typedef struct s_cmd
 {
-	char	*cmd;
-	char	*path;
-	char	**args;
-	char	*input;
-	char	*output;
-	int		appand;
-	int		heredoc;
+	char	*cmd; //
+	char	*path; 
+	char	**args; //
+	int		input; //
+	int		output; //
 	int		end[2];
-	int		status;
+	int		exit_status; //
+	int		error; //
+	t_list	*infiles;
+	t_list	*outfiles;
+	t_list	*limiters;
 	pid_t	pid;
 }	t_cmd;
 
@@ -49,9 +51,6 @@ typedef struct s_data {
 	int		status_code;
 	t_cmd	*cmd;
 	t_list	*cmds;
-	t_list	*infiles;
-	t_list	*outfiles;
-	t_list	*limiters;
 }	t_data;
 
 t_data	g_data;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   initializer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:55:31 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/26 15:01:14 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/26 22:26:11 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,10 @@ void	cmd_init(void)
 	g_data.cmd->path = NULL;
 	g_data.cmd->args = (char **)malloc(sizeof(char *));
 	g_data.cmd->args[0] = NULL;
-	g_data.cmd->input = NULL;
-	g_data.cmd->output = NULL;
-	g_data.cmd->appand = 0;
-	g_data.cmd->heredoc = 0;
-	g_data.cmd->status = 0;
+	g_data.cmd->input = 0;
+	g_data.cmd->output = 1;
+	g_data.cmd->exit_status = 0;
+	g_data.cmd->error = 0;
 }
 
 void	data_init(char *line)

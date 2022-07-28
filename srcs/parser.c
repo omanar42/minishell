@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:59:27 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/26 15:11:08 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/28 02:52:47 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,18 @@ void	quotes_parsing(t_lexer *lexer, t_token *token)
 	}
 }
 
-void	parsing(char *line, char **env)
+int	parsing(char *line, char **env)
 {
 	t_lexer	*lexer;
 
 	data_init(line);
 	(void)env;
 	lexer = lexer_init(line);
-	tokens_handler(lexer);
+	if (tokens_handler(lexer))
+	{
+		free(lexer);
+		return (1);
+	}
 	free(lexer);
+	return (0);
 }

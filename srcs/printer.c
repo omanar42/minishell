@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 15:01:23 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/26 22:21:42 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/28 04:15:01 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	printer(void)
 {
+	t_list *tmp;
 	int	i;
 	int	j;
 
@@ -34,9 +35,11 @@ void	printer(void)
 			((t_cmd *)(g_data.cmds->content))->output);
 		printf("\n------------------------------------------\n\n\n");
 		// system("leaks -q minishell");
-		ft_lstdelone(g_data.cmds, &free_cmd);
+		free_cmd(g_data.cmds->content);
+		tmp = g_data.cmds;
 		// free_cmd(g_data.cmds->content);
 		g_data.cmds = g_data.cmds->next;
+		free(tmp);
 		i++;
 	}
 	// free(g_data.cmds);

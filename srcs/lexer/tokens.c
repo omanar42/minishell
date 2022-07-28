@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 07:41:12 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/26 17:22:34 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/28 04:23:52 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,18 @@ t_token	*token_parse(t_lexer *lexer, int type)
 	return (token);
 }
 
+t_token	*unexpected_token(t_lexer *lexer)
+{
+	char	*value;
+	t_token	*token;
+
+	lexer_advance(lexer);
+	value = ft_substr(lexer->line, lexer->i, 1);
+	token = init_token(value, TOKEN_ERROR);
+	free(value);
+	return (token);
+}
+
 t_token	*next_token(t_lexer *lexer)
 {
 	if (lexer->c == '<')
@@ -83,9 +95,13 @@ t_token	*next_token(t_lexer *lexer)
 		if (lexer_peek(lexer) == '<')
 		{
 			lexer_advance(lexer);
+			if (is_unexpected_token(lexer_peek(lexer)))
+				return (unexpected_token(lexer));
 			lexer_advance(lexer);
 			return (init_token("<<", TOKEN_HEREDOC));
 		}
+		if (is_unexpected_token(lexer_peek(lexer)))
+			return (unexpected_token(lexer));
 		lexer_advance(lexer);
 		return (init_token("<", TOKEN_INFILE));
 	}
@@ -94,9 +110,13 @@ t_token	*next_token(t_lexer *lexer)
 		if (lexer_peek(lexer) == '>')
 		{
 			lexer_advance(lexer);
+			if (is_unexpected_token(lexer_peek(lexer)))
+				return (unexpected_token(lexer));
 			lexer_advance(lexer);
 			return (init_token(">>", TOKEN_APPOUT));
 		}
+		if (is_unexpected_token(lexer_peek(lexer)))
+			return (unexpected_token(lexer));
 		lexer_advance(lexer);
 		return (init_token(">", TOKEN_OUTFILE));
 	}
@@ -109,20 +129,16 @@ t_token	*lexer_next_token(t_lexer *lexer)
 	lexer_skip_whitespace(lexer);
 	if (lexer->c == '\0')
 		return (init_token(0, TOKEN_EOF));
-	if (lexer->c == '&' && lexer_peek(lexer) == '&')
+	if (lexer->c == '&')
 	{
-		lexer_advance(lexer);
-		lexer_advance(lexer);
-		return (init_token("&&", TOKEN_AND_IF));
+		if (is_unexpected_token(lexer_peek(lexer)))
+			return (unexpected_token(lexer));
+		return (token_parse(lexer, TOKEN_WORD));
 	}
 	if (lexer->c == '|')
 	{
-		if (lexer_peek(lexer) == '|')
-		{
-			lexer_advance(lexer);
-			lexer_advance(lexer);
-			return (init_token("||", TOKEN_OR_IF));
-		}
+		if (is_unexpected_token(lexer_peek(lexer)))
+			return (unexpected_token(lexer));
 		lexer_advance(lexer);
 		return (init_token("|", TOKEN_PIPE));
 	}

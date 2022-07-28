@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:34:41 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/26 15:28:50 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/28 04:11:21 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,11 @@ int	main(int ac, char **av, char **env)
 		if (!line)
 			continue ;
 		add_history(line);
-		parsing(line, env);
+		if (parsing(line, env))
+		{
+			free(line);
+			continue ;
+		}
 		// system("leaks -q minishell");
 		printer();
 		// clean();

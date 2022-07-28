@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:42:13 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/26 15:51:24 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/28 04:12:35 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	free_loop(char **args)
 void	free_cmd(void *cmd)
 {
 	free(((t_cmd *)cmd)->cmd);
-	free(((t_cmd *)cmd)->path);
+	// free(((t_cmd *)cmd)->path);
 	// free(((t_cmd *)cmd)->input);
 	// free(((t_cmd *)cmd)->output);
 	free_loop(((t_cmd *)cmd)->args);
@@ -37,9 +37,13 @@ void	free_cmd(void *cmd)
 
 void	clean(void)
 {
+	t_list *tmp;
+
 	while (g_data.cmds)
 	{
-		ft_lstdelone(g_data.cmds, &free_cmd);
+		free_cmd(g_data.cmds->content);
+		tmp = g_data.cmds;
 		g_data.cmds = g_data.cmds->next;
+		free(tmp);
 	}
 }

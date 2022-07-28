@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/26 22:25:01 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/28 03:31:04 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct s_cmd
 	int		error; //
 	t_list	*infiles;
 	t_list	*outfiles;
-	t_list	*limiters;
 	pid_t	pid;
 }	t_cmd;
 
@@ -51,11 +50,12 @@ typedef struct s_data {
 	int		status_code;
 	t_cmd	*cmd;
 	t_list	*cmds;
+	t_list	*limiter;
 }	t_data;
 
 t_data	g_data;
 
-void	parsing(char *line, char **env);
+int		parsing(char *line, char **env);
 void	quotes_parsing(t_lexer *lexer, t_token *token);
 void	dollar_parsing(t_lexer *lexer, t_token *token);
 
@@ -63,7 +63,7 @@ void	data_init(char *line);
 void	cmd_init(void);
 int		get_cmds(char *line);
 
-void	tokens_handler(t_lexer *lexer);
+int		tokens_handler(t_lexer *lexer);
 void	hundle_word(t_token *token);
 void	hundle_pipe(void);
 

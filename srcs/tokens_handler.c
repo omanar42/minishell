@@ -6,17 +6,18 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:58:20 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/28 04:52:16 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/28 22:48:38 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	hundle_word(t_token *token)
-{
-	// if (ft_strchr(token->value, '"'))
+// if (ft_strchr(token->value, '"'))
 	// 	quotes_parsing(lexer, token);
 	// else
+
+void	hundle_word(t_token *token)
+{
 	g_data.cmd->args = advanced_add(g_data.cmd->args, token->value);
 }
 
@@ -43,9 +44,11 @@ int	hundle_infile(t_token *token)
 int	hundle_outfile(t_token *token, int app)
 {
 	if (app)
-		g_data.cmd->output = open(token->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		g_data.cmd->output = open(token->value,
+				O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else
-		g_data.cmd->output = open(token->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		g_data.cmd->output = open(token->value,
+				O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (g_data.cmd->output == -1)
 	{
 		ft_putstr_fd("minishell: ", 2);
@@ -74,6 +77,9 @@ int	hundle_outfile(t_token *token, int app)
 // 	}
 // 	free(limiter);
 // }
+
+// else if (token->e_type == TOKEN_HEREDOC)
+		// 	handle_heredoc(token);
 
 int	tokens_handler(t_lexer *lexer)
 {
@@ -143,8 +149,6 @@ int	tokens_handler(t_lexer *lexer)
 					hundle_pipe();
 			}
 		}
-		// else if (token->e_type == TOKEN_HEREDOC)
-		// 	handle_heredoc(token);
 		free_token(token);
 		token = lexer_next_token(lexer);
 	}

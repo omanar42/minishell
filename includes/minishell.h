@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/28 03:31:04 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/28 22:35:20 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@
 
 typedef struct s_cmd
 {
-	char	*cmd; //
-	char	*path; 
-	char	**args; //
-	int		input; //
-	int		output; //
+	char	*cmd;
+	char	*path;
+	char	**args;
+	int		input;
+	int		output;
 	int		end[2];
-	int		exit_status; //
-	int		error; //
+	int		exit_status;
+	int		error;
 	t_list	*infiles;
 	t_list	*outfiles;
 	pid_t	pid;
@@ -73,6 +73,7 @@ char	**advanced_add(char **strs, char *arg);
 void	clean(void);
 void	free_cmd(void *cmd);
 void	free_loop(char **args);
+void	free_token(t_token *token);
 
 void	printer(void);
 

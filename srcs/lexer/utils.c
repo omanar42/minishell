@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 20:01:36 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/28 02:32:18 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/28 22:40:18 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,18 @@ int	is_unexpected_token(char c)
 	return (0);
 }
 
+t_token	*unexpected_token(t_lexer *lexer)
+{
+	char	*value;
+	t_token	*token;
+
+	lexer_advance(lexer);
+	value = ft_substr(lexer->line, lexer->i, 1);
+	token = token_init(value, TOKEN_ERROR);
+	free(value);
+	return (token);
+}
+
 void	quote_inside(t_lexer *lexer, int *i)
 {
 	char	q;
@@ -48,10 +60,4 @@ void	quote_inside(t_lexer *lexer, int *i)
 		lexer_advance(lexer);
 		(*i)++;
 	}
-}
-
-void	free_token(t_token *token)
-{
-	free(token->value);
-	free(token);
 }

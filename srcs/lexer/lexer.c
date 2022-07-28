@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:35 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/03 22:38:44 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/28 23:06:05 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,21 @@ t_lexer	*lexer_init(char *line)
 	lexer->c = line[lexer->i];
 	lexer->size = ft_strlen(lexer->line);
 	return (lexer);
+}
+
+t_token	*token_init(char *value, int type)
+{
+	t_token	*token;
+
+	token = (t_token *)malloc(sizeof(t_token));
+	if (!token)
+		return (NULL);
+	if (!value)
+		token->value = NULL;
+	else
+		token->value = ft_strdup(value);
+	token->e_type = type;
+	return (token);
 }
 
 void	lexer_advance(t_lexer *lexer)

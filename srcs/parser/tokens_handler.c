@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:58:20 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/31 23:42:23 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/01 00:20:06 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,22 +65,22 @@ int	tokens_handler(t_lexer *lexer)
 	t_token	*token;
 
 	token = lexer_next_token(lexer);
+	if (token->e_type == TOKEN_PIPE)
+		return (token_error(token));
 	while (token->e_type != TOKEN_EOF)
 	{
 		if (token->e_type == TOKEN_ERROR)
 			return (token_error(token));
 		else if (token->e_type == TOKEN_WORD)
 			hundle_word(token);
-		else if (token->e_type == TOKEN_PIPE)
-			hundle_pipe();
 		else if (token->e_type == TOKEN_INFILE)
 			token_infile(&lexer, &token);
-		else if (token->e_type == TOKEN_OUTFILE)
-			token_outfile(&lexer, &token, 0);
-		else if (token->e_type == TOKEN_APPOUT)
-			token_outfile(&lexer, &token, 1);
+		else if (token->e_type == TOKEN_OUT || token->e_type == TOKEN_APP)
+			token_outfile(&lexer, &token);
 		else if (token->e_type == TOKEN_HEREDOC)
 			do_heredoc(&lexer, &token);
+		else if (token->e_type == TOKEN_PIPE)
+			hundle_pipe();
 		free_token(token);
 		token = lexer_next_token(lexer);
 	}

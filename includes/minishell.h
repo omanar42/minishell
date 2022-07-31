@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/31 23:43:02 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/01 00:21:12 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		token_error(t_token *token);
 void	hundle_word(t_token *token);
 void	hundle_pipe(void);
 void	token_infile(t_lexer **lexer, t_token **token);
-void	token_outfile(t_lexer **lexer, t_token **token, int app);
+void	token_outfile(t_lexer **lexer, t_token **token);
 
 int		argslen(char **args);
 char	**advanced_add(char **strs, char *arg);

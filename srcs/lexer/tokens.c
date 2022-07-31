@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 07:41:12 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/31 16:02:42 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/01 00:18:02 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,14 @@ t_token	*token_file(t_lexer *lexer)
 		if (is_unexpected_token(lexer_peek(lexer)))
 			return (unexpected_token(lexer));
 		lexer_advance(lexer);
-		return (token_init(">>", TOKEN_APPOUT));
+		return (token_init(">>", TOKEN_APP));
 	}
 	while (lexer_peek(lexer) == ' ' || lexer_peek(lexer) == '\t')
 		lexer_advance(lexer);
 	if (is_unexpected_token(lexer_peek(lexer)))
 		return (unexpected_token(lexer));
 	lexer_advance(lexer);
-	return (token_init(">", TOKEN_OUTFILE));
+	return (token_init(">", TOKEN_OUT));
 }
 
 t_token	*next_token(t_lexer *lexer)

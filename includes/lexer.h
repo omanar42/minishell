@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 05:51:30 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/28 22:35:48 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/01 00:18:02 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ typedef struct s_token
 		TOKEN_ERROR,
 		TOKEN_OR_IF,
 		TOKEN_AND_IF,
-		TOKEN_APPOUT,
+		TOKEN_APP,
 		TOKEN_INFILE,
-		TOKEN_OUTFILE,
+		TOKEN_OUT,
 		TOKEN_HEREDOC,
 	}	e_type;
 	char	*value;

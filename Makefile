@@ -17,8 +17,8 @@ RLFLG	=	-lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
 LIBFT	=	libs/libft/libft.a
 SRCS	=	srcs/minishell.c srcs/printer.c $(LIBFT) \
 			srcs/lexer/lexer.c srcs/lexer/tokens.c srcs/lexer/utils.c \
-			srcs/initializer.c srcs/parser.c srcs/parser_utils.c \
-			srcs/tokens_handler.c srcs/cleaner.c
+			srcs/initializer.c srcs/parser/parser.c srcs/parser/parser_utils.c \
+			srcs/parser/tokens_handler.c srcs/parser/tokens_utils.c srcs/cleaner.c
 
 define HEADER_M
     __  ___ ____ _   __ ____   _____  __  __ ______ __     __ 

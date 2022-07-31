@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 07:41:12 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/28 23:21:00 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/31 16:02:42 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,15 @@ t_token	*token_file(t_lexer *lexer)
 	if (lexer_peek(lexer) == '>')
 	{
 		lexer_advance(lexer);
+		while (lexer_peek(lexer) == ' ' || lexer_peek(lexer) == '\t')
+			lexer_advance(lexer);
 		if (is_unexpected_token(lexer_peek(lexer)))
 			return (unexpected_token(lexer));
 		lexer_advance(lexer);
 		return (token_init(">>", TOKEN_APPOUT));
 	}
+	while (lexer_peek(lexer) == ' ' || lexer_peek(lexer) == '\t')
+		lexer_advance(lexer);
 	if (is_unexpected_token(lexer_peek(lexer)))
 		return (unexpected_token(lexer));
 	lexer_advance(lexer);
@@ -79,16 +83,22 @@ t_token	*token_file(t_lexer *lexer)
 
 t_token	*next_token(t_lexer *lexer)
 {
+	if (lexer->c == '\"' || lexer->c == '\'')
+		return (quotes_parse(lexer, TOKEN_WORD, lexer->c));
 	if (lexer->c == '<')
 	{
 		if (lexer_peek(lexer) == '<')
 		{
 			lexer_advance(lexer);
+			while (lexer_peek(lexer) == ' ' || lexer_peek(lexer) == '\t')
+				lexer_advance(lexer);
 			if (is_unexpected_token(lexer_peek(lexer)))
 				return (unexpected_token(lexer));
 			lexer_advance(lexer);
 			return (token_init("<<", TOKEN_HEREDOC));
 		}
+		while (lexer_peek(lexer) == ' ' || lexer_peek(lexer) == '\t')
+			lexer_advance(lexer);
 		if (is_unexpected_token(lexer_peek(lexer)))
 			return (unexpected_token(lexer));
 		lexer_advance(lexer);
@@ -107,20 +117,23 @@ t_token	*lexer_next_token(t_lexer *lexer)
 		return (token_init(0, TOKEN_EOF));
 	if (lexer->c == '&')
 	{
-		printf("d= %d\n", lexer->i);
+		while (lexer_peek(lexer) == ' ' || lexer_peek(lexer) == '\t')
+			lexer_advance(lexer);
 		if (is_unexpected_token(lexer_peek(lexer)))
 			return (unexpected_token(lexer));
 		return (token_parse(lexer, TOKEN_WORD));
 	}
 	if (lexer->c == '|')
 	{
-		if (is_unexpected_token(lexer_peek(lexer)))
+		while (lexer_peek(lexer) == ' ' || lexer_peek(lexer) == '\t')
+			lexer_advance(lexer);
+		if (lexer_peek(lexer) == '|' || lexer_peek(lexer) == '&'
+			|| lexer_peek(lexer) == '\0' || lexer_peek(lexer) == '('
+			|| lexer_peek(lexer) == ')' || lexer_peek(lexer) == '\n')
 			return (unexpected_token(lexer));
 		lexer_advance(lexer);
 		return (token_init("|", TOKEN_PIPE));
 	}
-	if (lexer->c == '\"' || lexer->c == '\'')
-		return (quotes_parse(lexer, TOKEN_WORD, lexer->c));
 	else
 		return (next_token(lexer));
 }

@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:55:31 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/28 04:07:42 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/31 19:39:09 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,14 @@ void	cmd_init(void)
 	g_data.cmd->output = 1;
 	g_data.cmd->exit_status = 0;
 	g_data.cmd->error = 0;
+	g_data.cmd->heredoc = 0;
 }
 
 void	data_init(char *line)
 {
 	g_data.nb_cmd = get_cmds(line);
 	g_data.index = 0;
+	g_data.heredoc = 0;
+	g_data.err = 0;
 	cmd_init();
 }

@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/31 17:05:24 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/31 19:40:21 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_cmd
 	int		input;
 	int		output;
 	int		end[2];
+	int		heredoc;
 	int		exit_status;
 	int		error;
 	t_list	*infiles;
@@ -47,7 +48,7 @@ typedef struct s_data {
 	int		nb_cmd;
 	int		index;
 	int		err;
-	int		status_code;
+	int		heredoc;
 	t_cmd	*cmd;
 	t_list	*cmds;
 	t_list	*limiter;
@@ -82,5 +83,7 @@ void	free_loop(char **args);
 void	free_token(t_token *token);
 
 void	printer(void);
+
+void	do_heredoc(t_lexer **lexer, t_token **token);
 
 #endif

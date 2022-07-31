@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:58:20 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/31 17:03:27 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/31 19:44:09 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,27 +38,28 @@ void	hundle_pipe(void)
 	cmd_init();
 }
 
-// void	handle_heredoc(t_token *token)
-// {
-// 	char	*buff;
+void	do_heredoc(t_lexer **lexer, t_token **token)
+{
+	char	*buff;
 
-// 	while (g_data.limiter)
-// 	{
-// 		buff = readline("> ");
-// 		if (!ft_strncmp(buff, g_data.limiter->content, ft_strlen(limiter)))
-// 		{
-// 			free(buff);
-// 			g_data.limiter = g_data.limiter->next;
-// 			break ;
-// 		}
-// 		ft_putstr_fd(buff, pipe);
-// 		free(buff);
-// 	}
-// 	free(limiter);
-// }
-
-// else if (token->e_type == TOKEN_HEREDOC)
-		// 	handle_heredoc(token);
+	free_token(*token);
+	*token = lexer_next_token(*lexer);
+	if (pipe(g_data.cmd->end) == -1)
+		perror("minishell: pipe");
+	while (42)
+	{
+		buff = readline("> ");
+		if (!ft_strncmp(buff, (*token)->value, ft_strlen(buff)))
+		{
+			free(buff);
+			break ;
+		}
+		ft_putstr_fd(buff, g_data.cmd->end[1]);
+		free(buff);
+	}
+	g_data.cmd->heredoc = 1;
+	g_data.cmd->input = g_data.cmd->end[0];
+}
 
 int	tokens_handler(t_lexer *lexer)
 {
@@ -79,6 +80,8 @@ int	tokens_handler(t_lexer *lexer)
 			token_outfile(&lexer, &token);
 		else if (token->e_type == TOKEN_APPOUT)
 			token_appout(&lexer, &token);
+		else if (token->e_type == TOKEN_HEREDOC)
+			do_heredoc(&lexer, &token);
 		free_token(token);
 		token = lexer_next_token(lexer);
 	}

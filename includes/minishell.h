@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/31 19:40:21 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/31 23:43:02 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 
 typedef struct s_cmd
 {
-	char	*cmd;
 	char	*path;
 	char	**args;
 	int		input;
@@ -38,8 +37,9 @@ typedef struct s_cmd
 	int		heredoc;
 	int		exit_status;
 	int		error;
-	t_list	*infiles;
-	t_list	*outfiles;
+	char	**infiles;
+	char	**outfiles;
+	int		append;
 	pid_t	pid;
 }	t_cmd;
 
@@ -69,10 +69,7 @@ int		token_error(t_token *token);
 void	hundle_word(t_token *token);
 void	hundle_pipe(void);
 void	token_infile(t_lexer **lexer, t_token **token);
-int		hundle_infile(t_token *token);
-void	token_outfile(t_lexer **lexer, t_token **token);
-void	token_appout(t_lexer **lexer, t_token **token);
-int		hundle_outfile(t_token *token, int app);
+void	token_outfile(t_lexer **lexer, t_token **token, int app);
 
 int		argslen(char **args);
 char	**advanced_add(char **strs, char *arg);

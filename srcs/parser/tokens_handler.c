@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:58:20 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/31 19:44:09 by omanar           ###   ########.fr       */
+/*   Updated: 2022/07/31 23:42:23 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	token_error(t_token *token)
 	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
 	ft_putstr_fd(token->value, 2);
 	ft_putstr_fd("'\n", 2);
-	free_token(token);
 	ft_lstadd_back(&(g_data.cmds), ft_lstnew((void *)g_data.cmd));
+	free_token(token);
 	return (1);
 }
 
@@ -33,7 +33,6 @@ void	hundle_word(t_token *token)
 
 void	hundle_pipe(void)
 {
-	g_data.cmd->cmd = ft_strdup(g_data.cmd->args[0]);
 	ft_lstadd_back(&g_data.cmds, ft_lstnew((void *)g_data.cmd));
 	cmd_init();
 }
@@ -77,15 +76,14 @@ int	tokens_handler(t_lexer *lexer)
 		else if (token->e_type == TOKEN_INFILE)
 			token_infile(&lexer, &token);
 		else if (token->e_type == TOKEN_OUTFILE)
-			token_outfile(&lexer, &token);
+			token_outfile(&lexer, &token, 0);
 		else if (token->e_type == TOKEN_APPOUT)
-			token_appout(&lexer, &token);
+			token_outfile(&lexer, &token, 1);
 		else if (token->e_type == TOKEN_HEREDOC)
 			do_heredoc(&lexer, &token);
 		free_token(token);
 		token = lexer_next_token(lexer);
 	}
-	g_data.cmd->cmd = ft_strdup(g_data.cmd->args[0]);
 	ft_lstadd_back(&(g_data.cmds), ft_lstnew((void *)g_data.cmd));
 	free_token(token);
 	return (0);

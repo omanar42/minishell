@@ -6,15 +6,11 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:58:20 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/01 00:20:06 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/02 02:45:18 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-// if (ft_strchr(token->value, '"'))
-	// 	quotes_parsing(lexer, token);
-	// else
 
 int	token_error(t_token *token)
 {
@@ -26,9 +22,34 @@ int	token_error(t_token *token)
 	return (1);
 }
 
-void	hundle_word(t_token *token)
+// void	quotes_parsing(t_lexer **lexer, t_token **token)
+// {
+// 	int		i;
+// 	int		dq;
+// 	char	*str;
+
+// 	i = 0;
+// 	dq = 0;
+// 	str = (*token)->value;
+// 	while (str[i] && str[i] != '"')
+// 		i++;
+// 	while ()
+// 	{
+// 		if (str[i] == '"')
+// 			dq++;
+// 		else if (token->value[0] == '\'')
+// 			dq = 2;
+// 		if (lexer->c == '$')
+// 	}
+// }
+
+	// if (ft_strchr((*token)->value, '"'))
+	// 	quotes_parsing(lexer, token);
+	// else
+
+void	hundle_word(t_token **token)
 {
-	g_data.cmd->args = advanced_add(g_data.cmd->args, token->value);
+	g_data.cmd->args = advanced_add(g_data.cmd->args, (*token)->value);
 }
 
 void	hundle_pipe(void)
@@ -72,7 +93,7 @@ int	tokens_handler(t_lexer *lexer)
 		if (token->e_type == TOKEN_ERROR)
 			return (token_error(token));
 		else if (token->e_type == TOKEN_WORD)
-			hundle_word(token);
+			hundle_word(&token);
 		else if (token->e_type == TOKEN_INFILE)
 			token_infile(&lexer, &token);
 		else if (token->e_type == TOKEN_OUT || token->e_type == TOKEN_APP)

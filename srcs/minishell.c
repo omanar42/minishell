@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:34:41 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/31 23:39:43 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/02 20:02:36 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		}
 		printer();
+		free_loop(g_data.env);
 		free(line);
 	}
 	return (0);

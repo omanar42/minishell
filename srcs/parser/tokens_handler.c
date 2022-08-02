@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:58:20 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/02 02:45:18 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/02 20:30:10 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,33 +22,25 @@ int	token_error(t_token *token)
 	return (1);
 }
 
-// void	quotes_parsing(t_lexer **lexer, t_token **token)
+// char	*arg_parsing(t_token *token)
 // {
-// 	int		i;
-// 	int		dq;
-// 	char	*str;
+// 	char	*new;
 
-// 	i = 0;
-// 	dq = 0;
-// 	str = (*token)->value;
-// 	while (str[i] && str[i] != '"')
-// 		i++;
-// 	while ()
+// 	while (token->value[i])
 // 	{
-// 		if (str[i] == '"')
-// 			dq++;
-// 		else if (token->value[0] == '\'')
-// 			dq = 2;
-// 		if (lexer->c == '$')
+// 		if (token->value[i] == '$')
+// 			expand_dollar(&token->value, &i);
+// 		else if (token->value[i] == '\'')
+// 		else if (token->value[i] == '"')
+
 // 	}
 // }
 
-	// if (ft_strchr((*token)->value, '"'))
-	// 	quotes_parsing(lexer, token);
-	// else
-
 void	hundle_word(t_token **token)
 {
+	// char	*value;
+
+	// value = arg_parsing((*token)->value);
 	g_data.cmd->args = advanced_add(g_data.cmd->args, (*token)->value);
 }
 

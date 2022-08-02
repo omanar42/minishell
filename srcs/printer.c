@@ -6,11 +6,20 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 15:01:23 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/31 23:43:23 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/02 19:57:49 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+void	print_env(void)
+{
+	int		i;
+
+	i = -1;
+	while (g_data.env[++i])
+		printf("%s\n", g_data.env[i]);
+}
 
 void	printer(void)
 {
@@ -21,7 +30,7 @@ void	printer(void)
 	i = 0;
 	while (g_data.cmds)
 	{	
-		printf("------------------ CMD %d ------------------\n\n", i + 1);
+		printf("------------------ CMD %d ------------------\n\n", ++i);
 		j = -1;
 		while (((t_cmd *)(g_data.cmds->content))->args[++j])
 			printf("==========>   Arg[%d] = %s   <==========\n",
@@ -40,6 +49,5 @@ void	printer(void)
 		tmp = g_data.cmds;
 		g_data.cmds = g_data.cmds->next;
 		ft_lstdelone(tmp, &free_cmd);
-		i++;
 	}
 }

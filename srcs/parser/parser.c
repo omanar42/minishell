@@ -6,36 +6,19 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:59:27 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/02 02:27:54 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/02 20:29:25 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	unclosed_quotes(char *line)
-{
-	int	i;
-	int	sign;
-
-	i = -1;
-	sign = 0;
-	while (line[++i])
-	{
-		if (line[i] == '\'')
-			if (sign != 2)
-				sign = (((sign == 0) * 1) + ((sign == 1) * 0));
-		if (line[i] == '"')
-			if (sign != 1)
-				sign = (((sign == 0) * 2) + ((sign == 2) * 0));
-	}
-	return (sign);
-}
-
 int	parsing(char *line, char **env)
 {
 	t_lexer	*lexer;
 
-	(void)env;
+	g_data.env = (char **)malloc(sizeof(char *));
+	g_data.env[0] = NULL;
+	creat_env(env);
 	if (unclosed_quotes(line))
 	{
 		ft_putstr_fd("minishell: syntax error unclosed quotes\n", 2);

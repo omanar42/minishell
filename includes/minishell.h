@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/02 01:16:20 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/02 20:29:46 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,11 @@ typedef struct s_data {
 t_data	g_data;
 
 int		parsing(char *line, char **env);
+int		unclosed_quotes(char *line);
 void	quotes_parsing(t_lexer *lexer, t_token *token);
 void	dollar_parsing(t_lexer *lexer, t_token *token);
 
+void	creat_env(char **env);
 void	data_init(char *line);
 void	cmd_init(void);
 int		get_cmds(char *line);
@@ -80,7 +82,10 @@ void	free_loop(char **args);
 void	free_token(t_token *token);
 
 void	printer(void);
+void	print_env(void);
 
 void	do_heredoc(t_lexer **lexer, t_token **token);
+
+char	*expand_dollar(char *str, char **env);
 
 #endif

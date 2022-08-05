@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dollar_parser.c                                    :+:      :+:    :+:   */
+/*   parser_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 01:11:15 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/05 01:12:35 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/05 17:03:55 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,21 +71,24 @@ char	*arg_parsing(char *str)
 	char	*new;
 	char	*tmp;
 
-	i = 0;
+	i = -1;
 	new = ft_calloc(1, sizeof(char));
-	while (str[i])
+	while (str[++i])
 	{
 		if (str[i] == '"')
 			tmp = parse_dquotes(str, &i);
 		else if (str[i] == '\'')
 			tmp = parse_squotes(str, &i);
 		else if (str[i] == '$')
+		{
 			tmp = parse_dollar(str, &i);
+			if (ft_strchr(tmp, ' '))
+				tmp = handle_spaces(tmp, &new);
+		}
 		else
 			tmp = ft_substr(str, i, 1);
 		new = advanced_join(new, tmp);
 		free(tmp);
-		i++;
 	}
 	return (new);
 }

@@ -6,30 +6,11 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:00:01 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/05 01:08:58 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/05 17:04:13 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-int	unclosed_quotes(char *line)
-{
-	int	i;
-	int	sign;
-
-	i = -1;
-	sign = 0;
-	while (line[++i])
-	{
-		if (line[i] == '\'')
-			if (sign != 2)
-				sign = (((sign == 0) * 1) + ((sign == 1) * 0));
-		if (line[i] == '"')
-			if (sign != 1)
-				sign = (((sign == 0) * 2) + ((sign == 2) * 0));
-	}
-	return (sign);
-}
 
 int	argslen(char **args)
 {
@@ -116,4 +97,24 @@ char	*expand_dollar(char *str, char **env)
 		}
 	}
 	return (NULL);
+}
+
+char	*handle_spaces(char *value, char **new)
+{
+	int		i;
+	char	*tmp;
+	char	**strs;
+
+	strs = ft_split(value, ' ');
+	*new = advanced_join(*new, strs[0]);
+	g_data.cmd->args = advanced_add(g_data.cmd->args, *new);
+	i = 0;
+	while (strs[++i + 1])
+		g_data.cmd->args = advanced_add(g_data.cmd->args, strs[i]);
+	tmp = ft_strdup(strs[i]);
+	free(*new);
+	*new = ft_calloc(1, sizeof(char));
+	free(value);
+	free_loop(strs);
+	return (tmp);
 }

@@ -6,11 +6,30 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:00:01 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/02 20:30:15 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/05 01:08:58 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+int	unclosed_quotes(char *line)
+{
+	int	i;
+	int	sign;
+
+	i = -1;
+	sign = 0;
+	while (line[++i])
+	{
+		if (line[i] == '\'')
+			if (sign != 2)
+				sign = (((sign == 0) * 1) + ((sign == 1) * 0));
+		if (line[i] == '"')
+			if (sign != 1)
+				sign = (((sign == 0) * 2) + ((sign == 2) * 0));
+	}
+	return (sign);
+}
 
 int	argslen(char **args)
 {
@@ -52,23 +71,32 @@ char	**advanced_add(char **strs, char *arg)
 	return (args);
 }
 
-int	unclosed_quotes(char *line)
+char	*advanced_join(char *s1, char *s2)
 {
-	int	i;
-	int	sign;
+	char	*str;
+	int		i;
+	int		j;
 
-	i = -1;
-	sign = 0;
-	while (line[++i])
+	if (!s1)
+		s1 = ft_calloc(1, sizeof(char));
+	if (!s2)
 	{
-		if (line[i] == '\'')
-			if (sign != 2)
-				sign = (((sign == 0) * 1) + ((sign == 1) * 0));
-		if (line[i] == '"')
-			if (sign != 1)
-				sign = (((sign == 0) * 2) + ((sign == 2) * 0));
+		str = ft_strdup(s1);
+		free(s1);
+		return (str);
 	}
-	return (sign);
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!str)
+		return (NULL);
+	i = -1;
+	while (s1[++i])
+		str[i] = s1[i];
+	j = -1;
+	while (s2[++j])
+		str[i + j] = s2[j];
+	str[i + j] = '\0';
+	free(s1);
+	return (str);
 }
 
 char	*expand_dollar(char *str, char **env)

@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:55:31 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/02 20:29:33 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/05 01:41:56 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@ void	creat_env(char **env)
 	int		i;
 	char	*tmp;
 
-	i = 0;
-	while (env[i])
+	i = -1;
+	g_data.env = (char **)malloc(sizeof(char *));
+	g_data.env[0] = NULL;
+	while (env[++i])
 	{
 		tmp = ft_strdup(env[i]);
 		g_data.env = advanced_add(g_data.env, tmp);
 		free(tmp);
-		i++;
 	}
 }
 

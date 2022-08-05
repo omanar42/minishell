@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/02 20:29:46 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/05 01:40:48 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,8 @@ typedef struct s_data {
 
 t_data	g_data;
 
-int		parsing(char *line, char **env);
+int		parsing(char *line);
 int		unclosed_quotes(char *line);
-void	quotes_parsing(t_lexer *lexer, t_token *token);
-void	dollar_parsing(t_lexer *lexer, t_token *token);
-
 void	creat_env(char **env);
 void	data_init(char *line);
 void	cmd_init(void);
@@ -68,13 +65,20 @@ int		get_cmds(char *line);
 
 int		tokens_handler(t_lexer *lexer);
 int		token_error(t_token *token);
-void	hundle_word(t_token **token);
-void	hundle_pipe(void);
+void	token_word(t_token **token);
 void	token_infile(t_lexer **lexer, t_token **token);
 void	token_outfile(t_lexer **lexer, t_token **token);
+void	token_heredoc(t_lexer **lexer, t_token **token);
+void	token_pipe(void);
 
 int		argslen(char **args);
+char	*arg_parsing(char *str);
+char	*parse_dquotes(char *str, int *i);
+char	*parse_squotes(char *str, int *i);
+char	*parse_dollar(char *str, int *i);
+char	*expand_dollar(char *str, char **env);
 char	**advanced_add(char **strs, char *arg);
+char	*advanced_join(char *s1, char *s2);
 
 void	clean(void);
 void	free_cmd(void *cmd);
@@ -83,9 +87,5 @@ void	free_token(t_token *token);
 
 void	printer(void);
 void	print_env(void);
-
-void	do_heredoc(t_lexer **lexer, t_token **token);
-
-char	*expand_dollar(char *str, char **env);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 18:00:34 by omanar            #+#    #+#             */
-/*   Updated: 2022/06/27 17:26:21 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/05 17:23:49 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strchr(const char *s, int c)
 	size_t	i;
 	size_t	len;
 
+	if (!s)
+		return (NULL);
 	len = ft_strlen(s);
 	if (c == '\0')
 		return ((char *)(s + len));

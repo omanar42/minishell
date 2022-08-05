@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/05 01:40:48 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/05 17:19:28 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ char	*parse_dquotes(char *str, int *i);
 char	*parse_squotes(char *str, int *i);
 char	*parse_dollar(char *str, int *i);
 char	*expand_dollar(char *str, char **env);
+char	*handle_spaces(char *value, char **new);
 char	**advanced_add(char **strs, char *arg);
 char	*advanced_join(char *s1, char *s2);
 

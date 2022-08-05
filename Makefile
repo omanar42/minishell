@@ -12,7 +12,7 @@
 
 NAME	=	minishell
 RM		=	rm -f
-CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes #-g -fsanitize=address
+CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes -g -fsanitize=address
 RLFLG	=	-lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
 LIBFT	=	libs/libft/libft.a
 SRCS	=	srcs/minishell.c srcs/printer.c $(LIBFT) \

@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 07:41:12 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/05 19:55:23 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/06 22:35:07 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,13 @@ t_token	*quotes_parse(t_lexer *lexer, int type, char q)
 		(lexer_advance(lexer), i++);
 	while (is_charachter(lexer->c, lexer_peek(lexer)))
 	{
-		if (lexer_peek(lexer) == q)
+		(lexer_advance(lexer), i++);
+		if (lexer->c == q)
 		{
 			(lexer_advance(lexer), i++);
-			(lexer_advance(lexer), i++);
-			while (lexer->c == ' ' || lexer->c == '\t')
+			while (is_quote(lexer->c, q))
 				(lexer_advance(lexer), i++);
 		}
-		(lexer_advance(lexer), i++);
 	}
 	value = ft_substr(lexer->line, start, i);
 	token = token_init(value, type);

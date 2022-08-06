@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 16:18:58 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/06 00:53:46 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/06 23:11:25 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,26 @@ void	token_word(t_token **token)
 
 void	token_infile(t_lexer **lexer, t_token **token)
 {
+	char	*value;
+
 	free_token(*token);
 	*token = lexer_next_token(*lexer);
-	g_data.cmd->infiles = advanced_add(g_data.cmd->infiles, (*token)->value);
+	value = arg_parsing((*token)->value);
+	g_data.cmd->infiles = advanced_add(g_data.cmd->infiles, value);
 }
 
 void	token_outfile(t_lexer **lexer, t_token **token)
 {
-	int	append;
+	int		append;
+	char	*value;
 
 	append = 0;
 	if ((*token)->e_type == TOKEN_APP)
 		append = 1;
 	free_token(*token);
 	*token = lexer_next_token(*lexer);
-	g_data.cmd->outfiles = advanced_add(g_data.cmd->outfiles, (*token)->value);
+	value = arg_parsing((*token)->value);
+	g_data.cmd->outfiles = advanced_add(g_data.cmd->outfiles, value);
 	g_data.cmd->append = append;
 }
 

@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:00:01 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/05 17:04:13 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/06 17:08:01 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,32 @@ char	*advanced_join(char *s1, char *s2)
 	return (str);
 }
 
+int	get_char_index(char *str, char c)
+{
+	int i;
+
+	i = -1;
+	while (str[++i])
+		if (str[i] == c)
+			return (i);
+	return (0);
+}
+
+char	*get_variable_name(char *str)
+{
+	int		i;
+	char	*tmp;
+
+	i = -1;
+	tmp = malloc(sizeof(char) * get_char_index(str, '=') + 1);
+	if (!tmp)
+		return (NULL);
+	while (++i < get_char_index(str, '='))
+		tmp[i] = str[i];
+	tmp[i] = 0;
+	return (tmp);
+}
+
 char	*expand_dollar(char *str, char **env)
 {
 	int		i;
@@ -87,16 +113,15 @@ char	*expand_dollar(char *str, char **env)
 	char	*tmp;
 
 	i = -1;
+	new = NULL;
 	while (env[++i])
 	{
-		tmp = ft_strnstr(env[i], str, ft_strlen(str));
-		if (tmp)
-		{
-			new = ft_substr(tmp, ft_strlen(str) + 1, ft_strlen(tmp));
-			return (new);
-		}
+		tmp = get_variable_name(env[i]);
+		if (ft_strncmp(tmp, str, ft_strlen(tmp)) == 0)
+			new = ft_strdup(env[i] + get_char_index(env[i], '=') + 1);
+		free(tmp);
 	}
-	return (NULL);
+	return (new);
 }
 
 char	*handle_spaces(char *value, char **new)

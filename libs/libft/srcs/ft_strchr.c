@@ -6,11 +6,12 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 18:00:34 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/05 17:23:49 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/06 17:00:34 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
+#include <stdio.h>
 
 char	*ft_strchr(const char *s, int c)
 {

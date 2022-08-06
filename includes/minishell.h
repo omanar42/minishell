@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/05 17:19:28 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/05 20:13:58 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_data {
 	int		nb_cmd;
 	int		index;
 	int		err;
+	int		exit_status;
 	int		heredoc;
 	t_cmd	*cmd;
 	t_list	*cmds;

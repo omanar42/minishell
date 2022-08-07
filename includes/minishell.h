@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/05 20:13:58 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/07 00:28:51 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	token_outfile(t_lexer **lexer, t_token **token);
 void	token_heredoc(t_lexer **lexer, t_token **token);
 void	token_pipe(void);
 
-int		argslen(char **args);
 char	*arg_parsing(char *str);
 char	*parse_dquotes(char *str, int *i);
 char	*parse_squotes(char *str, int *i);
@@ -81,6 +80,12 @@ char	*expand_dollar(char *str, char **env);
 char	*handle_spaces(char *value, char **new);
 char	**advanced_add(char **strs, char *arg);
 char	*advanced_join(char *s1, char *s2);
+char	*get_variable_name(char *str);
+
+int		argslen(char **args);
+int		is_acceptable(char c);
+int		is_separator(char c);
+int		get_char_index(char *str, char c);
 
 void	clean(void);
 void	free_cmd(void *cmd);

@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 16:18:58 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/06 23:11:25 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/07 15:41:57 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	token_infile(t_lexer **lexer, t_token **token)
 	*token = lexer_next_token(*lexer);
 	value = arg_parsing((*token)->value);
 	g_data.cmd->infiles = advanced_add(g_data.cmd->infiles, value);
+	free(value);
 }
 
 void	token_outfile(t_lexer **lexer, t_token **token)
@@ -43,6 +44,7 @@ void	token_outfile(t_lexer **lexer, t_token **token)
 	*token = lexer_next_token(*lexer);
 	value = arg_parsing((*token)->value);
 	g_data.cmd->outfiles = advanced_add(g_data.cmd->outfiles, value);
+	free(value);
 	g_data.cmd->append = append;
 }
 

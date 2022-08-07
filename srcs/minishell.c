@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:34:41 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/05 01:48:41 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/07 00:47:49 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int ac, char **av, char **env)
 	creat_env(env);
 	while (42)
 	{
-		line = readline(GRN "➜ " CYN " minishell$ " RST);
+		line = readline("minishell$ ");
 		if (!line)
 			continue ;
 		add_history(line);

@@ -6,16 +6,16 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 20:01:36 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/28 22:40:18 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/09 00:53:53 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	is_charachter(char c, char cc)
+int	is_charachter(char c)
 {
-	if (c == '\0' || c == '|' || c == '<' || c == ' '
-		|| c == '>' || (c == '&' && cc == '&'))
+	if (c == '\0' || c == '|' || c == '<'
+		|| c == ' ' || c == '>' || c == '&')
 		return (0);
 	return (1);
 }

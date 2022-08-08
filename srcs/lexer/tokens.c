@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 07:41:12 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/07 15:36:50 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/09 00:57:20 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_token	*quotes_parse(t_lexer *lexer, int type, char q)
 	lexer_advance(lexer);
 	while (is_quote(lexer->c, q))
 		(lexer_advance(lexer), i++);
-	while (is_charachter(lexer->c, lexer_peek(lexer)))
+	while (is_charachter(lexer->c))
 	{
 		(lexer_advance(lexer), i++);
 		if (lexer->c == '"' || lexer->c == '\'')
@@ -51,7 +51,7 @@ t_token	*token_parse(t_lexer *lexer, int type)
 	i = 0;
 	start = lexer->i;
 	lexer_skip_whitespace(lexer);
-	while (lexer->c != '\0' && is_charachter(lexer->c, lexer_peek(lexer)))
+	while (lexer->c != '\0' && is_charachter(lexer->c))
 	{
 		if (lexer->c == '"' || lexer->c == '\'')
 			quote_inside(lexer, &i);
@@ -119,13 +119,7 @@ t_token	*lexer_next_token(t_lexer *lexer)
 	if (lexer->c == '\0')
 		return (token_init(0, TOKEN_EOF));
 	if (lexer->c == '&')
-	{
-		while (lexer_peek(lexer) == ' ' || lexer_peek(lexer) == '\t')
-			lexer_advance(lexer);
-		if (is_unexpected_token(lexer_peek(lexer)))
-			return (unexpected_token(lexer));
-		return (token_parse(lexer, TOKEN_WORD));
-	}
+		return (token_init("&", TOKEN_ERROR));
 	if (lexer->c == '|')
 	{
 		while (lexer_peek(lexer) == ' ' || lexer_peek(lexer) == '\t')

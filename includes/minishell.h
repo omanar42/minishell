@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/08 22:48:33 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/08 23:06:57 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	cmd_init(void);
 
 int		tokens_handler(t_lexer *lexer);
 int		token_error(t_token *token);
+int		open_infile(t_token *token);
 void	token_word(t_token **token);
 void	token_infile(t_lexer **lexer, t_token **token);
 void	token_outfile(t_lexer **lexer, t_token **token);

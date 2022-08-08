@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 16:18:58 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/08 23:03:29 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/08 23:34:55 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	token_word(t_token **token)
 	free(value);
 }
 
-int	hundle_infile(t_token *token)
+int	open_infile(t_token *token)
 {
 	char	*value;
 
@@ -41,7 +41,7 @@ void	token_infile(t_lexer **lexer, t_token **token)
 {
 	free_token(*token);
 	*token = lexer_next_token(*lexer);
-	if (hundle_infile(*token) == -1)
+	if (open_infile(*token) == -1)
 	{
 		while ((*token)->e_type != TOKEN_PIPE
 			&& (*token)->e_type != TOKEN_EOF)
@@ -91,13 +91,19 @@ void	token_heredoc(t_lexer **lexer, t_token **token)
 	while (42)
 	{
 		buff = readline("> ");
-		if (!ft_strncmp(buff, (*token)->value, ft_strlen(buff)))
+		if (!buff)
+			break ;
+		if (!buff[0])
+			ft_putstr_fd("\n", g_data.cmd->end[1]);
+		else if (!ft_strncmp(buff, (*token)->value, ft_strlen(buff)))
 		{
 			free(buff);
 			break ;
 		}
 		ft_putstr_fd(buff, g_data.cmd->end[1]);
+		ft_putstr_fd("\n", g_data.cmd->end[1]);
 		free(buff);
 	}
 	g_data.cmd->input = g_data.cmd->end[0];
+	close(g_data.cmd->end[1]);
 }

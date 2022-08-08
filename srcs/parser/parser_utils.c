@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:00:01 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/06 23:14:51 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/08 22:35:58 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,9 @@ char	**advanced_add(char **strs, char *arg)
 	}
 	wlen = argslen(strs);
 	args = (char **)malloc(sizeof(char *) * (wlen + 1));
-	i = 0;
-	while (strs[i])
-	{
+	i = -1;
+	while (strs[++i])
 		args[i] = ft_strdup(strs[i]);
-		i++;
-	}
 	args[i] = ft_strdup(arg);
 	args[i + 1] = NULL;
 	free_loop(strs);

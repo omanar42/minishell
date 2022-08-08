@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/07 00:28:51 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/08 22:48:33 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,30 +29,25 @@
 
 typedef struct s_cmd
 {
-	char	*path;
+	char	*cmd;
 	char	**args;
-	int		input;
-	int		output;
 	int		end[2];
-	int		heredoc;
-	int		exit_status;
-	int		error;
-	char	**infiles;
+	int		input;
+	char	*infile;
+	int		output;
 	char	**outfiles;
 	int		append;
+	int		error;
+	int		exit_status;
 	pid_t	pid;
 }	t_cmd;
 
 typedef struct s_data {
 	char	**env;
-	int		nb_cmd;
-	int		index;
-	int		err;
+	int		error;
 	int		exit_status;
-	int		heredoc;
 	t_cmd	*cmd;
 	t_list	*cmds;
-	t_list	*limiter;
 }	t_data;
 
 t_data	g_data;
@@ -60,9 +55,8 @@ t_data	g_data;
 int		parsing(char *line);
 int		unclosed_quotes(char *line);
 void	creat_env(char **env);
-void	data_init(char *line);
+void	data_init(void);
 void	cmd_init(void);
-int		get_cmds(char *line);
 
 int		tokens_handler(t_lexer *lexer);
 int		token_error(t_token *token);
@@ -72,9 +66,9 @@ void	token_outfile(t_lexer **lexer, t_token **token);
 void	token_heredoc(t_lexer **lexer, t_token **token);
 void	token_pipe(void);
 
-char	*arg_parsing(char *str);
-char	*parse_dquotes(char *str, int *i);
-char	*parse_squotes(char *str, int *i);
+char	*parse_args(char *str);
+char	*parse_dquote(char *str, int *i);
+char	*parse_squote(char *str, int *i);
 char	*parse_dollar(char *str, int *i);
 char	*expand_dollar(char *str, char **env);
 char	*handle_spaces(char *value, char **new);

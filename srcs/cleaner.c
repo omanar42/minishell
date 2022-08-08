@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:42:13 by omanar            #+#    #+#             */
-/*   Updated: 2022/07/31 23:42:36 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/08 22:32:09 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,15 @@ void	free_loop(char **args)
 {
 	int	i;
 
-	i = 0;
-	while (args[i])
-	{
+	i = -1;
+	while (args[++i])
 		free(args[i]);
-		i++;
-	}
 	free(args);
 }
 
 void	free_cmd(void *cmd)
 {
 	free_loop(((t_cmd *)cmd)->args);
-	free_loop(((t_cmd *)cmd)->infiles);
 	free_loop(((t_cmd *)cmd)->outfiles);
 	free((t_cmd *)cmd);
 }

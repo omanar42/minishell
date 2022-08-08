@@ -6,11 +6,17 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:58:20 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/07 15:37:40 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/08 22:45:53 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+void	token_pipe(void)
+{
+	ft_lstadd_back(&g_data.cmds, ft_lstnew((void *)g_data.cmd));
+	cmd_init();
+}
 
 int	token_error(t_token *token)
 {

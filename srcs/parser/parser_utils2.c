@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 01:11:15 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/06 23:10:07 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/08 22:30:51 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*parse_dollar(char *str, int *i)
 	return (new);
 }
 
-char	*parse_dquotes(char *str, int *i)
+char	*parse_dquote(char *str, int *i)
 {
 	char	*new;
 	char	*tmp;
@@ -59,7 +59,7 @@ char	*parse_dquotes(char *str, int *i)
 	return (new);
 }
 
-char	*parse_squotes(char *str, int *i)
+char	*parse_squote(char *str, int *i)
 {
 	int		start;
 	char	*new;
@@ -71,7 +71,7 @@ char	*parse_squotes(char *str, int *i)
 	return (new);
 }
 
-char	*arg_parsing(char *str)
+char	*parse_args(char *str)
 {
 	int		i;
 	char	*new;
@@ -82,9 +82,9 @@ char	*arg_parsing(char *str)
 	while (str[++i])
 	{
 		if (str[i] == '"')
-			tmp = parse_dquotes(str, &i);
+			tmp = parse_dquote(str, &i);
 		else if (str[i] == '\'')
-			tmp = parse_squotes(str, &i);
+			tmp = parse_squote(str, &i);
 		else if (str[i] == '$')
 		{
 			tmp = parse_dollar(str, &i);

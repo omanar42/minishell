@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 15:01:23 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/02 19:57:49 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/08 22:22:25 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,8 @@ void	printer(void)
 				j, ((t_cmd *)(g_data.cmds->content))->args[j]);
 		printf("\n");
 		j = -1;
-		while (((t_cmd *)(g_data.cmds->content))->infiles[++j])
-			printf("==========>   infile[%d] = %s   <==========\n",
-				j, ((t_cmd *)(g_data.cmds->content))->infiles[j]);
+		printf("==========>   INPUT = %d   <==========\n",
+			((t_cmd *)(g_data.cmds->content))->input);
 		printf("\n");
 		j = -1;
 		while (((t_cmd *)(g_data.cmds->content))->outfiles[++j])

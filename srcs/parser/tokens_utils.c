@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 16:18:58 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/08 23:34:55 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/09 18:27:27 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,32 +78,4 @@ void	token_outfile(t_lexer **lexer, t_token **token)
 	g_data.cmd->outfiles = advanced_add(g_data.cmd->outfiles, value);
 	free(value);
 	g_data.cmd->append = append;
-}
-
-void	token_heredoc(t_lexer **lexer, t_token **token)
-{
-	char	*buff;
-
-	free_token(*token);
-	*token = lexer_next_token(*lexer);
-	if (pipe(g_data.cmd->end) == -1)
-		perror("minishell: pipe");
-	while (42)
-	{
-		buff = readline("> ");
-		if (!buff)
-			break ;
-		if (!buff[0])
-			ft_putstr_fd("\n", g_data.cmd->end[1]);
-		else if (!ft_strncmp(buff, (*token)->value, ft_strlen(buff)))
-		{
-			free(buff);
-			break ;
-		}
-		ft_putstr_fd(buff, g_data.cmd->end[1]);
-		ft_putstr_fd("\n", g_data.cmd->end[1]);
-		free(buff);
-	}
-	g_data.cmd->input = g_data.cmd->end[0];
-	close(g_data.cmd->end[1]);
 }

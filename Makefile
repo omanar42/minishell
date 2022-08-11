@@ -12,14 +12,17 @@
 
 NAME	=	minishell
 RM		=	rm -f
-CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes #-g -fsanitize=address
+CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes -g -fsanitize=address
 RLFLG	=	-lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
 LIBFT	=	libs/libft/libft.a
 SRCS	=	srcs/minishell.c srcs/initializer.c srcs/cleaner.c $(LIBFT) \
 			srcs/lexer/lexer.c srcs/lexer/tokens.c srcs/lexer/utils.c \
 			srcs/parser/parser.c srcs/parser/tokens_handler.c srcs/parser/tokens_utils.c \
 			srcs/parser/parser_utils.c srcs/parser/parser_utils2.c srcs/parser/parser_utils3.c \
-			srcs/parser/heredoc_handler.c srcs/printer.c
+			srcs/parser/heredoc_handler.c srcs/printer.c \
+			srcs/executor/executor.c srcs/builtins/builder.c \
+			srcs/builtins/ft_unset.c srcs/builtins/ft_export.c \
+			
 
 define HEADER_M
     __  ___ ____ _   __ ____   _____  __  __ ______ __     __ 

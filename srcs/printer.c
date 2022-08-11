@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 15:01:23 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/08 22:22:25 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/11 18:17:17 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,15 @@ void	print_env(void)
 	i = -1;
 	while (g_data.env[++i])
 		printf("%s\n", g_data.env[i]);
+}
+
+void	print_export(void)
+{
+	int		i;
+
+	i = -1;
+	while (g_data.export[++i])
+		printf("%s\n", g_data.export[i]);
 }
 
 void	printer(void)

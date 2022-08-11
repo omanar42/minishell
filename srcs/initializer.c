@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:55:31 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/09 15:32:09 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/11 18:16:35 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,32 @@ void	creat_env(char **env)
 	g_data.env[0] = NULL;
 	while (env[++i])
 		g_data.env = advanced_add(g_data.env, env[i]);
+}
+
+void	creat_export(char **env)
+{
+	int		i;
+	char	*tmp;
+	char	*vtmp;
+	char	*value;
+
+	i = -1;
+	g_data.export = ft_calloc(1, sizeof(char *));
+	while (env[++i])
+	{
+		tmp = NULL;
+		tmp = advanced_join(tmp, "declare -x ");
+		vtmp = get_variable_name(env[i]);
+		tmp = advanced_join(tmp, vtmp);
+		free(vtmp);
+		tmp = advanced_join(tmp, "=\"");
+		value = ft_strdup(env[i] + get_char_index(env[i], '=') + 1);
+		tmp = advanced_join(tmp, value);
+		free(value);
+		tmp = advanced_join(tmp, "\"");
+		g_data.export = advanced_add(g_data.export, tmp);
+		free(tmp);
+	}
 }
 
 void	cmd_init(void)

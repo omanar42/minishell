@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/09 19:17:38 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/11 18:31:41 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_cmd
 
 typedef struct s_data {
 	char	**env;
+	char	**export;
 	int		error;
 	int		exit_status;
 	t_cmd	*cmd;
@@ -55,6 +56,7 @@ t_data	g_data;
 int		parsing(char *line);
 int		unclosed_quotes(char *line);
 void	creat_env(char **env);
+void	creat_export(char **env);
 void	data_init(void);
 void	cmd_init(void);
 
@@ -91,6 +93,18 @@ void	free_loop(char **args);
 void	free_token(t_token *token);
 
 void	printer(void);
+
+void	execution(void);
+
+int		is_builtin(char *str);
+void	builtins(void);
 void	print_env(void);
+void	print_export(void);
+void	ft_export(void);
+void	new_environment(void);
+void	ft_set_env(char *name, char *value);
+void	ft_set_export(char *name, char *value);
+void	ft_unset(void);
+char	**ft_remove_element(char **env, int n);
 
 #endif

@@ -1,42 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/13 17:34:41 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/11 22:47:58 by adiouane         ###   ########.fr       */
+/*   Created: 2022/08/11 23:11:31 by adiouane          #+#    #+#             */
+/*   Updated: 2022/08/11 23:13:02 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	main(int ac, char **av, char **env)
+void	error(char *s, char *str, int status_code)
 {
-	char	*line;
+    printf("%s: %s\n", s, str);
+	exit(status_code);
+}
 
-	(void)av;
-	if (ac != 1)
-		return (0);
-	creat_env(env);
-	creat_export(g_data.env);
-	while (42)
-	{
-		line = readline("minishell$ ");
-		if (!line)
-			break ;
-		add_history(line);
-		if (parsing(line))
-		{
-			free(line);
-			clean();
-			continue ;
-		}
-		// printer();
-		execution();
-		free(line);
-	}
-	free_loop(g_data.env);
-	return (0);
+void	error3(char *s)
+{
+	write(2, s, ft_strlen(s));
+	write(2, "\n", 1);
+}
+
+void	error2(int status_code)
+{
+	perror("minishell");
+	exit(status_code);
 }

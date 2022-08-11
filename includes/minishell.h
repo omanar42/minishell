@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/11 18:31:41 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/11 23:20:54 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
 
 # define RST "\033[0m"
 # define RED "\033[0;31m"
@@ -40,6 +41,15 @@ typedef struct s_cmd
 	int		error;
 	int		exit_status;
 	pid_t	pid;
+	/*********/
+	int		fd_p[2];
+	char	**paths;
+	int 	last_cmd;
+	int		first_cmd;
+	char	**cmd_arg;
+	int		n;
+	char	*cmd2;
+	/*********/
 }	t_cmd;
 
 typedef struct s_data {
@@ -47,6 +57,10 @@ typedef struct s_data {
 	char	**export;
 	int		error;
 	int		exit_status;
+	int		flag;
+	int		tmpin;
+	int		tmpout;
+	int		number_of_commend;
 	t_cmd	*cmd;
 	t_list	*cmds;
 }	t_data;
@@ -96,8 +110,6 @@ void	printer(void);
 
 void	execution(void);
 
-int		is_builtin(char *str);
-void	builtins(void);
 void	print_env(void);
 void	print_export(void);
 void	ft_export(void);
@@ -106,5 +118,37 @@ void	ft_set_env(char *name, char *value);
 void	ft_set_export(char *name, char *value);
 void	ft_unset(void);
 char	**ft_remove_element(char **env, int n);
+
+
+/*------------------------------EXECUTION----------------------------------*/
+
+void	execution(void);
+void	creat_env(char **env);
+void	run_cmd(t_cmd *cmd);
+
+/*------------------------------ERROR--------------------------------------*/
+
+void	error(char *s, char *str, int status_code);
+void	error3(char *s);
+void	error2(int status_code);
+
+/*------------------------EXECUTION_UTILS_FUNCTION-------------------------*/
+
+char	**get_path(char **env);
+void	*check_cmd(char **path, char *cmd);
+void	free_path(char **paths);
+
+/*------------------------------BUILTINS----------------------------------*/
+void    ft_builtins(void);
+int		is_builtins(void);
+void    echo(void);
+void	pwd(void);
+void    cd(void);
+void    unset(void);
+void	ft_env(void);
+void	ft_export(void);
+void	ft_unset(void);
+void    exit_cmd(void);
+void	init_signal(void);
 
 #endif

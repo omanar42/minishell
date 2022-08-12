@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:15:08 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/11 23:15:37 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/12 22:27:22 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,41 @@ char	**get_path(char **env)
 	else
 		return (ft_split(env[i] + 5, ':'));
 	return (NULL);
+}
+
+void	run_cmd(t_cmd *cmd)
+{
+    cmd->paths = get_path(g_data.env);
+    cmd->cmd = check_cmd(cmd->paths, cmd->args[0]);
+    if (!cmd->cmd)
+    {
+        free_path(cmd->paths);
+        error("minishell: command not found ", cmd->args[0], 127);
+    }
+    if (execve(cmd->cmd, cmd->args, g_data.env) == -1)
+    {
+        free_path(cmd->paths);
+        error("minishell: command not found ", cmd->args[0], 127);
+    }
+}
+
+void    redirect_input()
+{
+    if (((t_cmd *)(g_data.cmds->content))->input != 0)
+    {
+        dup2(((t_cmd *)(g_data.cmds->content))->input, 0);
+        close(((t_cmd *)(g_data.cmds->content))->input);
+    }
+}
+
+void    redirect_output(void)
+{
+    int j = -1;
+    while (((t_cmd *)(g_data.cmds->content))->outfiles[++j])
+    {
+        if (((t_cmd *)(g_data.cmds->content))->append)
+            ((t_cmd *)(g_data.cmds->content))->output = open(((t_cmd *)(g_data.cmds->content))->outfiles[j], O_WRONLY | O_CREAT | O_APPEND, 0644);
+        else
+            ((t_cmd *)(g_data.cmds->content))->output = open(((t_cmd *)(g_data.cmds->content))->outfiles[j], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    }       
 }

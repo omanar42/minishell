@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/11 23:20:54 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/12 16:08:27 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_cmd
 	char	**cmd_arg;
 	int		n;
 	char	*cmd2;
+	int		data_out;
 	/*********/
 }	t_cmd;
 
@@ -129,15 +130,16 @@ void	run_cmd(t_cmd *cmd);
 /*------------------------------ERROR--------------------------------------*/
 
 void	error(char *s, char *str, int status_code);
-void	error3(char *s);
+void	error1(char *s, int status_code);
 void	error2(int status_code);
-
+void	error3(char *s);
 /*------------------------EXECUTION_UTILS_FUNCTION-------------------------*/
 
 char	**get_path(char **env);
 void	*check_cmd(char **path, char *cmd);
 void	free_path(char **paths);
-
+void    redirect_input(void);
+void    redirect_output(void);
 /*------------------------------BUILTINS----------------------------------*/
 void    ft_builtins(void);
 int		is_builtins(void);

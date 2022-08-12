@@ -6,74 +6,35 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 19:54:55 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/11 23:34:05 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/12 22:33:48 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	run_cmd(t_cmd *cmd)
+void    ft_child_process(t_cmd *cmd, int i, int size, int *p, int last_fd)
 {
-    cmd->paths = get_path(g_data.env);
-    cmd->cmd = check_cmd(cmd->paths, cmd->args[0]);
-    if (!cmd->cmd)
+    redirect_output();
+    close(p[0]);
+    if (i != size - 1)
     {
-        free_path(cmd->paths);
-        error("minishell: command not found ", cmd->args[0], 127);
-    }
-    if (execve(cmd->cmd, cmd->args, g_data.env) == -1)
-    {
-        free_path(cmd->paths);
-        error("minishell: command not found ", cmd->args[0], 127);
-    }
-}
-
-void    rederict_fils()
-{
-    int j = -1;
-    while (((t_cmd *)(g_data.cmds->content))->outfiles[++j])
-    {
-        if (((t_cmd *)(g_data.cmds->content))->append)
-            ((t_cmd *)(g_data.cmds->content))->output = open(((t_cmd *)(g_data.cmds->content))->outfiles[j], O_WRONLY | O_CREAT | O_APPEND, 0644);
-        else
-            ((t_cmd *)(g_data.cmds->content))->output = open(((t_cmd *)(g_data.cmds->content))->outfiles[j], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    }       
-    if (((t_cmd *)(g_data.cmds->content))->input != 0)
-    {
-        dup2(((t_cmd *)(g_data.cmds->content))->input, 0);
-        close(((t_cmd *)(g_data.cmds->content))->input);
+        dup2(p[1], 1);
+        close(p[1]);
     }
     if (((t_cmd *)(g_data.cmds->content))->output != 1)
     {
         dup2(((t_cmd *)(g_data.cmds->content))->output, 1);
         close(((t_cmd *)(g_data.cmds->content))->output);
     }
-}
-
-void    ft_child_process(t_cmd *cmd, int i, int size, int *p, int last_fd)
-{
-    close(p[0]);
-    if (i != size - 1)
-    {
-        rederict_fils();
-        dup2(p[1], 1);
-    }
     if (last_fd != -1) 
     {
         dup2(last_fd, 0);
-        int j = -1;
-        while (((t_cmd *)(g_data.cmds->content))->outfiles[++j])
-        {
-            if (((t_cmd *)(g_data.cmds->content))->append)
-                ((t_cmd *)(g_data.cmds->content))->output = open(((t_cmd *)(g_data.cmds->content))->outfiles[j], O_WRONLY | O_CREAT | O_APPEND, 0644);
-            else
-                ((t_cmd *)(g_data.cmds->content))->output = open(((t_cmd *)(g_data.cmds->content))->outfiles[j], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-        }       
-        if (((t_cmd *)(g_data.cmds->content))->output != 1)
-        {
-            dup2(((t_cmd *)(g_data.cmds->content))->output, 1);
-            close(((t_cmd *)(g_data.cmds->content))->output);
-        }
+        close(last_fd);
+    }
+    if (((t_cmd *)(g_data.cmds->content))->input != 0)
+    {
+        dup2(((t_cmd *)(g_data.cmds->content))->input, 0);
+        close(((t_cmd *)(g_data.cmds->content))->input);
     }
     run_cmd(cmd);
 }
@@ -93,11 +54,7 @@ void    run_execution(void)
     temp = g_data.cmds;
     len = ft_lstsize(g_data.cmds);
     last_fd = -1;
-    if (((t_cmd *)(g_data.cmds->content))->input != 0)
-    {
-        dup2(((t_cmd *)(g_data.cmds->content))->input, 0);
-        close(((t_cmd *)(g_data.cmds->content))->input);
-    }
+    redirect_input();
     while(temp)
     {
         pipe(p);
@@ -109,8 +66,8 @@ void    run_execution(void)
             close(p[1]);
             tmp = g_data.cmds;
             g_data.cmds = g_data.cmds->next;
-            ft_lstdelone(tmp, &free_cmd);
             temp = temp->next;
+            ft_lstdelone(tmp, &free_cmd);
             if(last_fd != -1)
                 close(last_fd);
             last_fd = p[0];
@@ -132,10 +89,8 @@ void    run_execution(void)
 void	execution(void)
 {
 	t_list *tmp;
-	
-	g_data.number_of_commend = ft_lstsize(g_data.cmds);
 
-	if (((t_cmd *)(g_data.cmds->content))->args[0] == '\0')
+	if (((t_cmd *)(g_data.cmds->content))->args[0] == '\0' && ((t_cmd *)(g_data.cmds->content))->outfiles == NULL)
 	{
 		tmp = g_data.cmds;
 		g_data.cmds = g_data.cmds->next;

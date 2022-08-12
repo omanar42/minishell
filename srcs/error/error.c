@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:11:31 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/11 23:13:02 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/12 16:10:07 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,20 @@ void	error(char *s, char *str, int status_code)
 	exit(status_code);
 }
 
-void	error3(char *s)
+void	error1(char *s, int status_code)
 {
-	write(2, s, ft_strlen(s));
-	write(2, "\n", 1);
+    printf("%s\n", s);
+	exit(status_code);
 }
 
 void	error2(int status_code)
 {
 	perror("minishell");
 	exit(status_code);
+}
+
+void	error3(char *s)
+{
+	write(2, s, ft_strlen(s));
+	write(2, "\n", 1);
 }

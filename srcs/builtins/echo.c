@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:09:42 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/13 08:48:49 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/13 17:54:06 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,17 @@ void	echo(void)
 	int	i;
 
 	i = 1;
-	if (g_data.cmd->args[1] == NULL)
+	if (((t_cmd *)(g_data.cmds->content))->args[1] == NULL)
 	{
 		printf("\n");
 		return ;
 	}
-	while (is_flag(&g_data.cmd->args[i]) == 1)
+	while (is_flag(&((t_cmd *)(g_data.cmds->content))->args[i]) == 1)
 		i++;
 	g_data.flag = i;
-	while (g_data.cmd->args[i])
+	while (((t_cmd *)(g_data.cmds->content))->args[i])
 	{
-		ft_putstr_fd(g_data.cmd->args[i], 1);
+		ft_putstr_fd(((t_cmd *)(g_data.cmds->content))->args[i], 1);
 		ft_putstr_fd(" ", 1);
 		i++;
 	}

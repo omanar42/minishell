@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 19:54:55 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/13 17:15:40 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/13 17:50:09 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	execution(void)
 		ft_lstdelone(tmp, &free_cmd);
 		return ;
 	}
-	else if (is_builtins())
+	else if (!g_data.cmds->next && is_builtins())
 		ft_builtins();
 	else
 		run_execution();

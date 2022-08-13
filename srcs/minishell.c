@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:34:41 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/12 22:19:54 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/13 11:07:36 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(int ac, char **av, char **env)
 	if (ac != 1)
 		return (0);
 	creat_env(env);
+	// init_signal();
 	creat_export(g_data.env);
 	while (42)
 	{

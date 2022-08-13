@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 18:57:11 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/11 16:00:42 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/13 11:11:45 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	*cd_only(char *path)
 	path = ft_getenv("HOME=");
 	if (path == NULL)
 	{
+		g_data.exit_status =  1;
 		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
 		return (NULL);
 	}
@@ -87,10 +88,10 @@ void	cd(void)
 		path = g_data.cmd->args[1];
 	if (chdir(path) == -1)
 	{
+		g_data.exit_status = 1;
 		ft_putstr_fd("minishell: cd: no such file or directory: ", 2);
 		ft_putstr_fd(path, 1);
 		ft_putstr_fd("\n", 1);
-		// static int status_code = 1;  don't exit here
 	}
 	newpwd = getcwd(NULL, 0);
 	setnewpwd(newpwd);

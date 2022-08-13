@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/12 16:08:27 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/13 10:57:48 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ typedef struct s_data {
 	int		flag;
 	int		tmpin;
 	int		tmpout;
-	int		number_of_commend;
 	t_cmd	*cmd;
 	t_list	*cmds;
 }	t_data;
@@ -151,6 +150,8 @@ void	ft_env(void);
 void	ft_export(void);
 void	ft_unset(void);
 void    exit_cmd(void);
+/*----------------------------SINALS--------------------------------------*/
+void	handlear(int signal);
 void	init_signal(void);
 
 #endif

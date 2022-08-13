@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:15:08 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/12 22:27:22 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/13 17:17:33 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,13 @@ char	**get_path(char **env)
 		i++;
 	if (!env[i])
     {
+        g_data.exit_status = 127;
         ft_putstr_fd("minishell: ", 1);
         ft_putstr_fd(g_data.cmd->args[0], 2);
         ft_putstr_fd(": No such file or directory\n", 2);
     }
 	else
-		return (ft_split(env[i] + 5, ':'));
+		return (ft_split(env[i] + 5, ':')); 
 	return (NULL);
 }
 
@@ -75,13 +76,15 @@ void	run_cmd(t_cmd *cmd)
     cmd->cmd = check_cmd(cmd->paths, cmd->args[0]);
     if (!cmd->cmd)
     {
+        g_data.exit_status = 127;
         free_path(cmd->paths);
-        error("minishell: command not found ", cmd->args[0], 127);
+        error("minishell: command not found ", cmd->args[0], g_data.exit_status);
     }
     if (execve(cmd->cmd, cmd->args, g_data.env) == -1)
     {
+        g_data.exit_status = 127;
         free_path(cmd->paths);
-        error("minishell: command not found ", cmd->args[0], 127);
+        error("minishell: command not found ", cmd->args[0], g_data.exit_status);
     }
 }
 

@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 19:54:55 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/12 22:33:48 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/13 17:15:40 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void    ft_child_process(t_cmd *cmd, int i, int size, int *p, int last_fd)
 {
+    // ignor signals in child process
+    if (((t_cmd *)(g_data.cmds->content))->error)
+        exit(g_data.exit_status);
     redirect_output();
     close(p[0]);
     if (i != size - 1)
@@ -48,9 +51,10 @@ void    run_execution(void)
     int len = 0;
     int p[2];
     int last_fd;
+    // int  status;
 
-    g_data.tmpin = dup(0);
-    g_data.tmpout = dup(1);
+    // g_data.tmpin = dup(0);
+    // g_data.tmpout = dup(1);
     temp = g_data.cmds;
     len = ft_lstsize(g_data.cmds);
     last_fd = -1;
@@ -60,7 +64,12 @@ void    run_execution(void)
         pipe(p);
         pid = fork();
         if (pid == 0)
-            ft_child_process((t_cmd *)temp->content, i, len, p, last_fd);
+        {
+            if (is_builtins())
+                ft_builtins();
+            else
+                ft_child_process((t_cmd *)temp->content, i, len, p, last_fd);
+        }
         else
         {
             close(p[1]);
@@ -74,10 +83,10 @@ void    run_execution(void)
             i++;
         }
     }
-    dup2(g_data.tmpin, 0);
-    dup2(g_data.tmpout, 1);
-    close(g_data.tmpin);
-    close(g_data.tmpout);
+    // dup2(g_data.tmpin, 0);
+    // dup2(g_data.tmpout, 1);
+    // close(g_data.tmpin);
+    // close(g_data.tmpout);
     i = 0;
     while (i < len)
     {
@@ -89,8 +98,10 @@ void    run_execution(void)
 void	execution(void)
 {
 	t_list *tmp;
+    g_data.tmpin = dup(0);
+    g_data.tmpout = dup(1);
 
-	if (((t_cmd *)(g_data.cmds->content))->args[0] == '\0' && ((t_cmd *)(g_data.cmds->content))->outfiles == NULL)
+	if (((t_cmd *)(g_data.cmds->content))->args[0] == '\0' && ((t_cmd *)(g_data.cmds->content)) == NULL)
 	{
 		tmp = g_data.cmds;
 		g_data.cmds = g_data.cmds->next;
@@ -100,5 +111,9 @@ void	execution(void)
 	else if (is_builtins())
 		ft_builtins();
 	else
-		run_execution(); 
+		run_execution();
+    dup2(g_data.tmpin, 0);
+    dup2(g_data.tmpout, 1);
+    close(g_data.tmpin);
+    close(g_data.tmpout);
 }

@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 19:54:55 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/13 17:50:09 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/14 22:05:42 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void    ft_child_process(t_cmd *cmd, int i, int size, int *p, int last_fd)
 
 void    run_execution(void)
 { 
-    t_list *temp;
     t_list *tmp;
     pid_t pid;
     int i = 0;
@@ -55,11 +54,10 @@ void    run_execution(void)
 
     // g_data.tmpin = dup(0);
     // g_data.tmpout = dup(1);
-    temp = g_data.cmds;
     len = ft_lstsize(g_data.cmds);
     last_fd = -1;
     redirect_input();
-    while(temp)
+    while(g_data.cmds)
     {
         pipe(p);
         pid = fork();
@@ -68,14 +66,13 @@ void    run_execution(void)
             if (is_builtins())
                 ft_builtins();
             else
-                ft_child_process((t_cmd *)temp->content, i, len, p, last_fd);
+                ft_child_process((t_cmd *)g_data.cmds->content, i, len, p, last_fd);
         }
         else
         {
             close(p[1]);
             tmp = g_data.cmds;
             g_data.cmds = g_data.cmds->next;
-            temp = temp->next;
             ft_lstdelone(tmp, &free_cmd);
             if(last_fd != -1)
                 close(last_fd);

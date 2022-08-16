@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 12:52:39 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/13 17:54:22 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/16 15:12:09 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	ft_env(void)
 	{
 		while (g_data.env[i] != NULL)
 		{
-			printf("%s\n", g_data.env[i]);
+			ft_putstr_fd(g_data.env[i], 1);
+			ft_putchar_fd('\n', 1);
 			i++;
 		}
 		return ;

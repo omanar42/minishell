@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 19:54:55 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/16 13:49:57 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/16 15:28:30 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,7 @@ void    run_execution(void)
         pipe(p);
         pid = fork();
         if (pid == 0)
-        {
-            if (is_builtins())
-                ft_builtins();
-            else
-                ft_child_process((t_cmd *)g_data.cmds->content, i, len, p, last_fd);
-        }
+            ft_child_process((t_cmd *)g_data.cmds->content, i, len, p, last_fd);
         else
         {
             close(p[1]);

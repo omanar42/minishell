@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/13 10:57:48 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:55:25 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ char	**get_path(char **env);
 void	*check_cmd(char **path, char *cmd);
 void	free_path(char **paths);
 void    redirect_input(void);
-void    redirect_output(void);
+void    open_outputs(void);
 /*------------------------------BUILTINS----------------------------------*/
 void    ft_builtins(void);
 int		is_builtins(void);

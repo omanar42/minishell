@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 00:46:24 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/13 10:58:50 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/15 14:40:14 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,11 @@ void	handlear(int signal)
 	else if (signal == SIGQUIT)
 	{
 		printf("\n");
-		rl_redisplay();
-		rl_on_new_line();
-		rl_redisplay();
 	}
 }
 
 void	init_signal(void)
 {
 	signal(SIGINT, handlear);
-	signal(SIGQUIT, handlear);
+	signal(SIGQUIT, SIG_IGN);
 }

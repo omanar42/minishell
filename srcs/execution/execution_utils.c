@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:15:08 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/13 17:55:29 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:51:35 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	**get_path(char **env)
         ft_putstr_fd("minishell: ", 2);
         ft_putstr_fd(((t_cmd *)(g_data.cmds->content))->args[0], 2);
         ft_putstr_fd(": No such file or directory\n", 2);
-        // exit_code(127);
+        g_data.exit_status = 127;
     }
 	while (env[i] && ft_strnstr(env[i], "PATH", 4) == 0)
 		i++;
@@ -97,7 +97,7 @@ void    redirect_input()
     }
 }
 
-void    redirect_output(void)
+void    open_outputs(void)
 {
     int j = -1;
     while (((t_cmd *)(g_data.cmds->content))->outfiles[++j])

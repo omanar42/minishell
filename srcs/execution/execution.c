@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 19:54:55 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/14 22:05:42 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/16 13:49:57 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 void    ft_child_process(t_cmd *cmd, int i, int size, int *p, int last_fd)
 {
     // ignor signals in child process
+    close(p[0]);
     if (((t_cmd *)(g_data.cmds->content))->error)
         exit(g_data.exit_status);
-    redirect_output();
-    close(p[0]);
+    open_outputs();
     if (i != size - 1)
     {
         dup2(p[1], 1);
@@ -52,8 +52,6 @@ void    run_execution(void)
     int last_fd;
     // int  status;
 
-    // g_data.tmpin = dup(0);
-    // g_data.tmpout = dup(1);
     len = ft_lstsize(g_data.cmds);
     last_fd = -1;
     redirect_input();
@@ -74,16 +72,12 @@ void    run_execution(void)
             tmp = g_data.cmds;
             g_data.cmds = g_data.cmds->next;
             ft_lstdelone(tmp, &free_cmd);
-            if(last_fd != -1)
+            if (last_fd != -1)
                 close(last_fd);
             last_fd = p[0];
             i++;
         }
     }
-    // dup2(g_data.tmpin, 0);
-    // dup2(g_data.tmpout, 1);
-    // close(g_data.tmpin);
-    // close(g_data.tmpout);
     i = 0;
     while (i < len)
     {

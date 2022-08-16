@@ -6,31 +6,59 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:10:33 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/13 17:53:14 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/16 13:47:54 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	exit_cmd(void)
+void	is_numeric(void)
 {
-    // overlap
-	if (((t_cmd *)(g_data.cmds->content))->args[1] == NULL)
-		exit(g_data.exit_status); // exit last cmd globle exit status_code
-	else if (((t_cmd *)(g_data.cmds->content))->args[1] != NULL && ft_isdigit(((t_cmd *)(g_data.cmds->content))->args[1][0]))
+	int i;
+	int j;
+	t_cmd *cmd;
+
+	i = 1;
+	j = 0;
+	cmd = (t_cmd *)g_data.cmds->content;
+	while (cmd->args[i] != NULL)
 	{
-		g_data.exit_status = 1;
-		ft_putstr_fd("exit \n", 2);
-		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
-	}
-	else if (ft_isdigit(((t_cmd *)(g_data.cmds->content))->args[1][0]))
-		exit(ft_atoi(((t_cmd *)(g_data.cmds->content))->args[1]));
-	else
-	{
-		ft_putstr_fd("exit: ", 1);
-		ft_putstr_fd(((t_cmd *)(g_data.cmds->content))->args[1], 1);
-		ft_putstr_fd(": numeric argument required\n", 2);
-		g_data.exit_status = 225;
-		exit(g_data.exit_status);
+		while(cmd->args[1][j])
+		{
+			if (cmd->args[1][j] != '0' && !ft_atoi(&cmd->args[1][j]))
+			{
+				ft_putstr_fd("exit: ", 1);
+				ft_putstr_fd(cmd->args[1], 1);
+				ft_putstr_fd(": numeric argument required\n", 2);
+				g_data.exit_status = 225;
+				exit(g_data.exit_status);
+			}
+			j++;
+		}
+		i++;
 	}
 }
+
+void	exit_cmd(void)
+{
+	int len;
+	t_cmd *cmd;
+
+	cmd = (t_cmd *)g_data.cmds->content;
+	len = argslen(cmd->args);
+	if (cmd->args[1] == NULL)
+		exit(g_data.exit_status); // exit last cmd globle exit status_code
+	is_numeric();
+	if (len > 3)
+	{
+		ft_putstr_fd("exit\n", 1);
+		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+		g_data.exit_status = 1;
+	}
+	else if (len == 3)
+	{
+		printf("exit\n");	
+		exit(ft_atoi(cmd->args[1]));
+	}
+}
+	

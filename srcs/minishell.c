@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:34:41 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/13 11:07:36 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/15 14:51:41 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ int	main(int ac, char **av, char **env)
 	{
 		line = readline("minishell$ ");
 		if (!line)
+		{
+			ft_putstr_fd("exit\n", 1);
 			break ;
+		}
 		if (line[0] == '\0')
 			continue ;
 		add_history(line);

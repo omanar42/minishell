@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/15 16:55:25 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/17 03:07:06 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	print_export(void);
 void	ft_export(void);
 void	new_environment(void);
 void	ft_set_env(char *name, char *value);
-void	ft_set_export(char *name, char *value);
+void	ft_set_export(char *name, char *value, int exist);
 void	ft_unset(void);
 char	**ft_remove_element(char **env, int n);
 
@@ -145,10 +145,7 @@ int		is_builtins(void);
 void    echo(void);
 void	pwd(void);
 void    cd(void);
-void    unset(void);
 void	ft_env(void);
-void	ft_export(void);
-void	ft_unset(void);
 void    exit_cmd(void);
 /*----------------------------SINALS--------------------------------------*/
 void	handlear(int signal);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:34:41 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/17 03:06:10 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/17 21:21:34 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	main(int ac, char **av, char **env)
 	if (ac != 1)
 		return (0);
 	creat_env(env);
-	// init_signal();
 	creat_export(g_data.env);
+	init_signal();
 	while (42)
 	{
 		line = readline("minishell$ ");

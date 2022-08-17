@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 18:57:11 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/13 17:54:54 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/17 18:01:48 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,18 @@ void	cd(void)
 	path = NULL;
 	oldpwd = getcwd(NULL, 0);
 	if (((t_cmd *)(g_data.cmds->content))->args[1] == NULL)
+	{
 		path = cd_only(path);
+		return ;
+	}
 	else
 		path = ((t_cmd *)(g_data.cmds->content))->args[1];
 	if (chdir(path) == -1)
 	{
 		g_data.exit_status = 1;
 		ft_putstr_fd("minishell: cd: no such file or directory: ", 2);
-		ft_putstr_fd(path, 1);
-		ft_putstr_fd("\n", 1);
+		ft_putstr_fd(path, 2);
+		ft_putstr_fd("\n", 2);
 	}
 	newpwd = getcwd(NULL, 0);
 	setnewpwd(newpwd);

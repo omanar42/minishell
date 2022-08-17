@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/17 03:07:06 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/17 21:24:40 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <dirent.h>
 
 # define RST "\033[0m"
 # define RED "\033[0;31m"
@@ -44,12 +45,8 @@ typedef struct s_cmd
 	/*********/
 	int		fd_p[2];
 	char	**paths;
-	int 	last_cmd;
-	int		first_cmd;
 	char	**cmd_arg;
-	int		n;
 	char	*cmd2;
-	int		data_out;
 	/*********/
 }	t_cmd;
 
@@ -61,6 +58,8 @@ typedef struct s_data {
 	int		flag;
 	int		tmpin;
 	int		tmpout;
+	int		signalchild;
+	int		signalqiut;
 	t_cmd	*cmd;
 	t_list	*cmds;
 }	t_data;
@@ -128,7 +127,7 @@ void	run_cmd(t_cmd *cmd);
 
 /*------------------------------ERROR--------------------------------------*/
 
-void	error(char *s, char *str, int status_code);
+void	error_command_not_found(char *s, char *str, int status_code);
 void	error1(char *s, int status_code);
 void	error2(int status_code);
 void	error3(char *s);

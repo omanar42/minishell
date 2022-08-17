@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:10:33 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/16 13:47:54 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/16 16:40:44 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	is_numeric(void)
 		{
 			if (cmd->args[1][j] != '0' && !ft_atoi(&cmd->args[1][j]))
 			{
-				ft_putstr_fd("exit: ", 1);
-				ft_putstr_fd(cmd->args[1], 1);
+				ft_putstr_fd("exit: ", 2);
+				ft_putstr_fd(cmd->args[1], 2);
 				ft_putstr_fd(": numeric argument required\n", 2);
 				g_data.exit_status = 225;
 				exit(g_data.exit_status);
@@ -51,7 +51,7 @@ void	exit_cmd(void)
 	is_numeric();
 	if (len > 3)
 	{
-		ft_putstr_fd("exit\n", 1);
+		ft_putstr_fd("exit\n", 2);
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 		g_data.exit_status = 1;
 	}

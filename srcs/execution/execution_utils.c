@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:15:08 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/15 16:51:35 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/17 20:36:49 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,6 @@ char	**get_path(char **env)
 	int	i;
 
 	i = 0;
-    if (!env)
-    {
-        ft_putstr_fd("minishell: ", 2);
-        ft_putstr_fd(((t_cmd *)(g_data.cmds->content))->args[0], 2);
-        ft_putstr_fd(": No such file or directory\n", 2);
-        g_data.exit_status = 127;
-    }
 	while (env[i] && ft_strnstr(env[i], "PATH", 4) == 0)
 		i++;
 	if (!env[i])
@@ -63,7 +56,7 @@ char	**get_path(char **env)
         g_data.exit_status = 127;
         ft_putstr_fd("minishell: ", 1);
         ft_putstr_fd(((t_cmd *)(g_data.cmds->content))->args[0], 2);
-        ft_putstr_fd(": No such file or directory\n", 2);
+        ft_putstr_fd(": No such file or directory1\n", 2);
     }
 	else
 		return (ft_split(env[i] + 5, ':')); 
@@ -78,13 +71,13 @@ void	run_cmd(t_cmd *cmd)
     {
         g_data.exit_status = 127;
         free_path(cmd->paths);
-        error("minishell: command not found ", cmd->args[0], g_data.exit_status);
+        error_command_not_found("minishell:", cmd->args[0], g_data.exit_status);
     }
     if (execve(cmd->cmd, cmd->args, g_data.env) == -1)
     {
         g_data.exit_status = 127;
         free_path(cmd->paths);
-        error("minishell: command not found ", cmd->args[0], g_data.exit_status);
+        error_command_not_found("minishell: ", cmd->args[0], g_data.exit_status);
     }
 }
 

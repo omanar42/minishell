@@ -6,39 +6,32 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 19:54:55 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/16 15:28:30 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/17 21:01:31 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+void    ft_dup(int olfd, int nfd)
+{
+    dup2(olfd, nfd);
+    close(olfd);
+}
+
 void    ft_child_process(t_cmd *cmd, int i, int size, int *p, int last_fd)
 {
-    // ignor signals in child process
+    open_outputs();
     close(p[0]);
     if (((t_cmd *)(g_data.cmds->content))->error)
         exit(g_data.exit_status);
-    open_outputs();
     if (i != size - 1)
-    {
-        dup2(p[1], 1);
-        close(p[1]);
-    }
+        ft_dup(p[1], 1);
     if (((t_cmd *)(g_data.cmds->content))->output != 1)
-    {
-        dup2(((t_cmd *)(g_data.cmds->content))->output, 1);
-        close(((t_cmd *)(g_data.cmds->content))->output);
-    }
+        ft_dup(((t_cmd *)(g_data.cmds->content))->output, 1);
     if (last_fd != -1) 
-    {
-        dup2(last_fd, 0);
-        close(last_fd);
-    }
+       ft_dup(last_fd, 0);
     if (((t_cmd *)(g_data.cmds->content))->input != 0)
-    {
-        dup2(((t_cmd *)(g_data.cmds->content))->input, 0);
-        close(((t_cmd *)(g_data.cmds->content))->input);
-    }
+        ft_dup(((t_cmd *)(g_data.cmds->content))->input, 0);
     run_cmd(cmd);
 }
 
@@ -58,9 +51,16 @@ void    run_execution(void)
     while(g_data.cmds)
     {
         pipe(p);
+        signal(SIGQUIT, SIG_IGN);
+        g_data.signalchild = 1;
         pid = fork();
         if (pid == 0)
+        {
+            g_data.signalqiut = 1;
+            signal(SIGINT, SIG_DFL);
+            signal(SIGQUIT, handlear);
             ft_child_process((t_cmd *)g_data.cmds->content, i, len, p, last_fd);
+        }
         else
         {
             close(p[1]);
@@ -87,7 +87,7 @@ void	execution(void)
     g_data.tmpin = dup(0);
     g_data.tmpout = dup(1);
 
-	if (((t_cmd *)(g_data.cmds->content))->args[0] == '\0' && ((t_cmd *)(g_data.cmds->content)) == NULL)
+	if (((t_cmd *)(g_data.cmds->content))->args[0] == '\0' && ((t_cmd *)(g_data.cmds->content)))
 	{
 		tmp = g_data.cmds;
 		g_data.cmds = g_data.cmds->next;
@@ -98,6 +98,7 @@ void	execution(void)
 		ft_builtins();
 	else
 		run_execution();
+    g_data.signalchild = 0;
     dup2(g_data.tmpin, 0);
     dup2(g_data.tmpout, 1);
     close(g_data.tmpin);

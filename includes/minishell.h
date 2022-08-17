@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/17 21:24:40 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/17 21:30:58 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ void	ft_set_env(char *name, char *value);
 void	ft_set_export(char *name, char *value, int exist);
 void	ft_unset(void);
 char	**ft_remove_element(char **env, int n);
+int		is_variable_exist(char *name);
+int		get_index(char *str, char c);
 
 
 /*------------------------------EXECUTION----------------------------------*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 19:54:55 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/18 02:45:56 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/18 15:49:39 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void    run_execution(void)
     int len = 0;
     int p[2];
     int last_fd;
-    // int  status;
+    int  status;
 
     len = ft_lstsize(g_data.cmds);
     last_fd = -1;
@@ -54,6 +54,8 @@ void    run_execution(void)
         signal(SIGQUIT, SIG_IGN);
         g_data.signalchild = 1;
         pid = fork();
+        if (pid == -1)
+            error1("Failed to fork process", errno);
         if (pid == 0)
         {
             g_data.signalqiut = 1;
@@ -76,7 +78,9 @@ void    run_execution(void)
     i = 0;
     while (i < len)
     {
-        waitpid(-1, NULL, 0);
+        waitpid(-1, &status, 0);
+        if (WIFEXITED(status)) // WIFEXITED is true if the child exited normally
+            g_data.exit_status = WEXITSTATUS(status); //WEXITSTATUS returns the exit status of the child process
         i++;
     }
 }

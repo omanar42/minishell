@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:58:20 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/08 22:45:53 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/18 15:37:04 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	token_error(t_token *token)
 	else
 		ft_putstr_fd(token->value, 2);
 	ft_putstr_fd("'\n", 2);
+	g_data.exit_status = 258;
 	ft_lstadd_back(&(g_data.cmds), ft_lstnew((void *)g_data.cmd));
 	free_token(token);
 	return (1);

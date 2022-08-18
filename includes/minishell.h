@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/18 00:39:54 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/18 15:31:26 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ typedef struct s_cmd
 	/*********/
 	int		fd_p[2];
 	char	**paths;
-	char	**cmd_arg;
-	char	*cmd2;
 	/*********/
 }	t_cmd;
 
@@ -136,6 +134,7 @@ void	error_command_not_found(char *s, char *str, int status_code);
 void	error1(char *s, int status_code);
 void	error2(int status_code);
 void	error3(char *s);
+
 /*------------------------EXECUTION_UTILS_FUNCTION-------------------------*/
 
 char	**get_path(char **env);
@@ -143,14 +142,18 @@ void	*check_cmd(char **path, char *cmd);
 void	free_path(char **paths);
 void    redirect_input(void);
 void    open_outputs(void);
+
 /*------------------------------BUILTINS----------------------------------*/
 void    ft_builtins(void);
 int		is_builtins(void);
+int		is_builtins_in_child();
+void	ft_builtins_in_child();
 void    echo(void);
 void	pwd(void);
 void    cd(void);
 void	ft_env(void);
 void    exit_cmd(void);
+
 /*----------------------------SINALS--------------------------------------*/
 void	handlear(int signal);
 void	init_signal(void);

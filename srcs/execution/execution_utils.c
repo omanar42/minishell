@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:15:08 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/18 02:45:52 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/18 15:49:50 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	free_path(char **paths)
 	}
 	free(paths);
 }
+
 void	*check_cmd(char **path, char *cmd)
 {
 	char	*buff;
@@ -31,6 +32,8 @@ void	*check_cmd(char **path, char *cmd)
 
 	if (ft_strchr(cmd, '/'))
 		return (cmd);
+    if (path == NULL)
+        return (NULL);
 	while (*path)
 	{
 		buff = ft_strjoin(*path, "/");
@@ -56,7 +59,8 @@ char	**get_path(char **env)
         g_data.exit_status = 127;
         ft_putstr_fd("minishell: ", 1);
         ft_putstr_fd(((t_cmd *)(g_data.cmds->content))->args[0], 2);
-        ft_putstr_fd(": No such file or directory\n", 2);
+        ft_putstr_fd(": No such file or directory2\n", 2);
+        exit(g_data.exit_status);
     }
 	else
 		return (ft_split(env[i] + 5, ':')); 
@@ -65,6 +69,8 @@ char	**get_path(char **env)
 
 void	run_cmd(t_cmd *cmd)
 {
+    if (is_builtins_in_child())
+        ft_builtins_in_child();
     cmd->paths = get_path(g_data.env);
     cmd->cmd = check_cmd(cmd->paths, cmd->args[0]);
     if (!cmd->cmd)
@@ -73,7 +79,7 @@ void	run_cmd(t_cmd *cmd)
         free_path(cmd->paths);
         error_command_not_found("minishell:", cmd->args[0], g_data.exit_status);
     }
-    if (execve(cmd->cmd, cmd->args, g_data.env) == -1)
+    else if (execve(cmd->cmd, cmd->args, g_data.env) == -1)
     {
         g_data.exit_status = 127;
         free_path(cmd->paths);

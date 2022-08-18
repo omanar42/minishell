@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:00:01 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/08 22:35:58 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/17 22:49:25 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,10 @@ char	*handle_spaces(char *value, char **new)
 	char	**strs;
 
 	strs = ft_split(value, ' ');
-	*new = advanced_join(*new, strs[0]);
+	i = -1;
+	*new = advanced_join(*new, strs[++i]);
 	g_data.cmd->args = advanced_add(g_data.cmd->args, *new);
-	i = 0;
-	while (strs[++i + 1])
+	while (strs[++i])
 		g_data.cmd->args = advanced_add(g_data.cmd->args, strs[i]);
 	tmp = ft_strdup(strs[i]);
 	free(*new);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initializer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:55:31 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/12 18:00:57 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/18 02:39:59 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	creat_env(char **env)
 	int		i;
 
 	i = -1;
+	g_data.exit_status = 0;
 	g_data.env = (char **)malloc(sizeof(char *));
 	g_data.env[0] = NULL;
 	while (env[++i])
@@ -68,6 +69,5 @@ void	cmd_init(void)
 void	data_init(void)
 {
 	g_data.error = 0;
-	g_data.exit_status = 0;
 	cmd_init();
 }

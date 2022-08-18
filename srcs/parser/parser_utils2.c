@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 01:11:15 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/13 17:02:31 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/18 02:34:34 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@ char	*parse_dollar(char *str, int *i)
 	char	*tmp;
 
 	start = *i + 1;
-	if (is_separator(str[start]) || !is_acceptable(str[start]))
-		new = ft_strdup("$");
-	else if (str[start] == '?')
+	if (str[start] == '?')
+	{
 		new = ft_itoa(g_data.exit_status);
+		(*i)++;
+	}
+	else if (is_separator(str[start]) || !is_acceptable(str[start]))
+		new = ft_strdup("$");
 	else
 	{
 		while (str[*i] && is_acceptable(str[++(*i)]))

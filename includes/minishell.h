@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/17 21:30:58 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/18 00:39:54 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,9 @@ void	ft_unset(void);
 char	**ft_remove_element(char **env, int n);
 int		is_variable_exist(char *name);
 int		get_index(char *str, char c);
+char	*get_new_line(char *name, char *value);
+int		check_error(char *arg);
+int		check_path(char **env);
 
 
 /*------------------------------EXECUTION----------------------------------*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:15:08 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/17 20:36:49 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/18 02:45:52 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ char	**get_path(char **env)
 	int	i;
 
 	i = 0;
-	while (env[i] && ft_strnstr(env[i], "PATH", 4) == 0)
+	while (env[i] && ft_strnstr(env[i], "PATH=", 5) == 0)
 		i++;
 	if (!env[i])
     {
         g_data.exit_status = 127;
         ft_putstr_fd("minishell: ", 1);
         ft_putstr_fd(((t_cmd *)(g_data.cmds->content))->args[0], 2);
-        ft_putstr_fd(": No such file or directory1\n", 2);
+        ft_putstr_fd(": No such file or directory\n", 2);
     }
 	else
 		return (ft_split(env[i] + 5, ':')); 

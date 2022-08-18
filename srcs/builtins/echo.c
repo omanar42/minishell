@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:09:42 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/17 21:13:51 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/17 22:40:46 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	echo(void)
 	while (((t_cmd *)(g_data.cmds->content))->args[i])
 	{
 		ft_putstr_fd(((t_cmd *)(g_data.cmds->content))->args[i], 1);
-		if (!((t_cmd *)(g_data.cmds->content))->args[i + 1])
+		if (((t_cmd *)(g_data.cmds->content))->args[i + 1])
 			ft_putstr_fd(" ", 1);
 		i++;
 	}

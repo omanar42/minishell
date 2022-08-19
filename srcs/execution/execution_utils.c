@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:15:08 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/18 15:49:50 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/19 20:42:45 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	run_cmd(t_cmd *cmd)
     {
         g_data.exit_status = 127;
         free_path(cmd->paths);
-        error_command_not_found("minishell: ", cmd->args[0], g_data.exit_status);
+        exit_strerr(cmd->args[0], errno);
     }
 }
 
@@ -105,5 +105,10 @@ void    open_outputs(void)
             ((t_cmd *)(g_data.cmds->content))->output = open(((t_cmd *)(g_data.cmds->content))->outfiles[j], O_WRONLY | O_CREAT | O_APPEND, 0644);
         else
             ((t_cmd *)(g_data.cmds->content))->output = open(((t_cmd *)(g_data.cmds->content))->outfiles[j], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    }       
+		if (((t_cmd *)(g_data.cmds->content))->output == -1)
+		{
+			g_data.exit_status = 127;
+			exit_strerr(((t_cmd *)(g_data.cmds->content))->outfiles[j], errno);
+		}
+    }
 }

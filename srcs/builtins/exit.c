@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:10:33 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/16 16:40:44 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/19 18:10:54 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ void	exit_cmd(void)
 	cmd = (t_cmd *)g_data.cmds->content;
 	len = argslen(cmd->args);
 	if (cmd->args[1] == NULL)
+	{
+		ft_putstr_fd("exit\n", 2);
 		exit(g_data.exit_status); // exit last cmd globle exit status_code
+	}
 	is_numeric();
 	if (len > 3)
 	{

@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:11:31 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/17 18:12:42 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/19 17:55:31 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ void	 error_command_not_found(char *s, char *str, int status_code)
 	exit(status_code);
 }
 
+void	exit_strerr(char *str, int err)
+{
+	ft_putstr_fd("Minishell: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(strerror(err), 2);
+	exit(EXIT_FAILURE);
+}
 void	error1(char *s, int status_code)
 {
     printf("%s\n", s);

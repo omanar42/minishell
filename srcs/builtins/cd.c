@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 18:57:11 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/17 18:01:48 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/19 18:45:02 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	setnewpwd(char *newpwd)
 	{
 		if (ft_strncmp(g_data.env[i], "PWD=", 4) == 0)
 		{
+			free(g_data.env[i]);
 			g_data.env[i] = ft_strjoin("PWD=", newpwd);
-			free(newpwd);
 			return ;
 		}
 		i++;
@@ -54,8 +54,8 @@ void	setoldpwd(char *oldpwd)
 	{
 		if (ft_strncmp(g_data.env[i], "OLDPWD=", 7) == 0)
 		{
+			free(g_data.env[i]);
 			g_data.env[i] = ft_strjoin("OLDPWD=", oldpwd);
-			free(oldpwd);
 			return ;
 		}
 	i++;
@@ -85,11 +85,10 @@ void	cd(void)
 	if (((t_cmd *)(g_data.cmds->content))->args[1] == NULL)
 	{
 		path = cd_only(path);
-		return ;
 	}
 	else
 		path = ((t_cmd *)(g_data.cmds->content))->args[1];
-	if (chdir(path) == -1)
+	if (chdir(path) == -1 && path)
 	{
 		g_data.exit_status = 1;
 		ft_putstr_fd("minishell: cd: no such file or directory: ", 2);
@@ -99,4 +98,6 @@ void	cd(void)
 	newpwd = getcwd(NULL, 0);
 	setnewpwd(newpwd);
 	setoldpwd(oldpwd);
+	free(oldpwd);
+	free(newpwd);
 }

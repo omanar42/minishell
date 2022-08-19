@@ -12,7 +12,7 @@
 
 NAME	=	minishell
 RM		=	rm -f
-CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes -g -fsanitize=address
+CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes #-g -fsanitize=address
 RLFLG	=	-lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
 LIBFT	=	libs/libft/libft.a
 SRCS	=	srcs/minishell.c srcs/initializer.c srcs/cleaner.c $(LIBFT) \
@@ -50,15 +50,15 @@ $(NAME): $(SRCS) $(LIBFT)
 	@echo "\033[0;36m</ Compiling Minishell >\033[0m"
 	@$(CC) -g $(RLFLG) $(SRCS) -o $(NAME)
 	@echo "\033[1;32mMinishell has been compiled!\033[0m\n"
-	@stty -echoctl
+
 clean:
 	@make clean -C libs/libft
-	@stty -echoctl
+
 fclean: clean
 	@$(RM) $(NAME)
 	@make fclean -C libs/libft
 	@echo "\n\033[0;31m</ EVERYTHING HAS BEEN DELETED! >\033[0m\n"
-	@stty -echoctl
+
 re: fclean all
 
 .PHONY: all clean fclean re header_m

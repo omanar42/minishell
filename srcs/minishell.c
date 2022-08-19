@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:34:41 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/18 13:47:02 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/19 20:10:46 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ int	main(int ac, char **av, char **env)
 		{
 			ft_putstr_fd("exit\n", 1);
 			break ;
+		}
+		if (line[0] == '\0')
+		{
+			free(line);
+			continue ;
 		}
 		add_history(line);
 		if (parsing(line))

@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 19:54:55 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/18 15:49:39 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/19 20:10:49 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,9 @@ void    run_execution(void)
         if (pid == 0)
         {
             g_data.signalqiut = 1;
+            g_data.signalchild = 1;
             signal(SIGINT, SIG_DFL);
-            signal(SIGQUIT, handlear);
+            signal(SIGQUIT, SIG_DFL);
             ft_child_process((t_cmd *)g_data.cmds->content, i, len, p, last_fd);
         }
         else
@@ -79,26 +80,19 @@ void    run_execution(void)
     while (i < len)
     {
         waitpid(-1, &status, 0);
-        if (WIFEXITED(status)) // WIFEXITED is true if the child exited normally
-            g_data.exit_status = WEXITSTATUS(status); //WEXITSTATUS returns the exit status of the child process
+        g_data.exit_status = WEXITSTATUS(status); //WEXITSTATUS returns the exit status of the child process
+        if (WIFSIGNALED(status))
+            g_data.exit_status = 128 + WTERMSIG(status);
         i++;
     }
 }
 
 void	execution(void)
 {
-	t_list *tmp;
     g_data.tmpin = dup(0);
     g_data.tmpout = dup(1);
 
-	if (((t_cmd *)(g_data.cmds->content))->args[0] == '\0' && ((t_cmd *)(g_data.cmds->content)))
-	{
-		tmp = g_data.cmds;
-		g_data.cmds = g_data.cmds->next;
-		ft_lstdelone(tmp, &free_cmd);
-		return ;
-	}
-	else if (!g_data.cmds->next && is_builtins())
+	if (!g_data.cmds->next && is_builtins())
 		ft_builtins();
 	else
 		run_execution();

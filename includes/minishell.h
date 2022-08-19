@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/18 15:31:26 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/19 19:24:02 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ typedef struct s_data {
 	int		tmpout;
 	int		signalchild;
 	int		signalqiut;
+	int		signal_heredoc;
+	int		test;
 	t_cmd	*cmd;
 	t_list	*cmds;
 }	t_data;
@@ -134,6 +136,7 @@ void	error_command_not_found(char *s, char *str, int status_code);
 void	error1(char *s, int status_code);
 void	error2(int status_code);
 void	error3(char *s);
+void	exit_strerr(char *str, int err);
 
 /*------------------------EXECUTION_UTILS_FUNCTION-------------------------*/
 
@@ -146,15 +149,15 @@ void    open_outputs(void);
 /*------------------------------BUILTINS----------------------------------*/
 void    ft_builtins(void);
 int		is_builtins(void);
-int		is_builtins_in_child();
-void	ft_builtins_in_child();
+int		is_builtins_in_child(void);
+void	ft_builtins_in_child(void);
 void    echo(void);
 void	pwd(void);
 void    cd(void);
 void	ft_env(void);
 void    exit_cmd(void);
 
-/*----------------------------SINALS--------------------------------------*/
+/*----------------------------SIGNALS--------------------------------------*/
 void	handlear(int signal);
 void	init_signal(void);
 

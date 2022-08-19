@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 01:11:15 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/18 02:34:34 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/20 00:44:44 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	*parse_dollar(char *str, int *i)
 	char	*tmp;
 
 	start = *i + 1;
+	g_data.dollar = 1;
 	if (str[start] == '?')
 	{
 		new = ft_itoa(g_data.exit_status);

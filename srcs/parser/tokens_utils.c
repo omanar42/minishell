@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 16:18:58 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/19 22:53:36 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/20 00:46:11 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	token_word(t_token **token)
 	char	*value;
 
 	value = parse_args((*token)->value);
-	g_data.cmd->args = advanced_add(g_data.cmd->args, value);
+	if (value[0] != '\0' || !g_data.dollar)
+		g_data.cmd->args = advanced_add(g_data.cmd->args, value);
 	free(value);
 }
 

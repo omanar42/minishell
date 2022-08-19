@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 16:18:58 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/18 02:41:20 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/19 22:53:36 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,6 @@ void	token_infile(t_lexer **lexer, t_token **token)
 			*token = lexer_next_token(*lexer);
 			if ((*token)->e_type == TOKEN_HEREDOC)
 				token_heredoc(lexer, token);
-		}
-		if (g_data.cmd->error == 1)
-		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(g_data.cmd->infile, 2);
-			ft_putstr_fd(": ", 2);
-			ft_putstr_fd(strerror(g_data.cmd->exit_status), 2);
-			ft_putstr_fd("\n", 2);
 		}
 		if ((*token)->e_type == TOKEN_PIPE)
 			token_pipe();

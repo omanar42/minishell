@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 21:46:57 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/18 13:51:28 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/19 22:58:43 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ void	ft_builtins(void)
 	t_cmd *cmd;
 
 	cmd = (t_cmd *)g_data.cmds->content;
-	if(!cmd->args[0])
-		return ;
 	redirect_input();
 	open_outputs();
 	if (((t_cmd *)(g_data.cmds->content))->output != 1)

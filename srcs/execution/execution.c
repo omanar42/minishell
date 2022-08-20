@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 19:54:55 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/19 23:06:06 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/20 14:57:44 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void    run_execution(void)
     {
         pipe(p);
         signal(SIGQUIT, SIG_IGN);
-        g_data.signalchild = 1;
         pid = fork();
         if (pid == -1)
 		{
@@ -75,7 +74,7 @@ void    run_execution(void)
         {
             g_data.signalqiut = 1;
             g_data.signalchild = 1;
-            signal(SIGINT, handlear);
+            signal(SIGINT, SIG_DFL);
             signal(SIGQUIT, SIG_DFL);
             ft_child_process((t_cmd *)g_data.cmds->content, i, len, p, last_fd);
         }

@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 18:57:11 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/19 18:45:02 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/20 14:27:42 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,7 @@ void	cd(void)
 	path = NULL;
 	oldpwd = getcwd(NULL, 0);
 	if (((t_cmd *)(g_data.cmds->content))->args[1] == NULL)
-	{
 		path = cd_only(path);
-	}
 	else
 		path = ((t_cmd *)(g_data.cmds->content))->args[1];
 	if (chdir(path) == -1 && path)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:34:41 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/20 00:28:48 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/20 13:44:49 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	main(int ac, char **av, char **env)
 			clean();
 			continue ;
 		}
-		printer();
-		// execution();
+		// printer();
+		execution();
 		free(line);
 	}
 	free_loop(g_data.env);

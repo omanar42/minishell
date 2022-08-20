@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initializer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:55:31 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/20 00:44:38 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/20 14:57:59 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ void	data_init(void)
 {
 	g_data.error = 0;
 	g_data.dollar = 0;
+	g_data.signalchild = 1;
 	cmd_init();
 }

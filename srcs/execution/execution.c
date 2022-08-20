@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 19:54:55 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/20 14:57:44 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/20 21:05:36 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,10 @@ void    run_execution(void)
         pid = fork();
         if (pid == -1)
 		{
+            ft_putstr_fd("minishell: ", 2);
+            perror("fork");
 			g_data.exit_status = 1;
-            error3("Minishell: fork: Resource temporarily unavailable");
-			break ;
+            break ;
 		}
         if (pid == 0)
         {
@@ -94,9 +95,12 @@ void    run_execution(void)
     while (i < len)
     {
         waitpid(-1, &status, 0);
-        g_data.exit_status = WEXITSTATUS(status); //WEXITSTATUS returns the exit status of the child process
-        if (WIFSIGNALED(status)) // WIFSIGNALED returns true if the child process was terminated by a signal
-            g_data.exit_status = 128 + WTERMSIG(status); 
+        if (pid != -1)
+        {
+            g_data.exit_status = WEXITSTATUS(status); //WEXITSTATUS returns the exit status of the child process
+            if (WIFSIGNALED(status)) // WIFSIGNALED returns true if the child process was terminated by a signal
+                g_data.exit_status = 128 + WTERMSIG(status);
+        }
 		/*
 		WTERMSIG returns the number of the signal that caused the child process to terminate and we add 128 to get the exit status of the child process was terminated by a signalchild in example :
 		128 + SIGINT = 130 (SIGINT = 2) and we add 128 to get the exit status of the child process was terminated by a signalchild in another example :

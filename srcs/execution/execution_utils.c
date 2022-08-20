@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:15:08 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/19 21:58:55 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/20 21:11:01 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,13 @@ void	run_cmd(t_cmd *cmd)
     if (!cmd->cmd)
     {
         g_data.exit_status = 127;
-        free_path(cmd->paths);
+        free_path(cmd->paths); // check if there cmd not exist and if there is a leak of memory
         error_command_not_found("minishell:", cmd->args[0], g_data.exit_status);
     }
     else if (execve(cmd->cmd, cmd->args, g_data.env) == -1)
     {
         g_data.exit_status = 127;
-        free_path(cmd->paths);
+        free_path(cmd->paths); // check if execve failed and if there is  leak of memory
         exit_strerr(cmd->args[0], errno);
     }
 }

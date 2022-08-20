@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 12:52:44 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/20 13:53:51 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/20 21:12:13 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	pwd(void)
 {
-	char	*pwd = NULL;
-	int i = 0;
+	char	*pwd;
+	int i;
 
-	// pwd = getcwd(NULL, 0);
+	i = 0;
+	pwd = NULL;
 	while(g_data.env[i])
 	{
 		if (ft_strncmp(g_data.env[i], "PWD=", 4) == 0)
@@ -28,5 +29,4 @@ void	pwd(void)
 		i++;
 	}
 	printf("%s\n", pwd);
-	// free(pwd);
 }

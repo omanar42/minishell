@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 01:11:15 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/20 00:44:44 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/20 23:45:46 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char	*parse_dquote(char *str, int *i)
 		new = advanced_join(new, tmp);
 		free(tmp);
 	}
+	g_data.dollar = 0;
 	return (new);
 }
 

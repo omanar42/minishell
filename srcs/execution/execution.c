@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 19:54:55 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/20 21:05:36 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/20 23:42:40 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ void    ft_child_process(t_cmd *cmd, int i, int size, int *p, int last_fd)
        ft_dup(last_fd, 0);
     if (((t_cmd *)(g_data.cmds->content))->input != 0)
         ft_dup(((t_cmd *)(g_data.cmds->content))->input, 0);
-	if (!((t_cmd *)(g_data.cmds->content))->args[0]
-		|| !((t_cmd *)(g_data.cmds->content))->args[0][0])
+	if (!((t_cmd *)(g_data.cmds->content))->args[0])
 		exit(0);
     run_cmd(cmd);
 }

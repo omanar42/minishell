@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/20 15:12:07 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/20 22:17:32 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ char	*get_new_line(char *name, char *value);
 int		check_error(char *arg);
 int		check_path(char **env);
 
-
 /*------------------------------EXECUTION----------------------------------*/
 
 void	execution(void);
@@ -145,19 +144,19 @@ void	exit_strerr(char *str, int err);
 char	**get_path(char **env);
 void	*check_cmd(char **path, char *cmd);
 void	free_path(char **paths);
-void    redirect_input(void);
-void    open_outputs(void);
+void	redirect_input(void);
+void	open_outputs(void);
 
 /*------------------------------BUILTINS----------------------------------*/
-void    ft_builtins(void);
+void	ft_builtins(void);
 int		is_builtins(void);
 int		is_builtins_in_child(void);
 void	ft_builtins_in_child(void);
-void    echo(void);
+void	echo(void);
 void	pwd(void);
-void    cd(void);
+void	cd(void);
 void	ft_env(void);
-void    exit_cmd(void);
+void	exit_cmd(void);
 
 /*----------------------------SIGNALS--------------------------------------*/
 void	handlear(int signal);

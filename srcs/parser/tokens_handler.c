@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:58:20 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/19 20:05:26 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/20 21:58:45 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	token_pipe(void)
 {
 	ft_lstadd_back(&g_data.cmds, ft_lstnew((void *)g_data.cmd));
+	g_data.exit_status = 0;
 	cmd_init();
 }
 

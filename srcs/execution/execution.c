@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 19:54:55 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/18 15:49:39 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/20 14:57:44 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,15 @@ void    ft_child_process(t_cmd *cmd, int i, int size, int *p, int last_fd)
     open_outputs();
     close(p[0]);
     if (((t_cmd *)(g_data.cmds->content))->error)
-        exit(g_data.exit_status);
+    {
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(((t_cmd *)(g_data.cmds->content))->infile, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(strerror(((t_cmd *)(g_data.cmds->content))->exit_status), 2);
+		ft_putstr_fd("\n", 2);
+		g_data.exit_status = 1;
+		exit(g_data.exit_status);
+	}
     if (i != size - 1)
         ft_dup(p[1], 1);
     if (((t_cmd *)(g_data.cmds->content))->output != 1)
@@ -32,6 +40,9 @@ void    ft_child_process(t_cmd *cmd, int i, int size, int *p, int last_fd)
        ft_dup(last_fd, 0);
     if (((t_cmd *)(g_data.cmds->content))->input != 0)
         ft_dup(((t_cmd *)(g_data.cmds->content))->input, 0);
+	if (!((t_cmd *)(g_data.cmds->content))->args[0]
+		|| !((t_cmd *)(g_data.cmds->content))->args[0][0])
+		exit(0);
     run_cmd(cmd);
 }
 
@@ -52,15 +63,19 @@ void    run_execution(void)
     {
         pipe(p);
         signal(SIGQUIT, SIG_IGN);
-        g_data.signalchild = 1;
         pid = fork();
         if (pid == -1)
-            error1("Failed to fork process", errno);
+		{
+			g_data.exit_status = 1;
+            error3("Minishell: fork: Resource temporarily unavailable");
+			break ;
+		}
         if (pid == 0)
         {
             g_data.signalqiut = 1;
+            g_data.signalchild = 1;
             signal(SIGINT, SIG_DFL);
-            signal(SIGQUIT, handlear);
+            signal(SIGQUIT, SIG_DFL);
             ft_child_process((t_cmd *)g_data.cmds->content, i, len, p, last_fd);
         }
         else
@@ -79,26 +94,23 @@ void    run_execution(void)
     while (i < len)
     {
         waitpid(-1, &status, 0);
-        if (WIFEXITED(status)) // WIFEXITED is true if the child exited normally
-            g_data.exit_status = WEXITSTATUS(status); //WEXITSTATUS returns the exit status of the child process
+        g_data.exit_status = WEXITSTATUS(status); //WEXITSTATUS returns the exit status of the child process
+        if (WIFSIGNALED(status)) // WIFSIGNALED returns true if the child process was terminated by a signal
+            g_data.exit_status = 128 + WTERMSIG(status); 
+		/*
+		WTERMSIG returns the number of the signal that caused the child process to terminate and we add 128 to get the exit status of the child process was terminated by a signalchild in example :
+		128 + SIGINT = 130 (SIGINT = 2) and we add 128 to get the exit status of the child process was terminated by a signalchild in another example :
+		128 + SIGQUIT = 131 (SIGQUIT = 3)*/ 
         i++;
     }
 }
 
 void	execution(void)
 {
-	t_list *tmp;
     g_data.tmpin = dup(0);
     g_data.tmpout = dup(1);
 
-	if (((t_cmd *)(g_data.cmds->content))->args[0] == '\0' && ((t_cmd *)(g_data.cmds->content)))
-	{
-		tmp = g_data.cmds;
-		g_data.cmds = g_data.cmds->next;
-		ft_lstdelone(tmp, &free_cmd);
-		return ;
-	}
-	else if (!g_data.cmds->next && is_builtins())
+	if (!g_data.cmds->next && is_builtins())
 		ft_builtins();
 	else
 		run_execution();

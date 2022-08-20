@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 16:18:58 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/18 02:41:20 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/20 00:46:11 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	token_word(t_token **token)
 	char	*value;
 
 	value = parse_args((*token)->value);
-	g_data.cmd->args = advanced_add(g_data.cmd->args, value);
+	if (value[0] != '\0' || !g_data.dollar)
+		g_data.cmd->args = advanced_add(g_data.cmd->args, value);
 	free(value);
 }
 
@@ -51,14 +52,6 @@ void	token_infile(t_lexer **lexer, t_token **token)
 			*token = lexer_next_token(*lexer);
 			if ((*token)->e_type == TOKEN_HEREDOC)
 				token_heredoc(lexer, token);
-		}
-		if (g_data.cmd->error == 1)
-		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(g_data.cmd->infile, 2);
-			ft_putstr_fd(": ", 2);
-			ft_putstr_fd(strerror(g_data.cmd->exit_status), 2);
-			ft_putstr_fd("\n", 2);
 		}
 		if ((*token)->e_type == TOKEN_PIPE)
 			token_pipe();

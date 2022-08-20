@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 00:46:24 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/20 15:42:50 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/20 15:54:26 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	handlear(int signal)
 		g_data.exit_status = 1;
 		rl_on_new_line();
 		rl_replace_line("", 0);
+		rl_redisplay();
 	}
 }
 

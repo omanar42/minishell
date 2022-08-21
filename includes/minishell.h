@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/20 22:17:32 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/21 04:50:45 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@
 # define GRN "\033[0;32m"
 # define CYN "\033[0;36m"
 
+typedef struct s_outfiles
+{
+	int		app;
+	char	*value;
+}	t_outfiles;
+
 typedef struct s_cmd
 {
 	char	*cmd;
@@ -38,7 +44,8 @@ typedef struct s_cmd
 	char	*infile;
 	int		output;
 	char	**outfiles;
-	int		append;
+	int		*append;
+	int		app_index;
 	int		error;
 	int		exit_status;
 	pid_t	pid;
@@ -78,7 +85,7 @@ void	cmd_init(void);
 int		tokens_handler(t_lexer *lexer);
 int		token_error(t_token *token);
 void	token_word(t_token **token);
-void	token_outfile(t_lexer **lexer, t_token **token);
+void	token_outfile(t_lexer **lexer, t_token **token, int i);
 void	token_infile(t_lexer **lexer, t_token **token);
 int		open_infile(t_token *token);
 void	token_heredoc(t_lexer **lexer, t_token **token);

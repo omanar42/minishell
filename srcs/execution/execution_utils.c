@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:15:08 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/20 21:11:01 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/21 04:46:20 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	run_cmd(t_cmd *cmd)
         ft_builtins_in_child();
     cmd->paths = get_path(g_data.env);
     cmd->cmd = check_cmd(cmd->paths, cmd->args[0]);
-    if (!cmd->cmd)
+    if (!cmd->cmd || !cmd->args[0][0])
     {
         g_data.exit_status = 127;
         free_path(cmd->paths); // check if there cmd not exist and if there is a leak of memory
@@ -101,7 +101,7 @@ void    open_outputs(void)
     int j = -1;
     while (((t_cmd *)(g_data.cmds->content))->outfiles[++j])
     {
-        if (((t_cmd *)(g_data.cmds->content))->append)
+        if (((t_cmd *)(g_data.cmds->content))->append[j])
             ((t_cmd *)(g_data.cmds->content))->output = open(((t_cmd *)(g_data.cmds->content))->outfiles[j], O_WRONLY | O_CREAT | O_APPEND, 0644);
         else
             ((t_cmd *)(g_data.cmds->content))->output = open(((t_cmd *)(g_data.cmds->content))->outfiles[j], O_WRONLY | O_CREAT | O_TRUNC, 0644);

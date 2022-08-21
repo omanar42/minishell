@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 16:18:58 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/20 00:46:11 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/21 04:59:05 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,21 @@ void	token_infile(t_lexer **lexer, t_token **token)
 	}
 }
 
-void	token_outfile(t_lexer **lexer, t_token **token)
+int	*set_new_append(int *tab, int i, int value)
+{
+	int	*new;
+	int	j;
+
+	j = -1;
+	new = ft_calloc(i + 1, sizeof(int));
+	while (++j < i)
+		new[j] = tab[j];
+	new[i] = value;
+	free(tab);
+	return (new);
+}
+
+void	token_outfile(t_lexer **lexer, t_token **token, int i)
 {
 	int		append;
 	char	*value;
@@ -70,6 +84,6 @@ void	token_outfile(t_lexer **lexer, t_token **token)
 	*token = lexer_next_token(*lexer);
 	value = parse_args((*token)->value);
 	g_data.cmd->outfiles = advanced_add(g_data.cmd->outfiles, value);
+	g_data.cmd->append = set_new_append(g_data.cmd->append, i, append);
 	free(value);
-	g_data.cmd->append = append;
 }

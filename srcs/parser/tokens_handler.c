@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:58:20 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/20 21:58:45 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/21 04:50:24 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	tokens_handler(t_lexer *lexer)
 		else if (token->e_type == TOKEN_INFILE)
 			token_infile(&lexer, &token);
 		else if (token->e_type == TOKEN_OUT || token->e_type == TOKEN_APP)
-			token_outfile(&lexer, &token);
+			token_outfile(&lexer, &token, ++g_data.cmd->app_index);
 		else if (token->e_type == TOKEN_HEREDOC)
 			token_heredoc(&lexer, &token);
 		else if (token->e_type == TOKEN_PIPE)

@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:34:41 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/21 04:30:00 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/21 05:22:09 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
- 
+
 	(void)av;
 	if (ac != 1)
 		return (0);

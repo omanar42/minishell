@@ -3,29 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 21:46:57 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/19 22:58:43 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/21 05:23:24 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-void	ft_builtins_in_child()
+
+void	ft_builtins_in_child(void)
 {
-	t_cmd *cmd;
+	t_cmd	*cmd;
 	t_list	*tmp;
 
 	cmd = (t_cmd *)g_data.cmds->content;
-	if(!cmd->args[0])
+	if (!cmd->args[0])
 		return ;
 	redirect_input();
 	open_outputs();
 	if (((t_cmd *)(g_data.cmds->content))->output != 1)
-    {
-        dup2(((t_cmd *)(g_data.cmds->content))->output, 1);
-        close(((t_cmd *)(g_data.cmds->content))->output);
-    }
+	{
+		dup2(((t_cmd *)(g_data.cmds->content))->output, 1);
+		close(((t_cmd *)(g_data.cmds->content))->output);
+	}
 	if (ft_strncmp(cmd->args[0], "pwd", 3) == 0
 		|| ft_strncmp(cmd->args[0], "PWD", 3) == 0)
 		pwd();
@@ -49,9 +50,9 @@ void	ft_builtins_in_child()
 	exit(0);
 }
 
-int	is_builtins_in_child()
+int	is_builtins_in_child(void)
 {
-	t_cmd *cmd;
+	t_cmd	*cmd;
 
 	cmd = (t_cmd *)g_data.cmds->content;
 	if (!cmd->args[0])
@@ -72,17 +73,17 @@ int	is_builtins_in_child()
 
 void	ft_builtins(void)
 {
-	t_list *tmp;
-	t_cmd *cmd;
+	t_list	*tmp;
+	t_cmd	*cmd;
 
 	cmd = (t_cmd *)g_data.cmds->content;
 	redirect_input();
 	open_outputs();
 	if (((t_cmd *)(g_data.cmds->content))->output != 1)
-    {
-        dup2(((t_cmd *)(g_data.cmds->content))->output, 1);
-        close(((t_cmd *)(g_data.cmds->content))->output);
-    }
+	{
+		dup2(((t_cmd *)(g_data.cmds->content))->output, 1);
+		close(((t_cmd *)(g_data.cmds->content))->output);
+	}
 	if (ft_strncmp(cmd->args[0], "pwd", 3) == 0
 		|| ft_strncmp(cmd->args[0], "PWD", 3) == 0)
 		pwd();
@@ -107,7 +108,7 @@ void	ft_builtins(void)
 
 int	is_builtins(void)
 {
-	t_cmd *cmd;
+	t_cmd	*cmd;
 
 	cmd = (t_cmd *)g_data.cmds->content;
 	if (!cmd->args[0])

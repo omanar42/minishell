@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/21 04:50:45 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/21 05:21:46 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,8 @@ typedef struct s_cmd
 	int		error;
 	int		exit_status;
 	pid_t	pid;
-	/*********/
 	int		fd_p[2];
 	char	**paths;
-	/*********/
 }	t_cmd;
 
 typedef struct s_data {
@@ -66,7 +64,7 @@ typedef struct s_data {
 	int		signalchild;
 	int		signalqiut;
 	int		signal_heredoc;
-	char*		savepwd;
+	char	*savepwd;
 	int		test;
 	int		dollar;
 	t_cmd	*cmd;

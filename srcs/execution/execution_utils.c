@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:15:08 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/21 04:46:20 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/21 05:14:29 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	*check_cmd(char **path, char *cmd)
 
 	if (ft_strchr(cmd, '/'))
 		return (cmd);
-    if (path == NULL)
-        return (NULL);
+	if (path == NULL)
+		return (NULL);
 	while (*path)
 	{
 		buff = ft_strjoin(*path, "/");
@@ -55,60 +55,66 @@ char	**get_path(char **env)
 	while (env[i] && ft_strnstr(env[i], "PATH=", 5) == 0)
 		i++;
 	if (!env[i])
-    {
-        g_data.exit_status = 127;
-        ft_putstr_fd("minishell: ", 1);
-        ft_putstr_fd(((t_cmd *)(g_data.cmds->content))->args[0], 2);
-        ft_putstr_fd(": No such file or directory2\n", 2);
-        exit(g_data.exit_status);
-    }
+	{
+		g_data.exit_status = 127;
+		ft_putstr_fd("minishell: ", 1);
+		ft_putstr_fd(((t_cmd *)(g_data.cmds->content))->args[0], 2);
+		ft_putstr_fd(": No such file or directory2\n", 2);
+		exit(g_data.exit_status);
+	}
 	else
-		return (ft_split(env[i] + 5, ':')); 
+		return (ft_split(env[i] + 5, ':'));
 	return (NULL);
 }
 
 void	run_cmd(t_cmd *cmd)
 {
-    if (is_builtins_in_child())
-        ft_builtins_in_child();
-    cmd->paths = get_path(g_data.env);
-    cmd->cmd = check_cmd(cmd->paths, cmd->args[0]);
-    if (!cmd->cmd || !cmd->args[0][0])
-    {
-        g_data.exit_status = 127;
-        free_path(cmd->paths); // check if there cmd not exist and if there is a leak of memory
-        error_command_not_found("minishell:", cmd->args[0], g_data.exit_status);
-    }
-    else if (execve(cmd->cmd, cmd->args, g_data.env) == -1)
-    {
-        g_data.exit_status = 127;
-        free_path(cmd->paths); // check if execve failed and if there is  leak of memory
-        exit_strerr(cmd->args[0], errno);
-    }
+	if (is_builtins_in_child())
+		ft_builtins_in_child();
+	cmd->paths = get_path(g_data.env);
+	cmd->cmd = check_cmd(cmd->paths, cmd->args[0]);
+	if (!cmd->cmd || !cmd->args[0][0])
+	{
+		g_data.exit_status = 127;
+		free_path(cmd->paths);
+		error_command_not_found("minishell:", cmd->args[0], g_data.exit_status);
+	}
+	else if (execve(cmd->cmd, cmd->args, g_data.env) == -1)
+	{
+		g_data.exit_status = 127;
+		free_path(cmd->paths);
+		exit_strerr(cmd->args[0], errno);
+	}
 }
 
-void    redirect_input()
+void	redirect_input(void)
 {
-    if (((t_cmd *)(g_data.cmds->content))->input != 0)
-    {
-        dup2(((t_cmd *)(g_data.cmds->content))->input, 0);
-        close(((t_cmd *)(g_data.cmds->content))->input);
-    }
+	if (((t_cmd *)(g_data.cmds->content))->input != 0)
+	{
+		dup2(((t_cmd *)(g_data.cmds->content))->input, 0);
+		close(((t_cmd *)(g_data.cmds->content))->input);
+	}
 }
 
-void    open_outputs(void)
+void	open_outputs(void)
 {
-    int j = -1;
-    while (((t_cmd *)(g_data.cmds->content))->outfiles[++j])
-    {
-        if (((t_cmd *)(g_data.cmds->content))->append[j])
-            ((t_cmd *)(g_data.cmds->content))->output = open(((t_cmd *)(g_data.cmds->content))->outfiles[j], O_WRONLY | O_CREAT | O_APPEND, 0644);
-        else
-            ((t_cmd *)(g_data.cmds->content))->output = open(((t_cmd *)(g_data.cmds->content))->outfiles[j], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	int	j;
+
+	j = -1;
+	while (((t_cmd *)(g_data.cmds->content))->outfiles[++j])
+	{
+		if (((t_cmd *)(g_data.cmds->content))->append[j])
+			((t_cmd *)(g_data.cmds->content))->output
+				= open(((t_cmd *)(g_data.cmds->content))->outfiles[j],
+					O_WRONLY | O_CREAT | O_APPEND, 0644);
+		else
+			((t_cmd *)(g_data.cmds->content))->output
+				= open(((t_cmd *)(g_data.cmds->content))->outfiles[j],
+					O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (((t_cmd *)(g_data.cmds->content))->output == -1)
 		{
 			g_data.exit_status = 127;
 			exit_strerr(((t_cmd *)(g_data.cmds->content))->outfiles[j], errno);
 		}
-    }
+	}
 }

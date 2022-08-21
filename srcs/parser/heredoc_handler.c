@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 18:26:59 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/21 00:02:22 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/21 18:18:53 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	open_heredoc(char *value, int expand)
 {
 	char	*buff;
 
-	signal(SIGINT, SIG_DFL);
+	if (pipe(g_data.cmd->end) == -1)
+		perror("minishell: pipe");
 	while (42)
 	{
 		buff = readline("> ");
@@ -83,11 +84,12 @@ void	open_heredoc(char *value, int expand)
 		free(buff);
 	}
 	free(buff);
+	g_data.cmd->input = g_data.cmd->end[0];
+	close(g_data.cmd->end[1]);
 }
 
 void	token_heredoc(t_lexer **lexer, t_token **token)
 {
-	pid_t	pid;
 	int		expand;
 	char	*value;
 
@@ -95,17 +97,6 @@ void	token_heredoc(t_lexer **lexer, t_token **token)
 	*token = lexer_next_token(*lexer);
 	expand = 1;
 	value = parse_limiter((*token)->value, &expand);
-	if (pipe(g_data.cmd->end) == -1)
-		perror("minishell: pipe");
-	pid = fork();
-	if (pid == 0)
-	{
-		open_heredoc(value, expand);
-		exit(0);
-	}
-	else
-		wait(NULL);
-	g_data.cmd->input = g_data.cmd->end[0];
-	close(g_data.cmd->end[1]);
+	open_heredoc(value, expand);
 	free (value);
 }

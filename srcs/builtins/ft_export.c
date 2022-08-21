@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 17:47:08 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/21 03:46:18 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/22 00:35:01 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ char	*get_new_line(char *name, char *value)
 	return (tmp);
 }
 
+int	big_len(int s1, int s2)
+{
+	if (s1 > s2)
+		return (s1);
+	return (s2);
+}
+
 void	ft_set_export(char *name, char *value, int exist)
 {
 	int		j;
@@ -40,7 +47,7 @@ void	ft_set_export(char *name, char *value, int exist)
 		while (value && g_data.export[++j])
 		{
 			if (!ft_strncmp(g_data.export[j], tmp,
-					get_index(g_data.export[j], '=')))
+					big_len(get_index(g_data.export[j], '='), get_index(tmp, '='))))
 			{
 				free(g_data.export[j]);
 				g_data.export[j] = ft_strdup(tmp);
@@ -86,13 +93,6 @@ void	error_export(char *name)
 	ft_putstr_fd(name, 2);
 	ft_putendl_fd("': not a valid identifier", 2);
 	g_data.exit_status = 1;
-}
-
-int	big_len(int s1, int s2)
-{
-	if (s1 > s2)
-		return (s1);
-	return (s2);
 }
 
 void	ft_set_env(char *name, char *value)

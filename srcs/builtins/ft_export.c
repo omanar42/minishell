@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 17:47:08 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/17 03:05:19 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/21 03:46:18 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_set_export(char *name, char *value, int exist)
 		while (value && g_data.export[++j])
 		{
 			if (!ft_strncmp(g_data.export[j], tmp,
-					get_char_index(g_data.export[j], '=')))
+					get_index(g_data.export[j], '=')))
 			{
 				free(g_data.export[j]);
 				g_data.export[j] = ft_strdup(tmp);

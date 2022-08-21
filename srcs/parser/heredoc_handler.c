@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 18:26:59 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/21 18:18:53 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/21 18:53:12 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,16 @@ void	token_heredoc(t_lexer **lexer, t_token **token)
 	int		expand;
 	char	*value;
 
+	g_data.signal_heredoc = 1;
+	g_data.tmpin = dup(0);
 	free_token(*token);
 	*token = lexer_next_token(*lexer);
 	expand = 1;
 	value = parse_limiter((*token)->value, &expand);
-	open_heredoc(value, expand);
+	if (g_data.breaker == 0)
+		open_heredoc(value, expand);
 	free (value);
+	dup2(g_data.tmpin, 0);
+	close(g_data.tmpin);
+	g_data.signal_heredoc = 0;
 }

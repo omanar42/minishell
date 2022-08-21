@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 00:46:24 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/21 05:27:26 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/21 19:11:12 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,29 @@
 
 void	handlear(int signal)
 {
-	if (g_data.signal_heredoc == 1)
+	(void)signal;
+	if (g_data.signal_heredoc == 0)
 	{
-		g_data.signal_heredoc = 0;
-		return ;
-	}
-	if (signal == SIGINT)
-	{
-		if (g_data.signalchild == 1)
+		if (g_data.signalchild != 1)
+		{
+			g_data.exit_status = 1;
+			if (g_data.breaker == 0)
+				ft_putstr_fd("\n", 2);
+			rl_on_new_line();
+			rl_replace_line("", 0);
+			rl_redisplay();
+		}
+		else
 		{
 			g_data.signalchild = 0;
-			printf("\n");
-			return ;
+			ft_putstr_fd("\n", 2);
 		}
-		g_data.exit_status = 1;
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
+	}
+	else
+	{
+		g_data.breaker = 1;
+		ft_putstr_fd("\n", 2);
+		close(0);
 	}
 }
 

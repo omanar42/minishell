@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:58:20 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/21 04:50:24 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/21 18:53:00 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	tokens_handler(t_lexer *lexer)
 	token = lexer_next_token(lexer);
 	if (token->e_type == TOKEN_PIPE)
 		return (token_error(token));
-	while (token->e_type != TOKEN_EOF)
+	while (token->e_type != TOKEN_EOF && g_data.breaker == 0)
 	{
 		if (token->e_type == TOKEN_ERROR)
 			return (token_error(token));

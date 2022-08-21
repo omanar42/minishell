@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 19:54:55 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/21 05:27:17 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/21 19:13:13 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	run_execution(void)
 		pipe(p);
 		signal(SIGQUIT, SIG_IGN);
 		pid = fork();
+		g_data.signalchild = 1;
 		if (pid == -1)
 		{
 			ft_putstr_fd("minishell: ", 2);
@@ -109,6 +110,11 @@ void	run_execution(void)
 
 void	execution(void)
 {
+	if (g_data.breaker == 1)
+	{
+		clean();
+		return ;
+	}
 	g_data.tmpin = dup(0);
 	g_data.tmpout = dup(1);
 	if (!g_data.cmds->next && is_builtins())

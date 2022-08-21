@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/21 05:21:46 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/21 18:24:00 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_data {
 	int		signalchild;
 	int		signalqiut;
 	int		signal_heredoc;
+	int		breaker;
 	char	*savepwd;
 	int		test;
 	int		dollar;

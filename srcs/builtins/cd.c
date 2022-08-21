@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 18:57:11 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/21 23:33:29 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/22 00:10:26 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,24 +68,23 @@ void	cd(void)
 	path = NULL;
 	oldpwd = getcwd(NULL, 0);
 	if (((t_cmd *)(g_data.cmds->content))->args[1] == NULL)
-	{
 		path = cd_only(path);
-		return ;
-	}
 	else
-		path = ((t_cmd *)(g_data.cmds->content))->args[1];
-	if (path[0] == '-' && path[1] == '\0')
 	{
-		path = ft_getenv("OLDPWD=");
-		if (path == NULL)
+		path = ((t_cmd *)(g_data.cmds->content))->args[1];
+		if (path[0] == '-' && path[1] == '\0')
 		{
-			g_data.exit_status = 1;
-			ft_putendl_fd("minishell: cd: OLDPWD not set", 2);
-			return ;
+			path = ft_getenv("OLDPWD=");
+			if (path == NULL)
+			{
+				g_data.exit_status = 1;
+				ft_putendl_fd("minishell: cd: OLDPWD not set", 2);
+				return ;
+			}
+			ft_putendl_fd(path, 1);
 		}
-		ft_putendl_fd(path, 1);
 	}
-	if (chdir(path) == -1)
+	if (chdir(path) == -1 && path)
 	{
 		ft_putstr_fd("Minishell: cd: ", 2);
 		ft_putstr_fd(path, 2);

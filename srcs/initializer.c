@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:55:31 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/21 19:12:06 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/21 22:11:27 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	creat_env(char **env)
 
 	i = -1;
 	g_data.exit_status = 0;
+	g_data.newpwd = ft_calloc(1, sizeof(char));
 	g_data.env = (char **)malloc(sizeof(char *));
 	g_data.env[0] = NULL;
 	while (env[++i])

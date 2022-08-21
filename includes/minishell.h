@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/21 18:24:00 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/21 22:11:06 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_data {
 	char	*savepwd;
 	int		test;
 	int		dollar;
+	char	*newpwd;
 	t_cmd	*cmd;
 	t_list	*cmds;
 }	t_data;

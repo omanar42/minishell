@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 12:52:44 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/21 05:26:41 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/21 22:13:23 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	pwd(void)
 
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
-		ft_putendl_fd("minishell: pwd: failed to get the current working directory", 2);
+		ft_putendl_fd(g_data.newpwd, 2);
 	else
-		printf("%s\n", pwd);
+		ft_putendl_fd(pwd, 2);
 	free(pwd);
 }

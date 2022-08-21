@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 18:57:11 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/21 05:24:08 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/21 23:33:29 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,29 +48,44 @@ void	*cd_only(char *path)
 	return (path);
 }
 
-void	getcwd_error(int err)
+void	getcwd_error(int err, char *path)
 {
+	char	*oldpwd;
+
 	g_data.exit_status = 0;
 	ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent directories: ", 2);
 	ft_putendl_fd(strerror(err), 2);
-	chdir("..");
+	oldpwd = ft_getenv("PWD=");
+	g_data.newpwd = ft_strjoin(oldpwd, "/");
+	g_data.newpwd = advanced_join(g_data.newpwd, path);
 }
 
 void	cd(void)
 {
 	char	*path;
 	char	*oldpwd;
-	char	*newpwd;
 
 	path = NULL;
+	oldpwd = getcwd(NULL, 0);
 	if (((t_cmd *)(g_data.cmds->content))->args[1] == NULL)
+	{
 		path = cd_only(path);
+		return ;
+	}
 	else
 		path = ((t_cmd *)(g_data.cmds->content))->args[1];
-	oldpwd = getcwd(NULL, 0);
-	if (!oldpwd)
-		getcwd_error(errno);
-	if (chdir(path) == -1 && path)
+	if (path[0] == '-' && path[1] == '\0')
+	{
+		path = ft_getenv("OLDPWD=");
+		if (path == NULL)
+		{
+			g_data.exit_status = 1;
+			ft_putendl_fd("minishell: cd: OLDPWD not set", 2);
+			return ;
+		}
+		ft_putendl_fd(path, 1);
+	}
+	if (chdir(path) == -1)
 	{
 		ft_putstr_fd("Minishell: cd: ", 2);
 		ft_putstr_fd(path, 2);
@@ -78,8 +93,10 @@ void	cd(void)
 		ft_putendl_fd(strerror(errno), 2);
 		g_data.exit_status = 1;
 	}
-	newpwd = getcwd(NULL, 0);
-	set_pwd(newpwd, oldpwd);
+	free(g_data.newpwd);
+	g_data.newpwd = getcwd(NULL, 0);
+	if (!g_data.newpwd)
+		getcwd_error(errno, path);
+	set_pwd(g_data.newpwd, oldpwd);
 	free(oldpwd);
-	free(newpwd);
 }

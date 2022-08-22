@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/22 01:49:37 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/22 02:56:57 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ void	error_command_not_found(char *s, char *str, int status_code);
 void	error1(char *s, int status_code);
 void	error2(int status_code);
 void	error3(char *s);
-void	exit_strerr(char *str, int err);
+void	exit_strerr(char *str, int err, int exit_status);
 
 /*------------------------EXECUTION_UTILS_FUNCTION-------------------------*/
 

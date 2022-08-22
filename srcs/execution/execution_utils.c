@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:15:08 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/22 02:29:02 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/22 02:57:23 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	run_cmd(t_cmd *cmd)
 				g_data.exit_status = 126;
 				ft_putstr_fd("minishell: ", 2);
 				ft_putstr_fd(cmd->args[0], 2);
-				ft_putendl_fd(": Is a directory", 2);
+				ft_putendl_fd(": is a directory", 2);
 				exit(g_data.exit_status);
 			}
 		}
@@ -101,7 +101,7 @@ void	run_cmd(t_cmd *cmd)
 	{
 		g_data.exit_status = 127;
 		free_path(cmd->paths);
-		exit_strerr(cmd->args[0], errno);
+		exit_strerr(cmd->args[0], errno, g_data.exit_status);
 	}
 }
 
@@ -132,7 +132,7 @@ void	open_outputs(void)
 		if (((t_cmd *)(g_data.cmds->content))->output == -1)
 		{
 			g_data.exit_status = 127;
-			exit_strerr(((t_cmd *)(g_data.cmds->content))->outfiles[j], errno);
+			exit_strerr(((t_cmd *)(g_data.cmds->content))->outfiles[j], errno, g_data.exit_status);
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 17:39:40 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/21 05:26:22 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/22 02:38:41 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ void	remove_env(char *str)
 		if (!ft_strncmp(tmp, str, ft_strlen(tmp)))
 		{
 			g_data.env = ft_remove_element(g_data.env, i--);
+			free(tmp);
 			break ;
 		}
+		free(tmp);
 	}
 }
 

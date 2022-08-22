@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/21 22:11:06 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/22 01:49:37 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <sys/errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -163,6 +164,7 @@ void	echo(void);
 void	pwd(void);
 void	cd(void);
 void	ft_env(void);
+void	*ft_getenv(char *str);
 void	exit_cmd(void);
 
 /*----------------------------SIGNALS--------------------------------------*/

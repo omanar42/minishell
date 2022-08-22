@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:55:31 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/21 22:11:27 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/22 02:50:52 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ void	cmd_init(void)
 {
 	g_data.cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	g_data.cmd->cmd = NULL;
-	g_data.cmd->args = (char **)malloc(sizeof(char *));
-	g_data.cmd->args[0] = NULL;
+	g_data.cmd->args = (char **)ft_calloc(1, sizeof(char *));
 	g_data.cmd->input = 0;
 	g_data.cmd->infile = NULL;
 	g_data.cmd->output = 1;
@@ -64,8 +63,7 @@ void	cmd_init(void)
 	g_data.cmd->app_index = -1;
 	g_data.cmd->error = 0;
 	g_data.cmd->exit_status = 0;
-	g_data.cmd->outfiles = (char **)malloc(sizeof(char *));
-	g_data.cmd->outfiles[0] = NULL;
+	g_data.cmd->outfiles = (char **)ft_calloc(1, sizeof(char *));
 }
 
 void	data_init(void)

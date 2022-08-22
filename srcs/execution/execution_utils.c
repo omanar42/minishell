@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:15:08 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/21 05:14:29 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/22 02:29:02 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ char	**get_path(char **env)
 	int	i;
 
 	i = 0;
+	if (ft_strchr(((t_cmd *)(g_data.cmds->content))->args[0], '/'))
+		return (ft_split(((t_cmd *)(g_data.cmds->content))->args[0], ':'));
 	while (env[i] && ft_strnstr(env[i], "PATH=", 5) == 0)
 		i++;
 	if (!env[i])
@@ -59,7 +61,7 @@ char	**get_path(char **env)
 		g_data.exit_status = 127;
 		ft_putstr_fd("minishell: ", 1);
 		ft_putstr_fd(((t_cmd *)(g_data.cmds->content))->args[0], 2);
-		ft_putstr_fd(": No such file or directory2\n", 2);
+		ft_putendl_fd(": No such file or directory", 2);
 		exit(g_data.exit_status);
 	}
 	else
@@ -69,8 +71,24 @@ char	**get_path(char **env)
 
 void	run_cmd(t_cmd *cmd)
 {
+	struct	stat s;
+
 	if (is_builtins_in_child())
 		ft_builtins_in_child();
+	if (ft_strchr(cmd->args[0], '/') || !ft_getenv("PATH="))
+	{
+		if (stat(cmd->args[0], &s) == 0)
+		{
+			if (S_ISDIR(s.st_mode))
+			{
+				g_data.exit_status = 126;
+				ft_putstr_fd("minishell: ", 2);
+				ft_putstr_fd(cmd->args[0], 2);
+				ft_putendl_fd(": Is a directory", 2);
+				exit(g_data.exit_status);
+			}
+		}
+	}
 	cmd->paths = get_path(g_data.env);
 	cmd->cmd = check_cmd(cmd->paths, cmd->args[0]);
 	if (!cmd->cmd || !cmd->args[0][0])

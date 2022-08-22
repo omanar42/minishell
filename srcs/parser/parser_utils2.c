@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 01:11:15 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/20 23:45:46 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/22 15:50:26 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ char	*parse_dollar(char *str, int *i)
 		new = ft_itoa(g_data.exit_status);
 		(*i)++;
 	}
+	else if (str[start] == '"' || str[start] == '\'')
+		return (NULL);
 	else if (is_separator(str[start]) || !is_acceptable(str[start]))
 		new = ft_strdup("$");
 	else

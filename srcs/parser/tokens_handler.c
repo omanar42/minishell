@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:58:20 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/19 20:05:26 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/21 18:53:00 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	token_pipe(void)
 {
 	ft_lstadd_back(&g_data.cmds, ft_lstnew((void *)g_data.cmd));
+	g_data.exit_status = 0;
 	cmd_init();
 }
 
@@ -39,7 +40,7 @@ int	tokens_handler(t_lexer *lexer)
 	token = lexer_next_token(lexer);
 	if (token->e_type == TOKEN_PIPE)
 		return (token_error(token));
-	while (token->e_type != TOKEN_EOF)
+	while (token->e_type != TOKEN_EOF && g_data.breaker == 0)
 	{
 		if (token->e_type == TOKEN_ERROR)
 			return (token_error(token));
@@ -48,7 +49,7 @@ int	tokens_handler(t_lexer *lexer)
 		else if (token->e_type == TOKEN_INFILE)
 			token_infile(&lexer, &token);
 		else if (token->e_type == TOKEN_OUT || token->e_type == TOKEN_APP)
-			token_outfile(&lexer, &token);
+			token_outfile(&lexer, &token, ++g_data.cmd->app_index);
 		else if (token->e_type == TOKEN_HEREDOC)
 			token_heredoc(&lexer, &token);
 		else if (token->e_type == TOKEN_PIPE)

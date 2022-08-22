@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 12:52:39 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/18 22:55:00 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/21 05:24:23 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	check_path(char **env)
 	while (env[i] && ft_strnstr(env[i], "PATH=", 5) == 0)
 		i++;
 	if (!env[i])
-		return (1); 
+		return (1);
 	return (0);
 }
 

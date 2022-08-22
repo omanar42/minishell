@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/20 15:12:07 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/21 22:11:06 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@
 # define GRN "\033[0;32m"
 # define CYN "\033[0;36m"
 
+typedef struct s_outfiles
+{
+	int		app;
+	char	*value;
+}	t_outfiles;
+
 typedef struct s_cmd
 {
 	char	*cmd;
@@ -38,14 +44,13 @@ typedef struct s_cmd
 	char	*infile;
 	int		output;
 	char	**outfiles;
-	int		append;
+	int		*append;
+	int		app_index;
 	int		error;
 	int		exit_status;
 	pid_t	pid;
-	/*********/
 	int		fd_p[2];
 	char	**paths;
-	/*********/
 }	t_cmd;
 
 typedef struct s_data {
@@ -59,9 +64,11 @@ typedef struct s_data {
 	int		signalchild;
 	int		signalqiut;
 	int		signal_heredoc;
-	char*		savepwd;
+	int		breaker;
+	char	*savepwd;
 	int		test;
 	int		dollar;
+	char	*newpwd;
 	t_cmd	*cmd;
 	t_list	*cmds;
 }	t_data;
@@ -78,7 +85,7 @@ void	cmd_init(void);
 int		tokens_handler(t_lexer *lexer);
 int		token_error(t_token *token);
 void	token_word(t_token **token);
-void	token_outfile(t_lexer **lexer, t_token **token);
+void	token_outfile(t_lexer **lexer, t_token **token, int i);
 void	token_infile(t_lexer **lexer, t_token **token);
 int		open_infile(t_token *token);
 void	token_heredoc(t_lexer **lexer, t_token **token);
@@ -125,7 +132,6 @@ char	*get_new_line(char *name, char *value);
 int		check_error(char *arg);
 int		check_path(char **env);
 
-
 /*------------------------------EXECUTION----------------------------------*/
 
 void	execution(void);
@@ -145,19 +151,19 @@ void	exit_strerr(char *str, int err);
 char	**get_path(char **env);
 void	*check_cmd(char **path, char *cmd);
 void	free_path(char **paths);
-void    redirect_input(void);
-void    open_outputs(void);
+void	redirect_input(void);
+void	open_outputs(void);
 
 /*------------------------------BUILTINS----------------------------------*/
-void    ft_builtins(void);
+void	ft_builtins(void);
 int		is_builtins(void);
 int		is_builtins_in_child(void);
 void	ft_builtins_in_child(void);
-void    echo(void);
+void	echo(void);
 void	pwd(void);
-void    cd(void);
+void	cd(void);
 void	ft_env(void);
-void    exit_cmd(void);
+void	exit_cmd(void);
 
 /*----------------------------SIGNALS--------------------------------------*/
 void	handlear(int signal);

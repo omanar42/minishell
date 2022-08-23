@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 21:46:57 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/21 22:17:18 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/23 16:22:28 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 void	ft_builtins_in_child(void)
 {
 	t_cmd	*cmd;
-	t_list	*tmp;
 
 	cmd = (t_cmd *)g_data.cmds->content;
 	if (!cmd->args[0])
 		return ;
 	redirect_input();
 	open_outputs();
+	if (g_data.stop == 1)
+		return ;
 	if (((t_cmd *)(g_data.cmds->content))->output != 1)
 	{
 		dup2(((t_cmd *)(g_data.cmds->content))->output, 1);
@@ -41,9 +42,6 @@ void	ft_builtins_in_child(void)
 		ft_unset();
 	else if (ft_strncmp(cmd->args[0], "export", 6) == 0)
 		ft_export();
-	tmp = g_data.cmds;
-	g_data.cmds = g_data.cmds->next;
-	ft_lstdelone(tmp, &free_cmd);
 	exit(0);
 }
 
@@ -73,6 +71,13 @@ void	ft_builtins(void)
 	cmd = (t_cmd *)g_data.cmds->content;
 	redirect_input();
 	open_outputs();
+	if (g_data.stop == 1)
+	{	
+		tmp = g_data.cmds;
+		g_data.cmds = g_data.cmds->next;
+		ft_lstdelone(tmp, &free_cmd);
+		return ;
+	}
 	if (((t_cmd *)(g_data.cmds->content))->output != 1)
 	{
 		dup2(((t_cmd *)(g_data.cmds->content))->output, 1);

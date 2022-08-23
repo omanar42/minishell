@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 12:52:44 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/21 22:13:23 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/23 16:29:26 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	pwd(void)
 
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
-		ft_putendl_fd(g_data.newpwd, 2);
+		ft_putendl_fd(g_data.newpwd, 1);
 	else
-		ft_putendl_fd(pwd, 2);
+		ft_putendl_fd(pwd, 1);
 	free(pwd);
 }

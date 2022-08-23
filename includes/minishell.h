@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/22 02:56:57 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/23 03:45:28 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_data {
 	int		flag;
 	int		tmpin;
 	int		tmpout;
+	int		stop;
 	int		signalchild;
 	int		signalqiut;
 	int		signal_heredoc;
@@ -134,7 +135,7 @@ int		check_error(char *arg);
 int		check_path(char **env);
 
 /*------------------------------EXECUTION----------------------------------*/
-
+void	ft_child_process(t_cmd *cmd, int i, int size, int *p, int last_fd);
 void	execution(void);
 void	creat_env(char **env);
 void	run_cmd(t_cmd *cmd);
@@ -146,7 +147,7 @@ void	error1(char *s, int status_code);
 void	error2(int status_code);
 void	error3(char *s);
 void	exit_strerr(char *str, int err, int exit_status);
-
+void	error_msg(char *str, int err, int exit_status);
 /*------------------------EXECUTION_UTILS_FUNCTION-------------------------*/
 
 char	**get_path(char **env);
@@ -154,6 +155,7 @@ void	*check_cmd(char **path, char *cmd);
 void	free_path(char **paths);
 void	redirect_input(void);
 void	open_outputs(void);
+void	ft_dup(int olfd, int nfd);
 
 /*------------------------------BUILTINS----------------------------------*/
 void	ft_builtins(void);

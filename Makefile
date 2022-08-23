@@ -23,7 +23,7 @@ SRCS	=	srcs/minishell.c srcs/initializer.c srcs/cleaner.c $(LIBFT) \
 			srcs/builtins/ft_unset.c srcs/builtins/ft_export.c srcs/builtins/builtins.c \
 			 srcs/builtins/echo.c srcs/builtins/pwd.c \
 			srcs/builtins/env.c srcs/builtins/exit.c  srcs/builtins/cd.c \
-			srcs/execution/execution.c srcs/execution/utils/execution_utils.c  srcs/execution/utils/redirections.c  \
+			srcs/execution/execution.c srcs/execution/execution_utils.c \
 			srcs/error/error.c \
 			srcs/signals/signals.c \
 			

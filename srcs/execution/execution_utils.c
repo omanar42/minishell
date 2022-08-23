@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:15:08 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/22 02:57:23 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/23 16:00:18 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,10 @@ void	open_outputs(void)
 					O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (((t_cmd *)(g_data.cmds->content))->output == -1)
 		{
-			g_data.exit_status = 127;
-			exit_strerr(((t_cmd *)(g_data.cmds->content))->outfiles[j], errno, g_data.exit_status);
+			g_data.exit_status = 1;
+			// exit_strerr(((t_cmd *)(g_data.cmds->content))->outfiles[j], errno, g_data.exit_status);
+			error_msg(((t_cmd *)(g_data.cmds->content))->outfiles[j], errno);
+			g_data.stop = 1;
 		}
 	}
 }

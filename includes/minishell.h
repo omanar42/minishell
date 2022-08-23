@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/23 04:35:34 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/23 16:00:52 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void	error1(char *s, int status_code);
 void	error2(int status_code);
 void	error3(char *s);
 void	exit_strerr(char *str, int err, int exit_status);
-void	error_msg(char *str, int err, int exit_status);
+void	error_msg(char *str, int err);
 /*------------------------EXECUTION_UTILS_FUNCTION-------------------------*/
 
 char	**get_path(char **env);

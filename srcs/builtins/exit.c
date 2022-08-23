@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:10:33 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/21 05:25:33 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/23 16:32:39 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	exit_cmd(void)
 	len = argslen(cmd->args);
 	if (cmd->args[1] == NULL)
 	{
-		ft_putstr_fd("exit\n", 2);
+		if (g_data.signalchild != 1)
+			ft_putstr_fd("exit\n", 2);
 		exit(g_data.exit_status); // exit last cmd globle exit status_code
 	}
 	is_numeric();

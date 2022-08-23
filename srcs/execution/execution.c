@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 19:54:55 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/21 19:13:13 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/23 16:23:04 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	ft_dup(int olfd, int nfd)
 void	ft_child_process(t_cmd *cmd, int i, int size, int *p, int last_fd)
 {
 	open_outputs();
+	if (g_data.stop == 1)
+		exit(g_data.exit_status);
 	close(p[0]);
 	if (cmd->error)
 	{

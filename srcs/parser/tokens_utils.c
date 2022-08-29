@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 16:18:58 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/22 15:34:21 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/27 21:30:22 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	*get_list()
+char	*get_list(void)
 {
-	int	i;
-	char	*new;
-	char	**tmp;
-	char	*path;
-	DIR		*dir;
-	struct dirent *entry;
+	int				i;
+	char			*new;
+	char			**tmp;
+	char			*path;
+	DIR				*dir;
+	struct dirent	*entry;
 
 	path = getcwd(NULL, 0);
 	dir = opendir(path);
@@ -89,7 +89,7 @@ int	open_infile(t_token *token)
 	if (g_data.cmd->input == -1)
 	{
 		g_data.cmd->infile = ft_strdup(value);
-		g_data.cmd->exit_status = errno;
+		g_data.exit_status = errno;
 		g_data.cmd->error = 1;
 		g_data.exit_status = 1;
 	}

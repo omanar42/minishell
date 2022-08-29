@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleaner.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:42:13 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/21 05:01:38 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/23 18:45:14 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,15 @@ void	clean(void)
 {
 	t_list	*tmp;
 
-	while (g_data.cmds)
+	if (g_data.cmds)
 	{
-		tmp = g_data.cmds;
-		g_data.cmds = g_data.cmds->next;
-		ft_lstdelone(tmp, &free_cmd);
+		while (g_data.cmds)
+		{
+			tmp = g_data.cmds;
+			g_data.cmds = g_data.cmds->next;
+			ft_lstdelone(tmp, &free_cmd);
+		}
 	}
+	else
+		free_cmd(g_data.cmd);
 }

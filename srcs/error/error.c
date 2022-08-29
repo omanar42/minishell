@@ -6,11 +6,24 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:11:31 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/23 16:00:00 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/28 21:55:08 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+void	error_infile(void)
+{
+	t_cmd	*cmd;
+
+	cmd = (t_cmd *)g_data.cmds->content;
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(cmd->infile, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(strerror(g_data.exit_status), 2);
+	g_data.exit_status = 1;
+	exit(g_data.exit_status);
+}
 
 void	error_command_not_found(char *s, char *str, int status_code)
 {
@@ -37,22 +50,4 @@ void	error_msg(char *str, int err)
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putendl_fd(strerror(err), 2);
-}
-
-void	error1(char *s, int status_code)
-{
-	printf("%s\n", s);
-	exit(status_code);
-}
-
-void	error2(int status_code)
-{
-	perror("minishell");
-	exit(status_code);
-}
-
-void	error3(char *s)
-{
-	write(2, s, ft_strlen(s));
-	write(2, "\n", 1);
 }

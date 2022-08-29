@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 21:46:57 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/23 16:22:28 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/29 03:29:06 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,7 @@ void	ft_builtins_in_child(void)
 	open_outputs();
 	if (g_data.stop == 1)
 		return ;
-	if (((t_cmd *)(g_data.cmds->content))->output != 1)
-	{
-		dup2(((t_cmd *)(g_data.cmds->content))->output, 1);
-		close(((t_cmd *)(g_data.cmds->content))->output);
-	}
+	redirect_output();
 	if (ft_strncmp(cmd->args[0], "pwd", 3) == 0)
 		pwd();
 	else if (ft_strncmp(cmd->args[0], "env", 3) == 0)
@@ -63,6 +59,21 @@ int	is_builtins_in_child(void)
 	return (0);
 }
 
+int	stop(void)
+{
+	t_list	*tmp;
+
+	open_outputs();
+	if (g_data.stop == 1)
+	{
+		tmp = g_data.cmds;
+		g_data.cmds = g_data.cmds->next;
+		ft_lstdelone(tmp, &free_cmd);
+		return (1);
+	}
+	return (0);
+}
+
 void	ft_builtins(void)
 {
 	t_list	*tmp;
@@ -70,19 +81,9 @@ void	ft_builtins(void)
 
 	cmd = (t_cmd *)g_data.cmds->content;
 	redirect_input();
-	open_outputs();
-	if (g_data.stop == 1)
-	{	
-		tmp = g_data.cmds;
-		g_data.cmds = g_data.cmds->next;
-		ft_lstdelone(tmp, &free_cmd);
+	if (stop())
 		return ;
-	}
-	if (((t_cmd *)(g_data.cmds->content))->output != 1)
-	{
-		dup2(((t_cmd *)(g_data.cmds->content))->output, 1);
-		close(((t_cmd *)(g_data.cmds->content))->output);
-	}
+	redirect_output();
 	if (ft_strncmp(cmd->args[0], "pwd", 3) == 0)
 		pwd();
 	else if (ft_strncmp(cmd->args[0], "env", 3) == 0)

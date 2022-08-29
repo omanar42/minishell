@@ -12,7 +12,7 @@
 
 NAME	=	minishell
 RM		=	rm -f
-CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes #-g -fsanitize=address
+CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes -g -fsanitize=address
 RLFLG	=	-lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
 LIBFT	=	libs/libft/libft.a
 SRCS	=	srcs/minishell.c srcs/initializer.c srcs/cleaner.c $(LIBFT) \
@@ -23,9 +23,10 @@ SRCS	=	srcs/minishell.c srcs/initializer.c srcs/cleaner.c $(LIBFT) \
 			srcs/builtins/ft_unset.c srcs/builtins/ft_export.c srcs/builtins/builtins.c \
 			 srcs/builtins/echo.c srcs/builtins/pwd.c \
 			srcs/builtins/env.c srcs/builtins/exit.c  srcs/builtins/cd.c \
-			srcs/execution/execution.c srcs/execution/execution_utils.c \
+			srcs/execution/execution.c srcs/execution/execution_utils.c srcs/execution/execution_utils1.c \
+			srcs/execution/execution_utils2.c \
 			srcs/error/error.c \
-			srcs/signals/signals.c \
+			srcs/signals/signals.c 
 			
 
 define HEADER_M

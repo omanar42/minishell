@@ -6,27 +6,11 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 18:57:11 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/22 00:10:26 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/27 21:19:45 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-void	*ft_getenv(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!g_data.env)
-		return (NULL);
-	while (g_data.env[i] != NULL)
-	{
-		if (ft_strncmp(g_data.env[i], str, ft_strlen(str)) == 0)
-			return (g_data.env[i] + ft_strlen(str));
-		i++;
-	}
-	return (NULL);
-}
 
 void	set_pwd(char *newpwd, char *oldpwd)
 {
@@ -53,11 +37,30 @@ void	getcwd_error(int err, char *path)
 	char	*oldpwd;
 
 	g_data.exit_status = 0;
-	ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent directories: ", 2);
+	ft_putstr_fd("cd: error retrieving current directory:\
+		getcwd: cannot access parent directories: ", 2);
 	ft_putendl_fd(strerror(err), 2);
 	oldpwd = ft_getenv("PWD=");
 	g_data.newpwd = ft_strjoin(oldpwd, "/");
 	g_data.newpwd = advanced_join(g_data.newpwd, path);
+}
+
+void	change_dir(char *path, char *oldpwd)
+{
+	if (chdir(path) == -1 && path)
+	{
+		ft_putstr_fd("Minishell: cd: ", 2);
+		ft_putstr_fd(path, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putendl_fd(strerror(errno), 2);
+		g_data.exit_status = 1;
+	}
+	free(g_data.newpwd);
+	g_data.newpwd = getcwd(NULL, 0);
+	if (!g_data.newpwd)
+		getcwd_error(errno, path);
+	set_pwd(g_data.newpwd, oldpwd);
+	free(oldpwd);
 }
 
 void	cd(void)
@@ -84,18 +87,5 @@ void	cd(void)
 			ft_putendl_fd(path, 1);
 		}
 	}
-	if (chdir(path) == -1 && path)
-	{
-		ft_putstr_fd("Minishell: cd: ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putstr_fd(": ", 2);
-		ft_putendl_fd(strerror(errno), 2);
-		g_data.exit_status = 1;
-	}
-	free(g_data.newpwd);
-	g_data.newpwd = getcwd(NULL, 0);
-	if (!g_data.newpwd)
-		getcwd_error(errno, path);
-	set_pwd(g_data.newpwd, oldpwd);
-	free(oldpwd);
+	change_dir(path, oldpwd);
 }

@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:10:33 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/23 16:32:39 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/29 03:29:43 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	exit_cmd(void)
 	{
 		if (g_data.signalchild != 1)
 			ft_putstr_fd("exit\n", 2);
-		exit(g_data.exit_status); // exit last cmd globle exit status_code
+		exit(g_data.exit_status);
 	}
 	is_numeric();
 	if (len > 3)
@@ -61,7 +61,7 @@ void	exit_cmd(void)
 	}
 	else if (len == 3)
 	{
-		printf("exit\n");
+		ft_putchar_fd("exit\n", 1);
 		exit(ft_atoi(cmd->args[1]));
 	}
 }

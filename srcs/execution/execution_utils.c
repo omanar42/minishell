@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:15:08 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/23 16:00:18 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/28 00:16:32 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ char	**get_path(char **env)
 	return (NULL);
 }
 
-void	run_cmd(t_cmd *cmd)
+void	is_derictory(void)
 {
-	struct	stat s;
+	struct stat	s;
+	t_cmd		*cmd;
 
-	if (is_builtins_in_child())
-		ft_builtins_in_child();
+	cmd = (t_cmd *)(g_data.cmds->content);
 	if (ft_strchr(cmd->args[0], '/') || !ft_getenv("PATH="))
 	{
 		if (stat(cmd->args[0], &s) == 0)
@@ -89,6 +89,13 @@ void	run_cmd(t_cmd *cmd)
 			}
 		}
 	}
+}
+
+void	run_cmd(t_cmd *cmd)
+{
+	if (is_builtins_in_child())
+		ft_builtins_in_child();
+	is_derictory();
 	cmd->paths = get_path(g_data.env);
 	cmd->cmd = check_cmd(cmd->paths, cmd->args[0]);
 	if (!cmd->cmd || !cmd->args[0][0])
@@ -102,39 +109,5 @@ void	run_cmd(t_cmd *cmd)
 		g_data.exit_status = 127;
 		free_path(cmd->paths);
 		exit_strerr(cmd->args[0], errno, g_data.exit_status);
-	}
-}
-
-void	redirect_input(void)
-{
-	if (((t_cmd *)(g_data.cmds->content))->input != 0)
-	{
-		dup2(((t_cmd *)(g_data.cmds->content))->input, 0);
-		close(((t_cmd *)(g_data.cmds->content))->input);
-	}
-}
-
-void	open_outputs(void)
-{
-	int	j;
-
-	j = -1;
-	while (((t_cmd *)(g_data.cmds->content))->outfiles[++j])
-	{
-		if (((t_cmd *)(g_data.cmds->content))->append[j])
-			((t_cmd *)(g_data.cmds->content))->output
-				= open(((t_cmd *)(g_data.cmds->content))->outfiles[j],
-					O_WRONLY | O_CREAT | O_APPEND, 0644);
-		else
-			((t_cmd *)(g_data.cmds->content))->output
-				= open(((t_cmd *)(g_data.cmds->content))->outfiles[j],
-					O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (((t_cmd *)(g_data.cmds->content))->output == -1)
-		{
-			g_data.exit_status = 1;
-			// exit_strerr(((t_cmd *)(g_data.cmds->content))->outfiles[j], errno, g_data.exit_status);
-			error_msg(((t_cmd *)(g_data.cmds->content))->outfiles[j], errno);
-			g_data.stop = 1;
-		}
 	}
 }

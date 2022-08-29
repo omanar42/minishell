@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 12:52:39 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/21 05:24:23 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/29 22:43:09 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-int	check_path(char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i] && ft_strnstr(env[i], "PATH=", 5) == 0)
-		i++;
-	if (!env[i])
-		return (1);
-	return (0);
-}
 
 void	ft_env(void)
 {

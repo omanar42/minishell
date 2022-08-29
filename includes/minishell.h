@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/29 17:45:05 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/29 22:56:50 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ int		is_variable_exist(char *name);
 int		get_index(char *str, char c);
 char	*get_new_line(char *name, char *value);
 int		check_error(char *arg);
-int		check_path(char **env);
 int		big_len(int s1, int s2);
 
 /*------------------------------EXECUTION----------------------------------*/

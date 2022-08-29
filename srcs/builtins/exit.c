@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:10:33 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/29 03:36:01 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/29 22:43:20 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	is_numeric(void)
 {
+	t_cmd	*cmd;
 	int		i;
 	int		j;
-	t_cmd	*cmd;
 
 	i = 1;
 	j = 0;

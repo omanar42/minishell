@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/28 21:51:23 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/29 22:43:55 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_cmd
 	int		*append;
 	int		app_index;
 	int		error;
+	int		errno_value;
 	char	**paths;
 }	t_cmd;
 
@@ -136,7 +137,7 @@ int		is_variable_exist(char *name);
 int		get_index(char *str, char c);
 char	*get_new_line(char *name, char *value);
 int		check_error(char *arg);
-int		check_path(char **env);
+int		big_len(int s1, int s2);
 
 /*------------------------------EXECUTION----------------------------------*/
 
@@ -158,7 +159,7 @@ char	**get_path(char **env);
 void	*check_cmd(char **path, char *cmd);
 void	free_path(char **paths);
 void	redirect_input(void);
-void    redirect_output(void);
+void	redirect_output(void);
 void	open_outputs(void);
 void	ft_dup(int olfd, int nfd);
 void	failed_fork(void);
@@ -177,9 +178,17 @@ void	cd(void);
 void	ft_env(void);
 void	*ft_getenv(char *str);
 void	exit_cmd(void);
+char	*make_line(char *name, char *value);
+char	*get_name(char *str);
+void	error_export(char *name);
 
 /*----------------------------SIGNALS--------------------------------------*/
 void	handlear(int signal);
 void	init_signal(void);
+
+/*----------------------------WILDCARD--------------------------------------*/
+char	*get_list(void);
+DIR		*addvanced_opendir(void);
+char	*parse_star(char *str);
 
 #endif

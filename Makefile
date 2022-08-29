@@ -19,9 +19,10 @@ SRCS	=	srcs/minishell.c srcs/initializer.c srcs/cleaner.c $(LIBFT) \
 			srcs/lexer/lexer.c srcs/lexer/tokens.c srcs/lexer/utils.c \
 			srcs/parser/parser.c srcs/parser/tokens_handler.c srcs/parser/tokens_utils.c \
 			srcs/parser/parser_utils.c srcs/parser/parser_utils2.c srcs/parser/parser_utils3.c \
-			srcs/parser/heredoc_handler.c srcs/printer.c \
-			srcs/builtins/ft_unset.c srcs/builtins/ft_export.c srcs/builtins/builtins.c \
-			 srcs/builtins/echo.c srcs/builtins/pwd.c \
+			srcs/parser/tokens_utils2.c srcs/parser/heredoc_handler.c srcs/printer.c \
+			srcs/builtins/ft_export.c srcs/builtins/ft_export2.c srcs/builtins/ft_export3.c\
+			srcs/builtins/ft_unset.c srcs/builtins/builtins.c \
+			srcs/builtins/echo.c srcs/builtins/pwd.c \
 			srcs/builtins/env.c srcs/builtins/exit.c  srcs/builtins/cd.c \
 			srcs/execution/execution.c srcs/execution/execution_utils.c srcs/execution/execution_utils1.c \
 			srcs/execution/execution_utils2.c \

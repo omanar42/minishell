@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:11:31 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/28 21:55:08 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/29 16:37:27 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	error_infile(void)
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd->infile, 2);
 	ft_putstr_fd(": ", 2);
-	ft_putendl_fd(strerror(g_data.exit_status), 2);
+	ft_putendl_fd(strerror(cmd->errno_value), 2);
 	g_data.exit_status = 1;
 	exit(g_data.exit_status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 18:26:59 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/23 18:50:17 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/29 16:40:56 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*parse_buff(char *buff)
 	while (buff[++i])
 	{
 		if (buff[i] == '$')
-			tmp = parse_dollar(buff, &i, 0);
+			tmp = parse_dollar(buff, &i, 1);
 		else
 			tmp = ft_substr(buff, i, 1);
 		new = advanced_join(new, tmp);
@@ -75,7 +75,7 @@ void	open_heredoc(char *value, int expand)
 			break ;
 		if (!buff[0])
 			ft_putstr_fd("\n", g_data.cmd->end[1]);
-		else if (!ft_strncmp(buff, value, ft_strlen(buff)))
+		else if (!ft_strncmp(buff, value, big_len(ft_strlen(value), ft_strlen(buff))))
 			break ;
 		if (expand == 1)
 			buff = parse_buff(buff);

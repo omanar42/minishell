@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initializer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:55:31 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/27 20:53:25 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/29 15:42:36 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	cmd_init(void)
 	g_data.cmd->append = ft_calloc(1, sizeof(int));
 	g_data.cmd->app_index = -1;
 	g_data.cmd->error = 0;
-	// g_data.exit_status = 0; // you shoud'nt do this a3chiri
 	g_data.cmd->outfiles = (char **)ft_calloc(1, sizeof(char *));
 }
 

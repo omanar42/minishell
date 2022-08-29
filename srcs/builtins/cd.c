@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 18:57:11 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/27 21:19:45 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/29 15:32:34 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	getcwd_error(int err, char *path)
 	char	*oldpwd;
 
 	g_data.exit_status = 0;
-	ft_putstr_fd("cd: error retrieving current directory:\
-		getcwd: cannot access parent directories: ", 2);
+	ft_putstr_fd("cd: error retrieving current directory: \
+getcwd: cannot access parent directories: ", 2);
 	ft_putendl_fd(strerror(err), 2);
 	oldpwd = ft_getenv("PWD=");
 	g_data.newpwd = ft_strjoin(oldpwd, "/");

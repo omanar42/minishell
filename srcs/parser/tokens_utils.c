@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 16:18:58 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/27 21:30:22 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/29 16:37:10 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	open_infile(t_token *token)
 	if (g_data.cmd->input == -1)
 	{
 		g_data.cmd->infile = ft_strdup(value);
-		g_data.exit_status = errno;
+		g_data.cmd->errno_value = errno;
 		g_data.cmd->error = 1;
 		g_data.exit_status = 1;
 	}

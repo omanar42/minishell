@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/28 21:51:23 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/29 16:41:39 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_cmd
 	int		*append;
 	int		app_index;
 	int		error;
+	int		errno_value;
 	char	**paths;
 }	t_cmd;
 
@@ -137,6 +138,7 @@ int		get_index(char *str, char c);
 char	*get_new_line(char *name, char *value);
 int		check_error(char *arg);
 int		check_path(char **env);
+int		big_len(int s1, int s2);
 
 /*------------------------------EXECUTION----------------------------------*/
 

@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:59:27 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/21 19:05:43 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/29 16:48:22 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int	parsing(char *line)
 		return (1);
 	if (unclosed_quotes(line))
 	{
-		ft_putstr_fd("minishell: syntax error unclosed quotes\n", 2);
+		g_data.exit_status = 258;
+		ft_putstr_fd("minishell: syntax error: unclosed quotes\n", 2);
 		return (1);
 	}
 	lexer = lexer_init(line);

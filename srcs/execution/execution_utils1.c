@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 18:16:26 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/28 19:56:41 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/29 03:34:53 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	next_cmd(int last_fd)
 	t_list	*tmp;
 
 	close(g_data.p[1]);
-	tmp = g_data.cmds; // we save address of the current command in tmp to free it later and move to the next command becuse if we don't do that we will lose the address of the current command
-	g_data.cmds = g_data.cmds->next; // now we move to the next command in the list
-	ft_lstdelone(tmp, &free_cmd); // we delete the current command from the list ; ft_lstdelone(tmp, &free_cmd ) will free the content of the current command and the current command itself
+	tmp = g_data.cmds;
+	g_data.cmds = g_data.cmds->next;
+	ft_lstdelone(tmp, &free_cmd);
 	if (last_fd != -1)
 		close(last_fd);
 }
@@ -51,7 +51,7 @@ void	redirect_input(void)
 {
 	if (((t_cmd *)(g_data.cmds->content))->input != 0)
 	{
-		dup2(((t_cmd *)(g_data.cmds->content))->input, 0); // what does dup2 do is that it will copy the file descriptor of the input file to the stdin 
+		dup2(((t_cmd *)(g_data.cmds->content))->input, 0);
 		close(((t_cmd *)(g_data.cmds->content))->input);
 	}
 }

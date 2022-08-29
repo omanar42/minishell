@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:34:41 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/23 16:12:49 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/23 18:44:25 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	main(int ac, char **av, char **env)
 		{
 			free(line);
 			clean();
-			free_cmd(g_data.cmd);
 			continue ;
 		}
 		// printer();

@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/23 16:00:52 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/28 21:51:23 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,6 @@ typedef struct s_cmd
 	int		*append;
 	int		app_index;
 	int		error;
-	int		exit_status;
-	pid_t	pid;
-	int		fd_p[2];
 	char	**paths;
 }	t_cmd;
 
@@ -70,7 +67,14 @@ typedef struct s_data {
 	char	*savepwd;
 	int		test;
 	int		dollar;
+	int		fialdfork;
 	char	*newpwd;
+	int		p[2];
+	pid_t	pid;
+	int		status;
+	int		cmds_size;
+	int		last_fd;
+	t_list	*tmp;
 	t_cmd	*cmd;
 	t_list	*cmds;
 }	t_data;
@@ -97,7 +101,7 @@ void	token_pipe(void);
 char	*parse_args(char *str);
 char	*parse_dquote(char *str, int *i);
 char	*parse_squote(char *str, int *i);
-char	*parse_dollar(char *str, int *i);
+char	*parse_dollar(char *str, int *i, int quote);
 char	*parse_buff(char *buff);
 char	*parse_limiter(char *str, int *expand);
 char	*expand_dollar(char *str, char **env);
@@ -135,7 +139,8 @@ int		check_error(char *arg);
 int		check_path(char **env);
 
 /*------------------------------EXECUTION----------------------------------*/
-void	ft_child_process(t_cmd *cmd, int i, int size, int *p, int last_fd);
+
+void	ft_child_process(t_cmd *cmd, int i, int last_fd);
 void	execution(void);
 void	creat_env(char **env);
 void	run_cmd(t_cmd *cmd);
@@ -143,21 +148,25 @@ void	run_cmd(t_cmd *cmd);
 /*------------------------------ERROR--------------------------------------*/
 
 void	error_command_not_found(char *s, char *str, int status_code);
-void	error1(char *s, int status_code);
-void	error2(int status_code);
-void	error3(char *s);
 void	exit_strerr(char *str, int err, int exit_status);
 void	error_msg(char *str, int err);
+void	error_infile(void);
+
 /*------------------------EXECUTION_UTILS_FUNCTION-------------------------*/
 
 char	**get_path(char **env);
 void	*check_cmd(char **path, char *cmd);
 void	free_path(char **paths);
 void	redirect_input(void);
+void    redirect_output(void);
 void	open_outputs(void);
 void	ft_dup(int olfd, int nfd);
+void	failed_fork(void);
+void	waiting(int i, int status, int pid);
+void	next_cmd(int last_fd);
 
 /*------------------------------BUILTINS----------------------------------*/
+
 void	ft_builtins(void);
 int		is_builtins(void);
 int		is_builtins_in_child(void);

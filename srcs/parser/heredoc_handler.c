@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 18:26:59 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/21 18:53:12 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/23 18:50:17 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*parse_buff(char *buff)
 	while (buff[++i])
 	{
 		if (buff[i] == '$')
-			tmp = parse_dollar(buff, &i);
+			tmp = parse_dollar(buff, &i, 0);
 		else
 			tmp = ft_substr(buff, i, 1);
 		new = advanced_join(new, tmp);

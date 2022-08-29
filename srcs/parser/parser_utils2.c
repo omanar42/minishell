@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 01:11:15 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/22 15:50:26 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/23 18:51:20 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	*parse_dollar(char *str, int *i)
+char	*parse_dollar(char *str, int *i, int quote)
 {
 	int		start;
 	char	*new;
@@ -25,7 +25,7 @@ char	*parse_dollar(char *str, int *i)
 		new = ft_itoa(g_data.exit_status);
 		(*i)++;
 	}
-	else if (str[start] == '"' || str[start] == '\'')
+	else if ((str[start] == '"' || str[start] == '\'') && !quote)
 		return (NULL);
 	else if (is_separator(str[start]) || !is_acceptable(str[start]))
 		new = ft_strdup("$");
@@ -56,7 +56,7 @@ char	*parse_dquote(char *str, int *i)
 	while (str[++(*i)] && str[*i] != '"')
 	{
 		if (str[*i] == '$')
-			tmp = parse_dollar(str, i);
+			tmp = parse_dollar(str, i, 1);
 		else
 			tmp = ft_substr(str, *i, 1);
 		new = advanced_join(new, tmp);
@@ -94,7 +94,7 @@ char	*parse_args(char *str)
 			tmp = parse_squote(str, &i);
 		else if (str[i] == '$')
 		{
-			tmp = parse_dollar(str, &i);
+			tmp = parse_dollar(str, &i, 0);
 			if (ft_strchr(tmp, ' '))
 				tmp = handle_spaces(tmp, &new);
 		}

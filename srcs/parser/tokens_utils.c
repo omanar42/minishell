@@ -6,74 +6,19 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 16:18:58 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/29 16:37:10 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/29 17:43:56 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-char	*get_list(void)
-{
-	int				i;
-	char			*new;
-	char			**tmp;
-	char			*path;
-	DIR				*dir;
-	struct dirent	*entry;
-
-	path = getcwd(NULL, 0);
-	dir = opendir(path);
-	tmp = ft_calloc(1, sizeof(char *));
-	free(path);
-	if (dir == NULL)
-		return (NULL);
-	entry = readdir(dir);
-	while (entry != NULL)
-	{
-		if (entry->d_name[0] != '.')
-			tmp = advanced_add(tmp, entry->d_name);
-		entry = readdir(dir);
-	}
-	closedir(dir);
-	i = 0;
-	while (tmp[i + 1])
-	{
-		g_data.cmd->args = advanced_add(g_data.cmd->args, tmp[i]);
-		i++;
-	}
-	new = ft_strdup(tmp[i]);
-	free_loop(tmp);
-	return (new);
-}
-
-char	*parse_star(char *str)
-{
-	int		j;
-	char	*new;
-
-	j = 0;
-	while (str[j] == '*')
-		j++;
-	if (str[j] != '\0')
-	{
-		new = ft_strdup(str);
-		free(str);
-		return (new);
-	}
-	else
-	{
-		free(str);
-		new = get_list();
-	}
-	return (new);
-}
 
 void	token_word(t_token **token)
 {
 	char	*value;
 
 	value = parse_args((*token)->value);
-	if (value[0] == '*' && (*token)->value[0] != '"' && (*token)->value[0] != '\'')
+	if (value[0] == '*' && (*token)->value[0] != '"'
+		&& (*token)->value[0] != '\'')
 		value = parse_star(value);
 	if (value[0] != '\0' || !g_data.dollar)
 		g_data.cmd->args = advanced_add(g_data.cmd->args, value);

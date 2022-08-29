@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 18:26:59 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/29 16:40:56 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/29 17:14:17 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ void	open_heredoc(char *value, int expand)
 			break ;
 		if (!buff[0])
 			ft_putstr_fd("\n", g_data.cmd->end[1]);
-		else if (!ft_strncmp(buff, value, big_len(ft_strlen(value), ft_strlen(buff))))
+		else if (!ft_strncmp(buff, value,
+				big_len(ft_strlen(value), ft_strlen(buff))))
 			break ;
 		if (expand == 1)
 			buff = parse_buff(buff);

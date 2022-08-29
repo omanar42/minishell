@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printer.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 15:01:23 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/12 20:51:49 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/29 17:05:09 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	printer(void)
 			printf("==========>   Arg[%d] = %s   <==========\n",
 				j, ((t_cmd *)(g_data.cmds->content))->args[j]);
 		printf("\n");
-		j = -1;
 		printf("==========>   INPUT = %d   <==========\n",
 			((t_cmd *)(g_data.cmds->content))->input);
 		printf("\n");

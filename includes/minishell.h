@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/29 16:41:39 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/29 17:45:05 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ char	**get_path(char **env);
 void	*check_cmd(char **path, char *cmd);
 void	free_path(char **paths);
 void	redirect_input(void);
-void    redirect_output(void);
+void	redirect_output(void);
 void	open_outputs(void);
 void	ft_dup(int olfd, int nfd);
 void	failed_fork(void);
@@ -179,9 +179,17 @@ void	cd(void);
 void	ft_env(void);
 void	*ft_getenv(char *str);
 void	exit_cmd(void);
+char	*make_line(char *name, char *value);
+char	*get_name(char *str);
+void	error_export(char *name);
 
 /*----------------------------SIGNALS--------------------------------------*/
 void	handlear(int signal);
 void	init_signal(void);
+
+/*----------------------------WILDCARD--------------------------------------*/
+char	*get_list(void);
+DIR		*addvanced_opendir(void);
+char	*parse_star(char *str);
 
 #endif

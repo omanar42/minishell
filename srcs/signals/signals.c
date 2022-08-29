@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 00:46:24 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/29 16:26:59 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/29 17:11:22 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	handlear(int signal)
 	else
 	{
 		g_data.breaker = 1;
-		g_data.exit_status = 1;
 		ft_putstr_fd("\n", 2);
 		close(0);
 	}

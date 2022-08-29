@@ -3,20 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 01:11:15 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/23 18:51:20 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/29 17:21:20 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+char	*new_value(char *str, int i, int start)
+{
+	char	*tmp;
+	char	*new;
+
+	tmp = ft_substr(str, start, i - start);
+	if (!tmp[0])
+	{
+		free(tmp);
+		return (NULL);
+	}
+	else
+		new = expand_dollar(tmp, g_data.env);
+	free(tmp);
+	return (new);
+}
+
 char	*parse_dollar(char *str, int *i, int quote)
 {
 	int		start;
 	char	*new;
-	char	*tmp;
 
 	start = *i + 1;
 	g_data.dollar = 1;
@@ -33,15 +49,7 @@ char	*parse_dollar(char *str, int *i, int quote)
 	{
 		while (str[*i] && is_acceptable(str[++(*i)]))
 			;
-		tmp = ft_substr(str, start, *i - start);
-		if (!tmp[0])
-		{
-			free(tmp);
-			return (NULL);
-		}
-		else
-			new = expand_dollar(tmp, g_data.env);
-		free(tmp);
+		new = new_value(str, *i, start);
 		(*i)--;
 	}
 	return (new);

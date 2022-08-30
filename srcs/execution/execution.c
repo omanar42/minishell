@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 19:54:55 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/30 16:18:59 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/30 17:19:03 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	run_execution(void)
 			i++;
 		}
 	}
-	waiting(i, g_data.status, g_data.pid);
+	waiting(i, g_data.pid);
 }
 
 void	execution(void)

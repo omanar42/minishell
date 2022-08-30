@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:55:31 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/30 16:18:35 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/30 17:19:05 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,9 @@ void	cmd_init(void)
 void	data_init(void)
 {
 	g_data.stop = 0;
-	g_data.error = 0;
 	g_data.dollar = 0;
 	g_data.signalchild = 0;
 	g_data.breaker = 0;
 	g_data.signal_heredoc = 0;
-	g_data.status = 0;
-	g_data.fialdfork = 0;
 	cmd_init();
 }

@@ -6,24 +6,11 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:15:08 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/29 16:03:14 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/30 17:33:22 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-void	free_path(char **paths)
-{
-	int	i;
-
-	i = 0;
-	while (paths[i])
-	{
-		free(paths[i]);
-		i++;
-	}
-	free(paths);
-}
 
 void	*check_cmd(char **path, char *cmd)
 {
@@ -101,13 +88,13 @@ void	run_cmd(t_cmd *cmd)
 	if (!cmd->cmd || !cmd->args[0][0])
 	{
 		g_data.exit_status = 127;
-		free_path(cmd->paths);
+		free_loop(cmd->paths);
 		error_command_not_found("minishell:", cmd->args[0], g_data.exit_status);
 	}
 	else if (execve(cmd->cmd, cmd->args, g_data.env) == -1)
 	{
 		g_data.exit_status = 127;
-		free_path(cmd->paths);
+		free_loop(cmd->paths);
 		exit_strerr(cmd->args[0], errno, g_data.exit_status);
 	}
 }

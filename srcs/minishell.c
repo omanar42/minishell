@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:34:41 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/29 17:04:19 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/30 15:32:25 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	initialization(char **env)
 {
+	g_data.exit_status = 0;
+	g_data.newpwd = ft_calloc(1, sizeof(char));
 	creat_env(env);
 	creat_export(g_data.env);
 	init_signal();

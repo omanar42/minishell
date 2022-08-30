@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 18:16:26 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/29 15:59:35 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/30 16:19:10 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	waiting(int i, int status, int pid)
 		}
 		i++;
 	}
+	init_signal();
 }
 
 void	next_cmd(int last_fd)

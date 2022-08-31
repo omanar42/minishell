@@ -38,10 +38,22 @@ define HEADER_M
 endef
 export HEADER_M
 
+define HEADER_B
+    ____  ____  _   ____  _______
+   / __ )/ __ \\/ | / / / / / ___/
+  / __  / / / /  |/ / / / /\\__ \\ 
+ / /_/ / /_/ / /|  / /_/ /___/ / 
+/_____/\\____/_/ |_/\\____//____/  
+endef
+export HEADER_B
+
 all: header_m $(NAME)
 
 header_m:
 	@echo "\033[0;32m$$HEADER_M\033[0m\n"
+
+header_b:
+	@echo "\033[0;32m$$HEADER_B\033[0m\n"
 
 $(LIBFT):
 	@echo "\033[0;36m</ Compiling libft >\033[0m"
@@ -51,6 +63,8 @@ $(NAME): $(SRCS) $(LIBFT)
 	@echo "\033[0;36m</ Compiling Minishell >\033[0m"
 	@$(CC) -g $(RLFLG) $(SRCS) -o $(NAME)
 	@echo "\033[1;32mMinishell has been compiled!\033[0m\n"
+
+bonus: header_b $(NAME)
 
 clean:
 	@make clean -C libs/libft

@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 21:46:57 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/31 18:50:03 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/31 19:47:08 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,13 @@ int	stop(void)
 		return (1);
 	}
 	if (((t_cmd *)g_data.cmds->content)->error)
-    {
-        error_infile();
+	{
+		error_infile();
 		tmp = g_data.cmds;
 		g_data.cmds = g_data.cmds->next;
 		ft_lstdelone(tmp, &free_cmd);
-        return (1);
-    }
+		return (1);
+	}
 	return (0);
 }
 

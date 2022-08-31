@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 18:16:26 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/31 02:02:26 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/31 19:47:50 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	waiting(int i, int pid)
 		if (pid != -1)
 		{
 			if (WIFEXITED(status))
-                g_data.exit_status = WEXITSTATUS(status);
+				g_data.exit_status = WEXITSTATUS(status);
 			if (WIFSIGNALED(status))
 				g_data.exit_status = 128 + WTERMSIG(status);
 		}

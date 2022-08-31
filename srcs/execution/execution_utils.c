@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:15:08 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/31 20:17:16 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/31 21:49:36 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	*check_cmd(char **path, char *cmd)
 	char	*com2;
 
 	if (ft_strchr(cmd, '/'))
-		return (cmd);
-	if (ft_strncmp(cmd, "./", 2) == 0)
 		return (cmd);
 	if (path == NULL)
 		return (NULL);
@@ -111,7 +109,6 @@ void	run_cmd(t_cmd *cmd)
 	}
 	else if (execve(cmd->cmd, cmd->args, g_data.env) == -1)
 	{
-		printf("%s\n", cmd->cmd);
 		g_data.exit_status = 127;
 		free_loop(cmd->paths);
 		exit_strerr(cmd->args[0], errno, g_data.exit_status);

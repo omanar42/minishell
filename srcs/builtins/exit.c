@@ -1,41 +1,48 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/05 15:10:33 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/29 22:56:08 by adiouane         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include <minishell.h>
+
+int	checker(char *av)
+{
+	int	j;
+
+	if (ft_atoi(av) == 0)
+		return (1);
+	if (av[0] == 0)
+		return (1);
+	j = 0;
+	if ((av[0] == '-' || av[0] == '+') && av[1])
+		j++;
+	while (av[j])
+	{
+		if ((av[j] < '0' || av[j] > '9'))
+			return (1);
+		j++;
+	}
+	return (0);
+}
+
+int	zero_checker(char *str)
+{
+	if (str[0] == '-' && str[1] == '0')
+		return (0);
+	else if (str[0] == '0')
+		return (0);
+	return (1);
+}
 
 void	is_numeric(void)
 {
 	t_cmd	*cmd;
-	int		i;
-	int		j;
 
-	i = 1;
-	j = 0;
 	cmd = (t_cmd *)g_data.cmds->content;
-	while (cmd->args[i] != NULL)
+	if (zero_checker(cmd->args[1]) && checker(cmd->args[1]))
 	{
-		while (cmd->args[1][j])
-		{
-			if (cmd->args[1][j] != '0' && !ft_atoi(&cmd->args[1][j]))
-			{
-				ft_putstr_fd("exit: ", 2);
-				ft_putstr_fd(cmd->args[1], 2);
-				ft_putstr_fd(": numeric argument required\n", 2);
-				g_data.exit_status = 225;
-				exit(g_data.exit_status);
-			}
-			j++;
-		}
-		i++;
+		ft_putstr_fd("exit\n", 2);
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(cmd->args[1], 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
+		g_data.exit_status = 225;
+		exit(g_data.exit_status);
 	}
 }
 

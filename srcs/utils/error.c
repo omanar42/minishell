@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:11:31 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/31 02:01:46 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/31 18:46:58 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,19 @@ void	error_infile(void)
 		ft_putstr_fd(": ", 2);
 		ft_putendl_fd("ambiguous redirect", 2);
 		g_data.exit_status = 1;
-		exit(g_data.exit_status);
+		if (g_data.signalchild)
+			exit(g_data.exit_status);
 	}
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd->infile, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putendl_fd(strerror(cmd->errno_value), 2);
-	g_data.exit_status = 1;
-	if (g_data.signalchild)
-        exit(g_data.exit_status);
+	else
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmd->infile, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putendl_fd(strerror(cmd->errno_value), 2);
+		g_data.exit_status = 1;
+		if (g_data.signalchild)
+			exit(g_data.exit_status);
+	}
 }
 
 void	error_command_not_found(char *s, char *str, int status_code)

@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/30 17:44:50 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/31 00:42:03 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void	printer(void);
 void	print_env(void);
 void	print_export(void);
 void	handlear(int signal);
+char	*new_value(char *str, int i, int start);
 
 /*------------------------------- BUILTINS -------------------------------*/
 

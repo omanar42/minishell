@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 21:46:57 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/30 16:48:55 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/31 02:01:37 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,11 @@ int	stop(void)
 		ft_lstdelone(tmp, &free_cmd);
 		return (1);
 	}
+	if (((t_cmd *)g_data.cmds->content)->error)
+    {
+        error_infile();
+        return (1);
+    }
 	return (0);
 }
 

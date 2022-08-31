@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution_utils1.c                                 :+:      :+:    :+:   */
+/*   execution_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 18:16:26 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/30 17:25:26 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/31 02:02:26 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	waiting(int i, int pid)
 		waitpid(-1, &status, 0);
 		if (pid != -1)
 		{
-			g_data.exit_status = WEXITSTATUS(status);
+			if (WIFEXITED(status))
+                g_data.exit_status = WEXITSTATUS(status);
 			if (WIFSIGNALED(status))
 				g_data.exit_status = 128 + WTERMSIG(status);
 		}

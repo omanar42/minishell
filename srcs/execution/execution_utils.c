@@ -6,7 +6,7 @@
 /*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:15:08 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/31 18:44:53 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/08/31 19:10:08 by adiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	ft_isaccess(char *cmd1)
 		if (execve(cmd1, g_data.cmd->args, g_data.env) == -1)
 		{
 			g_data.exit_status = 127;
-			free_loop(cmd->paths);
 			exit_strerr(cmd->args[0], errno, g_data.exit_status);
 		}
 	}

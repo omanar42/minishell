@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/31 00:42:03 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/31 22:25:48 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int		token_error(t_token *token);
 void	token_word(t_token **token);
 void	token_outfile(t_lexer **lexer, t_token **token, int i);
 void	token_infile(t_lexer **lexer, t_token **token);
-int		open_infile(t_token *token);
+void	open_infile(t_token *token);
 void	token_heredoc(t_lexer **lexer, t_token **token);
 void	open_heredoc(char *value, int expand);
 void	token_pipe(void);

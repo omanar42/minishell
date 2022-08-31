@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 16:18:58 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/31 01:57:06 by omanar           ###   ########.fr       */
+/*   Updated: 2022/08/31 22:25:40 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ char	*parse_redirection(char *str)
 	return (new);
 }
 
-int	open_infile(t_token *token)
+void	open_infile(t_token *token)
 {
 	char	*value;
 
@@ -121,7 +121,7 @@ int	open_infile(t_token *token)
 		g_data.cmd->infile = ft_strdup(value);
 		g_data.exit_status = 1;
 		free(value);
-		return (1);
+		return ;
 	}
 	g_data.cmd->input = open(value, O_RDONLY);
 	if (g_data.cmd->input == -1)
@@ -132,26 +132,28 @@ int	open_infile(t_token *token)
 		g_data.exit_status = 1;
 	}
 	free(value);
-	return (g_data.cmd->input);
+}
+
+int	token_error2(t_token *token)
+{
+	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
+	if (token->value[0] == '\0' || token->value[0] == '\n')
+		ft_putstr_fd("newline", 2);
+	else
+		ft_putstr_fd(token->value, 2);
+	ft_putstr_fd("'\n", 2);
+	g_data.exit_status = 258;
+	ft_lstadd_back(&(g_data.cmds), ft_lstnew((void *)g_data.cmd));
+	return (1);
 }
 
 void	token_infile(t_lexer **lexer, t_token **token)
 {
 	free_token(*token);
 	*token = lexer_next_token(*lexer);
-	if (open_infile(*token) == -1)
-	{
-		while ((*token)->e_type != TOKEN_PIPE
-			&& (*token)->e_type != TOKEN_EOF)
-		{
-			free_token(*token);
-			*token = lexer_next_token(*lexer);
-			if ((*token)->e_type == TOKEN_HEREDOC)
-				token_heredoc(lexer, token);
-		}
-		if ((*token)->e_type == TOKEN_PIPE)
-			token_pipe();
-	}
+	if (g_data.cmd->input == -1)
+		return ;
+	open_infile(*token);
 }
 
 int	*set_new_append(int *tab, int i, int value)

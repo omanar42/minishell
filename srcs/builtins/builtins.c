@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 23:24:36 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/31 23:24:37 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/09/01 06:09:00 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #include <minishell.h>
 
@@ -33,7 +31,7 @@ void	ft_builtins_in_child(void)
 	else if (ft_strncmp(cmd->args[0], "cd", 2) == 0)
 		cd();
 	else if (ft_strncmp(cmd->args[0], "echo", 4) == 0)
-		echo();
+		ft_echo();
 	else if (ft_strncmp(cmd->args[0], "exit", 4) == 0)
 		exit_cmd();
 	else if (ft_strncmp(cmd->args[0], "unset", 5) == 0)
@@ -101,7 +99,7 @@ void	ft_builtins(void)
 	else if (ft_strncmp(cmd->args[0], "cd", 2) == 0)
 		cd();
 	else if (ft_strncmp(cmd->args[0], "echo", 4) == 0)
-		echo();
+		ft_echo();
 	else if (ft_strncmp(cmd->args[0], "exit", 4) == 0)
 		exit_cmd();
 	else if (ft_strncmp(cmd->args[0], "unset", 5) == 0)

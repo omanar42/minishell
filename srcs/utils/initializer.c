@@ -6,11 +6,20 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:55:31 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/30 17:19:05 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/01 06:12:23 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+void	initialization(char **env)
+{
+	g_data.exit_status = 0;
+	g_data.newpwd = ft_calloc(1, sizeof(char));
+	creat_env(env);
+	creat_export(g_data.env);
+	signal_init();
+}
 
 void	creat_env(char **env)
 {

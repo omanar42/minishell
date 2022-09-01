@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/31 22:25:48 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/01 06:17:06 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 # include <lexer.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include <dirent.h>
+# include <signal.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <signal.h>
-# include <dirent.h>
 
 # define RST "\033[0m"
 # define RED "\033[0;31m"
@@ -70,6 +70,7 @@ t_data	g_data;
 
 /*---------------------------- INITIALIZATION ----------------------------*/
 
+void	initialization(char **env);
 int		parsing(char *line);
 int		unclosed_quotes(char *line);
 void	creat_env(char **env);
@@ -103,6 +104,7 @@ char	*handle_spaces(char *value, char **new);
 char	*get_variable_name(char *str);
 char	*advanced_join(char *s1, char *s2);
 char	**advanced_add(char **strs, char *arg);
+char	*parse_redirection(char *str);
 
 /*-------------------------------- UTILS ---------------------------------*/
 
@@ -124,7 +126,7 @@ void	ft_builtins(void);
 int		is_builtins(void);
 int		is_builtins_in_child(void);
 void	ft_builtins_in_child(void);
-void	echo(void);
+void	ft_echo(void);
 void	pwd(void);
 void	cd(void);
 void	ft_env(void);
@@ -155,6 +157,7 @@ void	clean(void);
 void	free_cmd(void *cmd);
 void	free_loop(char **args);
 void	free_token(t_token *token);
+void	cleaning(void);
 
 /*------------------------------ EXECUTION -------------------------------*/
 

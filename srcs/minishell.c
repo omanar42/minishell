@@ -6,28 +6,11 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:34:41 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/31 00:45:16 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/01 06:12:46 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-void	initialization(char **env)
-{
-	g_data.exit_status = 0;
-	g_data.newpwd = ft_calloc(1, sizeof(char));
-	creat_env(env);
-	creat_export(g_data.env);
-	signal_init();
-}
-
-void	last_touch(void)
-{
-	ft_putstr_fd("exit\n", 1);
-	free_loop(g_data.env);
-	free_loop(g_data.export);
-	exit (g_data.exit_status);
-}
 
 int	main(int ac, char **av, char **env)
 {
@@ -50,10 +33,9 @@ int	main(int ac, char **av, char **env)
 			clean();
 			continue ;
 		}
-		// printer();
 		execution();
 		free(line);
 	}
-	last_touch();
+	cleaning();
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adiouane <adiouane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 18:16:26 by adiouane          #+#    #+#             */
-/*   Updated: 2022/08/31 19:47:50 by adiouane         ###   ########.fr       */
+/*   Updated: 2022/09/01 15:57:58 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ void	failed_fork(void)
 	g_data.exit_status = 1;
 }
 
-void	waiting(int i, int pid)
+void	waiting(int i, pid_t pid)
 {
 	int	status;
 
 	i = 0;
 	while (i < g_data.cmds_size)
 	{
-		waitpid(-1, &status, 0);
+		waitpid(pid, &status, 0);
 		if (pid != -1)
 		{
 			if (WIFEXITED(status))
@@ -34,6 +34,8 @@ void	waiting(int i, int pid)
 			if (WIFSIGNALED(status))
 				g_data.exit_status = 128 + WTERMSIG(status);
 		}
+		while (wait(NULL) != -1)
+			;
 		i++;
 	}
 	signal_init();

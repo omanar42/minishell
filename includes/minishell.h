@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:20:55 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/01 06:17:06 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/01 15:59:59 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/errno.h>
-# include <readline/readline.h>
 # include <readline/history.h>
+# include <readline/readline.h>
 
 # define RST "\033[0m"
 # define RED "\033[0;31m"
@@ -174,7 +174,7 @@ void	redirect_output(void);
 void	open_outputs(void);
 void	ft_dup(int olfd, int nfd);
 void	failed_fork(void);
-void	waiting(int i, int pid);
+void	waiting(int i, pid_t pid);
 void	next_cmd(int last_fd);
 
 /*--------------------------- ERRORS FUNCTIONS ---------------------------*/

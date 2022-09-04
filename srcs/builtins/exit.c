@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 23:27:50 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/31 23:27:54 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/04 16:10:30 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	is_numeric(void)
 	cmd = (t_cmd *)g_data.cmds->content;
 	if (zero_checker(cmd->args[1]) && checker(cmd->args[1]))
 	{
-		ft_putstr_fd("exit\n", 2);
+		if (g_data.signalchild != 1)
+			ft_putstr_fd("exit\n", 2);
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(cmd->args[1], 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
@@ -73,7 +74,8 @@ void	exit_cmd(void)
 	is_numeric();
 	if (len > 3)
 	{
-		ft_putstr_fd("exit\n", 2);
+		if (g_data.signalchild != 1)
+			ft_putstr_fd("exit\n", 2);
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 		g_data.exit_status = 1;
 	}

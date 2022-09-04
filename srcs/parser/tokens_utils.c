@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 16:18:58 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/01 06:11:02 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/04 15:52:44 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,14 @@ void	token_word(t_token **token)
 	value = parse_args((*token)->value);
 	if (value[0] == '*' && (*token)->value[0] != '"'
 		&& (*token)->value[0] != '\'')
+	{
 		value = parse_star(value);
+		if (!value)
+		{
+			free(value);
+			value = parse_args((*token)->value);
+		}
+	}
 	if (value[0] != '\0' || !g_data.dollar)
 		g_data.cmd->args = advanced_add(g_data.cmd->args, value);
 	free(value);
